@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load bootstrap_icons %}
+    {% load my-tags %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/seminarReviewReport.css' %}">
+
+    <title>View applicants</title>
+</head>
+  <body>
+    {% include 'recruiter/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
+    <h3 style="text-align: center;">Seminar Review Report</h3>
+    <br>
+    <form method="POST">
+    {% csrf_token %}
+    <div>
+        <table class="table table-bordered" style="width: 75%; margin-left: auto; margin-right: auto;">
+            <tr>
+                <th>Name of candidate:</th>
+                <td>{{application.fullname}}</td>
+            </tr><tr>
+                <th>Position:</th>
+                <td>{{academic.postApplied}}</td>
+            </tr><tr>
+                <th>Programme / Faculty :</th>
+                <td>{{application.job.department}}</td>
+            </tr>
+        </table>
+        <hr><br>
+        <h5 style="text-align: center;">Seminar Activity Reviewed</h5>
+        <p style="text-align: center;color:gray;font-size: smaller;">Please fill in the seminar title and date.</p>
+        <table class="table table-bordered" style="width: 75%; margin-left: auto; margin-right: auto;">
+            <tr>
+                <th>Title of Seminar:</th>
+                <td>
+                    <input type="text" class="form-control" name="seminar_title" value="{{report.title}}">
+                </td>
+            </tr><tr>
+                <th>Date:</th>
+                <td>
+                    <input type="date" class="form-control" name="seminar_date" value="{{report.seminar_date | date:'Y-m-d'}}">
+                </td>
+            </tr>
+        </table>
+        <br>
+        <h5 style="text-align: center;">Peer Review</h5>
+        <table class="table table-bordered" style="width: 75%; margin-left: auto; margin-right: auto;">
+            <tr>
+                <th>Name</th>
+                <th>Programme/Faculty</th>
+                <th>Date</th>
+            </tr>
+            <tr>
+                <td>{{recruiter.user.first_name}} {{recruiter.user.last_name}}</td>
+                <td>{{recruiter.department.name}}</td>
+                <td><input type="date" class="form-control" name="review_date" value="{{report.review_date | date:'Y-m-d'}}"></td>
+            </tr>
+        </table>
+        <hr>
+        <br>
+
+        <div class="seminar-content" id="seminar-content">
+            <h5>A. Seminar Content</h5>
+            <p style="text-align: end; color: gray; font-size: smaller;">[1=poor, 2= below average, 3=average, 4=good, 5= excellent] </p>
+            <div class="row">
+                <div class="col">
+                    <p>1. Presenter’s knowledge and understanding of the topic </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="a_q1" value=1 >
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q1" value=2>
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q1" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q1"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q1" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>2. Relevance of topic to the Faculty/Institute/Centre </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="a_q2" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q2" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q2" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q2"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q2" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>3. Clearly defined points with current supporting material </p>
+                </div>
+                <div class="col">
+                     <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="a_q3" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q3" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q3" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q3"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q3" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>4. Response to questions effectively  </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="a_q4" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q4" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q4" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q4"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="a_q4" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>5. Subtotal score  </p>
+                </div>
+                <div class="col">
+                    <div style="text-align: center;">
+                        <b><input style="text-align: center;" name="a_total" id="a_total"></input></b>
+                    
+                    </div>
+                    
+                </div>
+            </div>
+            <br>        
+        <label for="remarks_1" class="form-label"><b>Remarks</b></label>
+        <textarea type="text" class="form-control" name="remarks_1" ></textarea>
+        <hr><br>
+        </div>
+        
+        <div class="quality-management" id="quality-management">
+            <h5>B. Quality of management</h5>
+            <p style="text-align: end; color: gray; font-size: smaller;">[1=poor, 2= below average, 3=average, 4=good, 5= excellent] </p>
+            <div class="row">
+                <div class="col">
+                    <p>1. Pacing of presentation  </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="b_q1" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q1" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q1" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q1"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q1" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>2. Effective use of visual material  </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="b_q2" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q2" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q2" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q2"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q2" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>3. Organisation of material </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="b_q3" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q3" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q3" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q3" value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q3" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>4. Satisfies minimum presentation time requirements (40 minutes) </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="b_q4" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q4" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q4" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q4" value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="b_q4" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>5. Subtotal score </p>
+                </div>
+                <div class="col">
+                    <div style="text-align: center;">
+                        <input name="b_total" id="b_total">
+                    </div>
+                    
+
+                </div>
+            </div>
+        
+        <label for="remarks_2" class="form-label">Remarks</label>
+        <textarea type="text" class="form-control" name="remarks_2" ></textarea>
+        <hr><br>
+
+        </div>
+
+        <div class="communication" id="communication">
+            <h5>C. Communication</h5>
+            <p style="text-align: end; color: gray; font-size: smaller;">[1=poor, 2= below average, 3=average, 4=good, 5= excellent] </p>
+            <div class="row">
+                <div class="col">
+                    <p>1. Audibility and clarity of presentation  </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="c_q1" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q1" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q1" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q1"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q1" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>2. Confidence and fluency in use of English   </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="c_q2" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q2" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q2" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q2"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q2" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>3. Confidence and fluency in use of English  </p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="c_q3" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q3" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q3" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q3" value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="c_q3" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <p>4. Subtotal score </p>
+                </div>
+                <div class="col">
+                    <div style="text-align: center;">
+                        <input name="c_total" id="c_total">
+                    </div>
+                    
+
+                </div>
+            </div>
+        
+        <label for="remarks_3" class="form-label">Remarks</label>
+        <textarea type="text" class="form-control" name="remarks_3"></textarea>
+        <hr><br>
+
+        </div>
+
+        <div class="overall" id="overall">
+            <h5>D. Overall assesment</h5>
+            <p style="text-align: end; color: gray; font-size: smaller;">[1=poor, 2= below average, 3=average, 4=good, 5= excellent] </p>
+            <div class="row">
+                <div class="col">
+                    <p>1. Overall asssesment of seminar</p>
+
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="d_q1" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q1" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q1" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q1"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q1" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+             <div class="row">
+                <div class="col">
+                    <p>2. Overall asssesment of candidate</p>
+                </div>
+                <div class="col">
+                    <div class="wrap">
+                        <ul class='likert'>
+                            <li>
+                                <input type="radio" name="d_q2" value="1">
+                                <label>1</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q2" value="2">
+                                <label>2</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q2" value="3">
+                                <label>3</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q2"value="4">
+                                <label>4</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="d_q2" value="5">
+                                <label>5</label>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>3. Subtotal score</p>
+
+                </div>
+                <div class="col">
+                    <div style="text-align: center;">
+                        <input name="d_total" id="d_total">
+                    </div>
+
+                </div>
+            </div>
+
+            <label for="remarks_4" class="form-label">Remarks</label>
+            <textarea type="text" class="form-control" name="remarks_4"></textarea>
+            <br>
+        </div>
+
+        <div style="float: inline-end;">
+            <button type="submit" class="btn btn-success">Submit Review</button>
+        
+        </div>
+        <br>
+    </div>
+        
+
+
+
+
+
+    </form>
+     <br>
+  <br>
+    </main>
+   
+  
+  </div>
+  </div>
+  
+    
+ {% include 'main/constant/footer.html' %}
+ <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+ <script src="{% static 'js/seminarReviewReport.js'%}"></script>
+
+
+
+
+    
+
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<h5 style="text-align: center;"><b>Title: </b>{{seminar_report.title}}</h5>
+<p style="text-align: center;">{{seminar_report.seminar_date}}</p><br>
+<p><b>A. Seminar Content</b></p>
+<table class="table table-bordered">
+    <tr>
+        <td>#</td>
+        <td>Question</td>
+        <td>Score</td>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Presenter's knowledge and understanding of the topic</td>
+        <td>{{seminar_report.content_score.q1}}</td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Relevance of topic to the Faculty/Institute/Centre</td>
+        <td>{{seminar_report.content_score.q2}}</td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Clearly defined points with current supporting material</td>
+        <td>{{seminar_report.content_score.q3}}</td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Response to questions effectively</td>
+        <td>{{seminar_report.content_score.q4}}</td>
+    </tr>
+    <tr>
+        <td>5.</td>
+        <td>Subtotal score</td>
+        <td>{{seminar_report.content_score.total}}</td>
+    </tr>
+</table>
+<p><b>Remarks:</b></p>
+<p>{{seminar_report.content_remarks}}</p>
+<hr>
+<p><b>B. Quality of management</b></p>
+<table class="table table-bordered">
+    <tr>
+        <td>#</td>
+        <td>Question</td>
+        <td>Score</td>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Pacing of presentation</td>
+        <td>{{seminar_report.quality_score.q1}}</td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Effective use of visual material</td>
+        <td>{{seminar_report.quality_score.q2}}</td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Organisation of material</td>
+        <td>{{seminar_report.quality_score.q3}}</td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Satisfies minimum presentation time requirements (40 minutes)</td>
+        <td>{{seminar_report.quality_score.q4}}</td>
+    </tr>
+    <tr>
+        <td>5.</td>
+        <td>Subtotal score</td>
+        <td>{{seminar_report.quality_score.total}}</td>
+    </tr>
+</table>
+<p><b>Remarks:</b></p>
+<p>{{seminar_report.quality_remarks}}</p>
+<hr>
+<p><b>C. Communication  </b></p>
+<table class="table table-bordered">
+    <tr>
+        <td>#</td>
+        <td>Question</td>
+        <td>Score</td>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Audibility and clarity of presentation</td>
+        <td>{{seminar_report.communication_score.q1}}</td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Confidence and fluency in use of english</td>
+        <td>{{seminar_report.communication_score.q2}}</td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Interaction with audience</td>
+        <td>{{seminar_report.communication_score.q3}}</td>
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Subtotal score</td>
+        <td>{{seminar_report.communication_score.total}}</td>
+    </tr>
+    
+</table>
+<p><b>Remarks:</b></p>
+<p>{{seminar_report.communication_remarks}}</p>
+<hr>
+<p><b>D. Overall Assesment</b></p>
+<table class="table table-bordered">
+    <tr>
+        <td>#</td>
+        <td>Question</td>
+        <td>Score</td>
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Overall assesment of seminar</td>
+        <td>{{seminar_report.overall_score.q1}}</td>
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Overall assesment of candidate</td>
+        <td>{{seminar_report.overall_score.q2}}</td>
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Subtotal</td>
+        <td>{{seminar_report.overall_score.total}}</td>
+    </tr>
+</table>
+<p><b>Remarks:</b></p>
+<p>{{seminar_report.overall_remarks}}</p>

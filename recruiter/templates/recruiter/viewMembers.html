@@ -1,0 +1,86 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+
+    <title>View members</title>
+    <style>
+        .footer {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        background-color: #273746;
+        color: white;
+        font-size: 15px;
+        width: 100%;
+        padding: 60px 0 10px;
+    }
+
+    .footer li {
+        padding: 4px 0;
+    }
+
+    .footer a {
+        color: white;
+        text-decoration:none;
+    }
+
+    .footer a:hover {
+        opacity: 0.5;
+    }
+    </style>
+    </head>
+    <body>
+    {% include 'recruiter/constant/navbar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
+        <br>
+         <div class="my-3 p-3 rounded box-shadow bg-light" style="width: 90%; margin-left: auto; margin-right: auto;">
+            <img src="{% static 'images/icons/recruitment.png' %}" style="width: 70px; display: inline-block;">
+            <h3 class="border-bottom border-gray pb-2 mb-0" style="display: inline-block; margin-left: 20px;">Recruiting Team</h3>
+            <p style="margin-left: 95px;margin-top: -10px;">List of recruiting members</p>
+
+            <table class="table" style="width: 90%; margin-left: auto; margin-right: auto; background-color: white;">
+                <thead class="table-success">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for member in members %}
+                    <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{member.user.first_name}} {{member.user.last_name}}</td>
+                    <td>{{member.user.email}}</td>
+                    <td>{{member.member_type}}</td>
+                    </tr>
+                    <tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        <!-- <small class="d-block text-right mt-3"> -->
+          <!-- <a href="#">All updates</a> -->
+        <!-- </small> -->
+      </div>
+
+
+    </main>
+</div>
+</div>
+      {% include 'main/constant/footer.html' %}
+
+    </body>
+</html>

@@ -1,0 +1,37 @@
+{% load bootstrap_icons %}
+  <form  action={% url 'bookmark' applicant_id=applicant_id old_bookmark_id=old_bookmark_id bookmarkList_id=bookmarkList_id %} method="POST">
+    {% csrf_token %}
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Add bookmark {{au}}</h5> 
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>                                                
+    <div class="modal-body">
+      <!-- Buttton to add new bookmark -->
+      <!-- <button type="button" class="btn btn-outline-success" style="float: right; margin-bottom: 10px;" data-bs-toggle="modal" data-bs-target="#newBookmark"></button> -->
+      <!-- <br><br> -->
+      <div style="font-size: larger;">
+        {% for key , value in bookmarkList.items %}
+          <div class="form-check">
+              <input class="form-check-input" type="radio" name="bookmark_id" value="{{key}}" required>
+              <label class="form-check-label" for="bookmark" style="color:{{value.color}}">
+                  {% bs_icon 'bookmark-check-fill' %} {{value.name}}
+              </label>
+          </div>
+        {% endfor %}
+        {% if old_bookmark_id != '0' %}
+        <div class="form-check">
+              <input class="form-check-input" type="radio" name="bookmark_id" value="0" required>
+              <label class="form-check-label" for="bookmark">
+                  {% bs_icon 'bookmark-check-fill' %} Remove
+              </label>
+          </div>
+        {% endif %}
+              
+      </div>
+    </div>
+    <input type="hidden" value="{{applicant_id}}" name="application_id">
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+      <button type="submit" class="btn btn-primary" name="bookmarking">Save changes</button>
+  </div>
+  </form>

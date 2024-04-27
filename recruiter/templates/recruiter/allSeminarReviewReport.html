@@ -1,0 +1,272 @@
+<h5 style="text-align: center;"><b>Title: </b>{{seminar_reports.1.title}}</h5>
+<p style="text-align: center;">{{seminar_reports.1.seminar_date}}</p>
+<p style="text-align: center;"><b>A. Seminar Content</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Question</th>
+        {% for seminar_report in seminar_reports %}
+        <th>{{seminar_report.recruiter.user.first_name}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Presenter's knowledge and understanding of the topic</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.content_score.q1}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Relevance of topic to the Faculty/Institute/Centre</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.content_score.q2}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Clearly defined points with current supporting material</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.content_score.q3}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Response to questions effectively</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.content_score.q4}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>5.</td>
+        <td>Subtotal score</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.content_score.total}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>
+            6.
+        </td>
+        <td><b>Average total score:</b></td>
+        <td colspan="{{seminar_reports.count}}" style="text-align: center; font-weight: bold;">{{average.content}}</td>
+    </tr>
+</table>
+<p style="text-align: center;"><b>Remarks:</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Staff member
+        </th>
+        <th>
+            Remarks
+        </th>
+    </tr>
+    {% for report_seminar in seminar_reports %}
+    <tr>
+        <td>{{report_seminar.recruiter.user.first_name}}</td>
+        <td>{{report_seminar.content_remarks}}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+<br>
+<hr>
+<p style="text-align: center;"><b>B. Quality of management</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Question</th>
+        {% for seminar_report in seminar_reports %}
+        <th>{{seminar_report.recruiter.user.first_name}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Pacing of presentation</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.quality_score.q1}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Effective use of visual material</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.quality_score.q2}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Organisation of material</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.quality_score.q3}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Satisfies minimum presentation time requirements (40 minutes)</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.quality_score.q4}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>5.</td>
+        <td>Subtotal score</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.quality_score.total}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>
+            6.
+        </td>
+        <td><b>Average total score:</b></td>
+        <td colspan="{{seminar_reports.count}}" style="text-align: center; font-weight: bold;">{{average.quality}}</td>
+    </tr>
+</table>
+<p style="text-align: center;"><b>Remarks:</b></p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Staff member
+        </th>
+        <th>
+            Remarks
+        </th>
+    </tr>
+    {% for report_seminar in seminar_reports %}
+    <tr>
+        <td>{{report_seminar.recruiter.user.first_name}}</td>
+        <td>{{report_seminar.quality_remarks}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<br>
+<hr>
+<p style="text-align: center;"><b>C. Communication  </b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Question</th>
+        {% for seminar_report in seminar_reports %}
+        <th>{{seminar_report.recruiter.user.first_name}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Audibility and clarity of presentation</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.communication_score.q1}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Confidence and fluency in use of english</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.communication_score.q2}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Interaction with audience</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.communication_score.q3}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>4.</td>
+        <td>Subtotal score</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.communication_score.total}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>
+            5.
+        </td>
+        <td><b>Average total score:</b></td>
+        <td colspan="{{seminar_reports.count}}" style="text-align: center; font-weight: bold;">{{average.communication}}</td>
+    </tr>
+    
+</table>
+<p style="text-align: center;"><b>Remarks:</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Staff member
+        </th>
+        <th>
+            Remarks
+        </th>
+    </tr>
+    {% for report_seminar in seminar_reports %}
+    <tr>
+        <td>{{report_seminar.recruiter.user.first_name}}</td>
+        <td>{{report_seminar.communication_remarks}}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+<br>
+
+<hr>
+<p style="text-align: center;"><b>D. Overall Assesment</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Question</th>
+        {% for seminar_report in seminar_reports %}
+        <th>{{seminar_report.recruiter.user.first_name}}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>1.</td>
+        <td>Overall assesment of seminar</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.overall_score.q1}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>2.</td>
+        <td>Overall assesment of candidate</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.overall_score.q2}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>3.</td>
+        <td>Subtotal score</td>
+        {% for seminar_report in seminar_reports %}
+        <td>{{seminar_report.overall_score.total}}</td>
+        {% endfor %}
+    </tr>
+    <tr>
+        <td>
+            4.
+        </td>
+        <td><b>Average total score:</b></td>
+        <td colspan="{{seminar_reports.count}}" style="text-align: center; font-weight: bold;">{{average.overall}}</td>
+    </tr>
+</table>
+<p style="text-align: center;"><b>Remarks:</b></p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Staff member
+        </th>
+        <th>
+            Remarks
+        </th>
+    </tr>
+    {% for report_seminar in seminar_reports %}
+    <tr>
+        <td>{{report_seminar.recruiter.user.first_name}}</td>
+        <td>{{report_seminar.overall_remarks}}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>

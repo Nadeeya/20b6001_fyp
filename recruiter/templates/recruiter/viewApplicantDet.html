@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/applicationDet.css' %}">
+
+
+
+    <title>Application Form</title>
+</head>
+<body style="background: #f0f2f5;">
+    {% include 'recruiter/constant/navbar.html' %}
+    <br>
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
+    <div class="container">
+        <a href="{% url 'viewApplicantsJob' applicant.job_id %}"><button type="button" class="btn nav-button">List of Applicants</button></a>
+        
+        <div class="appbox">
+            <div id="form-details">
+            <div id="section">
+                <h1 style="text-align: center;">Application for</h1>
+                <h3 style="text-align: center;">{{applicant.job.name}}</h3>
+                  <div style="float:right">
+                    <a href="{% url 'viewNextApplicants' job_id=applicant.job_id current_applicant_id=applicant.id %}"><button type="button" class="btn nav-button">Next Applicant</button></a>
+                </div>
+                <div style="float:left;">
+                    <a href="{% url 'viewPreviousApplicants' job_id=applicant.job_id current_applicant_id=applicant.id %}"><button type="button" class="btn nav-button">Previous Applicant</button></a>
+                </div>
+                <br>
+                <br>
+                <br>
+        {% if applicant.application_type == 'Academic' %}
+        {% include 'recruiter/viewApplicantDet-content.html' %}
+        {% else %}
+        {% include 'recruiter/nonAcademicDet-content.html' %}
+        {% endif %}
+        
+    </div>
+    </div>
+    </main>
+</div>
+</div>
+ {% include 'main/constant/footer.html' %}
+
+
+</body>
+</html>

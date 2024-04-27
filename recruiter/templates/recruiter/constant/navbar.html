@@ -1,0 +1,78 @@
+{% load static %}
+<nav class="navbar navbar-expand-sm navbar-dark" aria-label="Eighth navbar example" style="background-color: #273746">
+
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'recruiterHome' %}">{{request.user.recruiter.department}}</a>
+      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation"> -->
+        <!-- <span class="navbar-toggler-icon"></span> -->
+      <!-- </button> -->
+      <div class="topnav-right">
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'recruiterHome' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">{{request.user.email}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <style>
+    .nav-list{
+      letter-spacing: .1rem;
+    }
+    
+    .nav-list:hover{
+      color: #273746;
+      font-weight: 1000;
+    }
+  </style>
+
+  <div class="container-fluid" >
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="min-height: 700px;">
+      <div class="position-sticky pt-3">
+        <br>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'recruiterHome' %}">
+              <h6 class="nav-list">Dashboard</h6>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'viewJobs' %}">
+              <h6 class="nav-list">View all jobs</h6>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'viewApplicants' %}">
+              <h6 class="nav-list">View all applicants</h6>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'viewMembers' %}">
+              <h6 class="nav-list">View members</h6>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <h6 class="nav-list">View submitted reports</h6>
+            </a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="layers"></span>
+              Integrations
+            </a>
+          </li> -->
+        </ul>
+
+        
+      </div>
+    </nav>

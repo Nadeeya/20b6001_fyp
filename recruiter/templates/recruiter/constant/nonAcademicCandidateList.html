@@ -1,0 +1,106 @@
+{% load static %}
+    {% load bootstrap_icons %}
+<div class="candidate-list-box card mt-4">
+                        <div class="p-4 card-body">
+                            <div class="align-items-center row">
+                                <div class="col-auto">
+                                    <div class="candidate-list-images">
+                                        {% if applicant.profile.profilePic == '' %}
+                                            <a href="#"><img src="{% static 'images/icons/user.png'%}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% else %}
+                                            <a href="#"><img src="/media/{{applicant.application.profile.profilePic}}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="candidate-list-content mt-3 mt-lg-0">
+                                    
+                                        <h5 class="fs-19 mb-0">
+                                            <a class="primary-link" href="#">{{applicant.application.user.first_name}} {{applicant.application.user.last_name}}</a>  
+                                        </h5>
+                                        <p class="text-muted mb-2">{% bs_icon 'envelope-at' %}{{applicant.application.user.email}}</p>
+                                        <ul class="list-inline mb-0 text-muted">
+                                            <li class="list-inline-item">{% bs_icon 'calendar' %}<strong>DOB: </strong> {{applicant.application.profile.dob}}</li>
+                                            <li class="list-inline-item"><strong>Gender: </strong>{{applicant.application.profile.gender}}</li>
+                                            <li class="list-inline-item">{% bs_icon 'phone' %}<strong>Phone No: </strong>{{applicant.application.profile.phoneNo}}</li>
+                                            <li class="list-inline-item"><strong>Nationality: </strong>{{applicant.application.profile.nationality}}</li>
+                                        </ul><br>
+                                        <p class="text-muted mb-2">Application date: {{applicant.application.date_added}}</p>
+                                        <a href="{% url 'viewApplicantDet' applicant.application.id %}"><button type="button" class="btn btn-light btn-sm" style="background-color: #AED688;letter-spacing: 1px;">More application details</button></a>
+
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6><b>Curriculum Vitae: </b></h6>
+                                    <p><a href="{{applicant.application.documents.3.file}}">CV link</a></p><hr>
+                                    <h6><b>Tahap pendidikan tertinggi:</b> </h6>
+                                    <p><b>{{applicant.highestEducationLevel}}</b><br>
+                                    {{applicant.application.academicRec.Academic_name}} || {{applicant.application.academicRec.Institute}}</p><hr>
+                                    {% if applicant.drivingLicense == 'Yes' %}
+                                    <h6><b>Calon pekerja mempunyai lesen memandu jenis lesen {{applicant.drivingLicenseType}}</b></h6>
+                                    {% else %}
+                                    <h6><b>Calon pekerja tidak mempunyai lesen memandu </b></h6>
+                                    {% endif %}
+                                    <h6></h6>
+                                    
+
+                                    
+                                </div>
+                                 <div class="col-lg-3">
+                                    <h6><strong>Work Experience :</strong> </h6>
+                                    <!-- WORK EXPERIENCE -->
+                                    {% if applicant.workExperience == None %}
+                                        <p><strong>No experience</strong> in higher education</p>
+                                    {% else %}
+                                        {{applicant.workExperience.Industry_position}} <b>||</b> {{applicant.workExperience.Previous_industry}}</p>
+                                    {% endif %}
+                                    <!-- specific work experience -->
+                                    <!--  if yes -->
+                                    {% if job.expGov == 'Yes' %}
+                                        {% if applicant.expGov == 'Yes' %}
+                                        <p><b>Calon pernah berkhidmat sebagai {{job.expGovInfo.prev_jawatan}} selama tidak kurang {{job.expGovInfo.pengalaman_tahun}} tahun</b> </p>
+                                        {% else %}
+                                        <p><b>Calon tidak pernah berkhidmat sebagai {{job.expGovInfo.prev_jawatan}} selama tidak kurang {{job.expGovInfo.pengalaman_tahun}} tahun</b></p>
+                                        {% endif %}
+                                    {% endif %}
+
+
+                                    <hr>
+                                    {% if recruiter.member_type == 'lead' %}
+                                    {% if applicant.application.applicant_status == 'PENDING' %}
+                                        <a href="{% url 'recommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-rec btn-sm">Recommend</button></a>
+                                        <a href="{% url 'notRecommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-not-rec btn-sm" onclick="">Not Recommend</button></a><br><br>
+                                    {% elif applicant.application.applicant_status == 'RECOMMENDED' %}
+                                        <a href="{% url 'notRecommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-not-rec btn-sm" onclick="">Not Recommend</button></a>
+                                        <a href="{% url 'pendingApplicant' applicant.application.id %}"><button type="button" class="btn btn-secondary btn-sm">Pending</button></a><br><br>
+                                        
+
+                                    {% elif applicant.application.applicant_status == 'NOT RECOMMENDED' %}
+                                        <a href="{% url 'recommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-rec btn-sm">Recommend</button></a>
+                                        <a href="{% url 'pendingApplicant' applicant.application.id %}"><button type="button" class="btn btn-sm">Pending</button></a><br><br>
+                                    {% endif %}
+                                    {% endif %}
+                                    </div>
+                                
+                            </div>
+                            <div class="favorite-icon">
+                                <div class="col">
+                                    <div style="text-align: center;">
+                                        {% if applicant.application.applicant_status == 'RECOMMENDED' %}
+                                            <span class="badge bg-success ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'NOT RECOMMENDED' %}
+                                            <span class="badge bg-danger ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'PENDING' %}
+                                            <span class="badge bg-secondary ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% endif %}
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+
+                            <br>
+                        </div>
+                    </div>

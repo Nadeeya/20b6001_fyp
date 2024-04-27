@@ -1,0 +1,20 @@
+<form action="{% url 'addJustification' application.id %}" method="POST">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title">Recommendation Report for {{application.fullname}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <label class="form-label">Notes:</label>
+            <textarea class="form-control"  rows="5" name="justification"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+        <button type="submit" class="btn btn-light" style="background-color: #fcb247 ;">Add</button>
+    </div>
+
+
+</form>

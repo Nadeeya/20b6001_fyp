@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+
+
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>{{job.name}}</title>
+</head>
+<body>
+    {% include 'recruiter/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    
+    <div class="container">
+        <div class="viewbox">
+            <h1 style="padding-bottom:20px;">{{job.name}}</h1>
+            <div>
+                <h5>University Brunei Darussalam</h5>
+                <h4>{{job.type}} | {{job.category}} | {{job.department}}</h4>
+            </div><hr/>
+            <div style="font-size:16px; margin-bottom:30px;">{{job.description | safe}}</div>
+           <a href="{% url 'viewJobs' %}"><button class="btn btn-search">Go back</button></a>
+        </div>
+    </div>
+    </main>
+</div>
+</div>
+
+    {% include 'main/constant/footer.html' %}
+
+    
+</body>
+</html>

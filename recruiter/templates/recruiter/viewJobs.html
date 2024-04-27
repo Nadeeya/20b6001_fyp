@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewApplicant.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+    <style>
+   .badge-style{
+			float: right; 
+			margin-right: 7px; 
+            width:60px;
+		}
+        .card-style{
+        transition: all .2s ease-in-out;
+    }
+    .card-style:hover{
+        transform: translateY(-5px);
+    }
+  </style>
+
+    <title>View jobs</title>
+</head>
+  <body style="font-family: 'Roboto', sans-serif;">
+    {% include 'recruiter/constant/navbar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" >
+        <div class="container px-4 py-5" id="featured-3">
+            <img src="{% static 'images/icons/job.png' %}" style="width: 70px; display: inline-block;">
+            <h2 class="pb-2 border-bottom" style="display: inline-block; margin-left: 20px;">View jobs</h2>
+            <p style="margin-left: 95px;margin-top: -10px;">Below are the list of jobs</p>
+            <br>
+            <div class="col-lg-12">
+                <form method="GET">
+                    <div class="g-2 row">
+                        <div class="col-lg-6">
+                            <input class="form-control me-1 input-filter" type="search" placeholder="Search for a job name" aria-label="Search" name="search">
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="selection-widget mt-2 mt-lg-0">
+                                <select class="form-select input-filter" data-trigger="true" name="status" id="status" aria-label="Default select example">
+                                    <option selected disabled>Job Status</option>
+                                    <option value="">All</option>
+                                    <option value="OPEN">Open</option>
+                                    <option value="CLOSED">Closed</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-search"  type="submit">Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div><br><br>
+
+        
+
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="align-items-center row">
+                            <div class="col-lg-8">
+                                <div class="mb-3 mb-lg-0"><h6 class="fs-16 mb-0">Showing <strong>{{result}}</strong> results</h6></div>
+                            </div>
+                        <div class="col-lg-4">
+                                <form method="GET">
+                                <div class="candidate-list-widgets">
+                                    <div class="row">
+                                    <div class="d-flex justify-content-end">
+                                        <div class="col-lg-6">
+                                            <div class="selection-widget mt-2 mt-lg-0">
+                                                <select class="form-select input-filter" data-trigger="true" name="sort" id="sort" aria-label="Default select example" onchange="this.form.submit()">
+                                                    <option value="" selected disabled>Sort by</option>
+                                                    <option value="earliest">Earliest</option>
+                                                    <option value="latest">Latest</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                        <br>
+                        {% if job %}
+                        {% if job.count == 0 %}
+                            <p>There is no jobs currently</p>
+                        {% else %}
+                        <div class="candidate-list">
+                            <div class="container">
+                                <div class="row g-2">
+                                {% for j in job %}
+                                <div class="col-lg-4" style="margin-bottom: 20px;">
+                                    <div class="card card-style" style="width: 22rem;">
+                                        <div class="card-body">
+                                            {% if j.status == 'OPEN' %}
+										    <span class="badge ms-1 badge-style" style="background-color: #AED688;">{{j.status}}</span>
+                                            {% else %}
+										    <span class="badge ms-1 badge-style" style="background-color: rgb(231, 100, 100);">{{j.status}}</span>
+                                            {% endif %}
+                                            <div style="text-align: center; margin-top: 25px; margin-bottom:10px ;">
+                                            {% if j.department.icon == '' %}
+                                                <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="height: 70px;">
+                                            {% else %}
+                                                <img src="/media/{{j.department.icon}}" style="height: 70px;">
+                                            {% endif %}
+                                            </div>
+                                            <h5 class="card-title">{{j.name}}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">{{j.department.category}} || {{j.type}}</h6>
+                                            <hr>
+                                            <p><strong>Contract Duration </strong>: {{j.contractDur}} years<br>
+                                            <strong>Closing Date </strong>: {{j.dateClose}}<br>
+                                            </p>
+                                            <a href="{% url 'viewJobDet' j.id %}" class="card-link">More Details</a>
+                                            <a href="{% url 'viewApplicantsJob' j.id %}" class="card-link">View Applicants</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            {% endfor %}
+
+                                </div>
+                                  </div>
+                            </div>
+                                    
+                        </div>
+                    </div>
+                </div>
+                <!--  
+                <div class="row" style="padding-bottom: 60px;">
+                    <div class="mt-4 pt-2 col-lg-12">
+                        <nav aria-label="Page navigation example">
+                            <div class="pagination job-pagination mb-0 justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" tabindex="-1" href="#"><i class="mdi mdi-chevron-double-left fs-15"></i></a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="mdi mdi-chevron-double-right fs-15"></i></a>
+                                </li>
+                            </div>
+                        </nav>
+                    </div>
+                </div>-->
+                {% endif %}
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+        {% if message %}
+        <p>There is no job available.</p>
+        {% endif %}
+
+    </main>
+    </div>
+    </div>
+      {% include 'main/constant/footer.html' %}
+
+</body>
+</html>

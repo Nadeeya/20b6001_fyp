@@ -1,0 +1,172 @@
+{% load bootstrap_icons %}
+{% load countries %}
+<form action="{% url 'viewApplicantsJob' job_id %}" method="POST">
+    {% csrf_token %}
+    <div class="modal-header">
+        <h5 class="modal-title" style="color: #E88067;" > {% bs_icon 'funnel-fill' %} Advance Filtering</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>
+    <div class="modal-body" style="max-height: calc(100vh - 210px);overflow-y: auto;" >
+        <div class="row">
+            <div class="col">
+                <p>Age</p>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-auto">
+                        <input type="number" placeholder="Minimum age" name="min_age">
+                    </div>
+                    <div class="col-auto" style="margin-top: 5px;">
+                        <input type="number" placeholder="Maximum age" name="max_age">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Nationality</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="nationality">
+                    <option selected value="">All</option>
+                    {% for n in nationality %}
+                    <option value="{{n}}">{{n}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Citizenship</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="citizenship">
+                    <option selected value="">All</option>
+                    {% for n in nationality %}
+                    <option value="{{n}}">{{n}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Country of domicile</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="cod">
+                    <option selected value="">All</option>
+                    {% get_countries as countries %}
+                    {% for country in countries %}
+                    <option value="{{country.name}}">{{country.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Post applied for</p>
+            </div>
+            <div class="col">
+                {% for p in post_applied %}
+               <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="{{p}}" name="post_applied">
+                    <label class="form-check-label" for="post_applied">
+                        {{p}}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Period of notice before reporting for duty:</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="period_of_notice">
+                    <option value="">All</option>
+                    <option value="3 months">Up to 3 months</option>
+                    <option value="6 months">Up to 6 months</option>
+                    <option value="1 year">Up to 1 year</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Experience working in higher education</p>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="erhe" value="Yes">
+                <label class="form-check-label" for="erhe">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="erhe" value="No">
+                <label class="form-check-label" for="erhe">No</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <p>Experience working in industry</p>
+            </div>
+            <div class="col">
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="eri" value="Yes">
+                <label class="form-check-label" for="eri">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="eri" value="No">
+                <label class="form-check-label" for="eri">No</label>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        <!-- <div class="row">
+            <div class="col">
+                <p>Minimum Qualification</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="min_qualification">
+                    <option value="" selected disabled>All qualification</option>
+                    {% for q in qualification %}
+                    <option value="{{q}}">{{q}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+                
+        </div>
+        
+        
+        <div class="row">
+            <div class="col">
+                <p>Maximum Qualification</p>
+            </div>
+            <div class="col">
+                <select class="form-select form-select-sm" name="max_qualification">
+                    <option value="" selected disabled>All qualification</option>
+                    {% for q in qualification %}
+                    <option value="{{q}}">{{q}}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+        </div> -->
+        
+            
+       
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="background-color: #e1dcd9;">Close</button> 
+      <button type="submit" class="btn btn-light" style="background-color: #A3B995;" name="advanceFilter">Filter</button>
+  </div>
+</form>

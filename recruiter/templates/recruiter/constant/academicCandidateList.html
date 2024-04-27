@@ -1,0 +1,121 @@
+{% load static %}
+    {% load bootstrap_icons %}
+    {% load my-tags %}
+
+<div class="candidate-list-box card mt-4">
+                        <div class="p-4 card-body">
+                            <div class="align-items-center row">
+                                <div class="col-auto">
+                                    <div class="candidate-list-images">
+                                        {% if applicant.application.profile.profilePic == '' %}
+                                            <a href="#"><img src="{% static 'images/icons/user.png' %}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% else %}
+                                            <a href="#"><img src="/media/{{applicant.application.profile.profilePic}}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="candidate-list-content mt-3 mt-lg-0">
+                                    
+                                        <h5 class="fs-19 mb-0">
+                                            <a class="primary-link" href="#">{{applicant.application.user.first_name}} {{applicant.application.user.last_name}}</a>  
+                                        </h5>
+                                        <p class="text-muted mb-2">{% bs_icon 'envelope-at' %}{{applicant.application.user.email}}</p>
+                                        <ul class="list-inline mb-0 text-muted">
+                                            <li class="list-inline-item">{% bs_icon 'calendar' %}<strong>DOB: </strong> {{applicant.application.profile.dob}}</li>
+                                            <li class="list-inline-item"><strong>Gender: </strong>{{applicant.application.profile.gender}}</li>
+                                            <li class="list-inline-item">{% bs_icon 'phone' %}<strong>Phone No: </strong>{{applicant.application.profile.phoneNo}}</li>
+                                            <li class="list-inline-item"><strong>Nationality: </strong>{{applicant.application.profile.nationality}}</li>
+                                        </ul><br>
+                                        <p class="text-muted mb-2">Application date: {{applicant.application.date_added}}</p>
+
+                                        <a href="{% url 'viewApplicantDet' applicant.application.id %}"><button type="button" class="btn btn-light btn-sm" style="background-color: #AED688;letter-spacing: 1px;">More application details</button></a>
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6><b>Curriculum Vitae: </b></h6>
+                                    <p><a href="{{applicant.documents.7.file}}">CV link</a></p>
+                                    <h6><b>Highest Education Qualification: </b></h6>
+                                    <p>{{applicant.application.academicRec.1.Academic_name}} || {{applicant.application.academicRec.1.Institute}}</p>
+                                    <h6><b>Google scolar / Scopus index: </b></h6>
+                                    <p>Google link: <a href="{{applicant.scholarlyInfo.link}}" target="_blank">Link</a></p>
+                                    <p>Scopus link: <a href="{{appplicant.scopusInfo.link}}" target="_blank">Link</a></p>
+                                    <a href="{% url 'generatePdf' applicant.application.id %}" target="_blank">Generate pdf</a>
+
+                                    
+                                </div>
+                                 <div class="col-lg-3">
+                                    <h6><strong>Work Experience: </strong></h6>
+                                    <!-- EDUCATION SECTOR EXPERIENCE -->
+                                    {% if applicant.experienceHighEd == 'No' %}
+                                        <p><strong>No experience</strong> in higher education</p>
+                                    {% else %}
+                                        <p><b>Higher Education:</b><br>
+                                        {{applicant.employmentRecHighEd.1.Academic_position}} || {{applicant.employmentRecHighEd.1.Previous_institute}}</p>
+                                    {% endif %}
+                                    <!-- INDUSTRY EXPERIENCE -->
+                                    {% if applicant.experienceInd == 'No' %}
+                                        <p><strong>No experience</strong> in industry.</p>
+                                    {% else %}
+                                        <p><b>Industry:</b><br>
+                                        {{applicant.employmentRecInd.1.Industry_position}} || {{applicant.employmentRecInd.1.Previous_industry}}</p>
+                                    {% endif %}
+
+                                    <hr>
+                                    {% if recruiter.member_type == 'lead' %}
+                                    {% if applicant.application.applicant_status == 'PENDING' %}
+                                        <a href="{% url 'recommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-rec btn-sm">Recommend</button></a>
+                                        <a href="{% url 'notRecommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-not-rec btn-sm" onclick="">Not Recommend</button></a><br><br>
+                                    {% elif applicant.application.applicant_status == 'RECOMMENDED' %}
+                                        <a href="{% url 'notRecommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-not-rec btn-sm" onclick="">Not Recommend</button></a>
+                                        <a href="{% url 'pendingApplicant' applicant.application.id %}"><button type="button" class="btn btn-secondary btn-sm">Pending</button></a><br><br>
+                                        
+
+                                    {% elif applicant.application.applicant_status == 'NOT RECOMMENDED' %}
+                                        <a href="{% url 'recommendApplicant' applicant.application.id %}"><button type="button" class="btn btn-rec btn-sm">Recommend</button></a>
+                                        <a href="{% url 'pendingApplicant' applicant.application.id %}"><button type="button" class="btn btn-sm">Pending</button></a><br><br>
+                                    {% endif %}
+                                    {% if applicant.application.applicant_status == 'RECOMMENDED' %}
+                                    <button data-url="{% url 'addJustification' application_id=applicant.application.id %}" type="button" class="btn btn-sm btn-rec" data-bs-toggle="modal" data-bs-target=#modal-default>
+                                            Add Recommendation Report
+                                    </button><br><br>
+                                    {% endif %}
+
+                                    {% endif %}
+                                    <a href="{% url 'addSeminarReviewReport' applicant.application.id %}"><button type="button" class="btn btn-sm" style="background-color: #fcb247;color: white;" data-bs-toggle="modal" data-bs-target=#modal-default>
+                                            Add Seminar review report
+                                    </button></a><br><br>
+                                    
+                                    <!-- seminar review report -->
+                                    
+                                    
+                                    </div>
+                                
+                            </div>
+                            <div class="favorite-icon">
+                                <div class="col">
+                                    <div style="text-align: center;">
+                                        {% if applicant.application.applicant_status == 'RECOMMENDED' %}
+                                            <span class="badge bg-success ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'NOT RECOMMENDED' %}
+                                            <span class="badge bg-danger ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'PENDING' %}
+                                            <span class="badge bg-secondary ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% endif %}
+                                    </div>
+
+                                    {% bookmarkOptions bookmarks.id applicant.id as bookmarkOption %}
+                                         
+                                    <button data-url="{% url 'bookmark' applicant_id=applicant.id old_bookmark_id=bookmarkOption.2 bookmarkList_id=bookmarks.id %}" type="button" class="btn btn-light" style="margin-top: 10px; background-color: {{bookmarkOption.1}} !important;" data-bs-toggle="modal" data-bs-target=#modal-default>
+                                   {% bs_icon 'bookmark' %} {{bookmarkOption.0}}
+                                    </button>
+
+                                    
+                                </div>
+                                
+                            </div>
+                            <br>
+                        </div>
+                    </div>
