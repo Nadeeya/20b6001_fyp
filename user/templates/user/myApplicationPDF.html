@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center;">{{applicant.job.name}}<br>
+    {{applicant.fullname}}'s application</h1>
+    
+    <p><strong>Application id:</strong> {{applicant.id}}</p>
+    <p><strong>Applicant's name: </strong>{{applicant.user.first_name}} {{applicant.user.last_name}}</p>
+    <p><strong>Date Submitted: </strong>{{applicant.date_added}}</p>
+    <p><strong>Application status: </strong>{{applicant.applicant_status}}</p>
+
+    <hr>
+    <div class="col-md-3"><strong>Email</strong></div>
+    <div class="col-md-9">{{applicant.user.email}}</div><br>
+
+    <div class="col-md-3"><strong>Area of Specialisation applied for </strong></div>
+    <div class="col-md-9">{{applicant.job.name}}</div><br>
+              
+    <div class="col-md-3"><strong>Post Applied for </strong></div>
+    <div class="col-md-9">{{applicant.postApplied}}</div><br>
+                
+    <div class="col-md-3"><strong>Date of any previous application</strong></div>
+    <div class="col-md-9">{{applicant.datePrev}}</div><br>
+
+    <div class="col-md-3"><strong>Source obtained regarding vacant post</strong></div>
+    <div class="col-md-9">{{applicant.source}}</div>
+    <hr/>
+ 
+    <h2 style="text-align: center;">Personal Particulars</h2>
+    <div class="row">
+        <div class="col-md-3"><strong>Fullname</strong></div>
+        <div class="col-md-9">{{applicant.user.first_name}} {{applicant.user.last_name}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Gender</strong></div>
+        <div class="col-md-9">{{applicant.profile.gender}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Date of Birth </strong></div>
+        <div class="col-md-9">{{applicant.profile.dob}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Place of Birth</strong></div>
+        <div class="col-md-9">{{applicant.profile.pob}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Nationality</strong></div>
+        <div class="col-md-9">{{applicant.profile.nationality}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Citizenship</strong></div>
+        <div class="col-md-9">{{applicant.profile.citizenship}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Country of Domicile</strong></div>
+        <div class="col-md-9">{{applicant.profile.cod}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Marital Status</strong></div>
+        <div class="col-md-9">{{applicant.profile.maritalStat}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Religion</strong></div>
+        <div class="col-md-9">{{applicant.profile.religion}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Card / Passport No.</strong></div>
+        <div class="col-md-9">{{applicant.profile.icPass}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Address </strong></div>
+        <div class="col-md-9">{{applicant.profile.address}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Tel No. </strong></div>
+        <div class="col-md-9">{{applicant.profile.code}} {{applicant.profile.phoneNo}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Email </strong></div>
+        <div class="col-md-9">{{applicant.user.email}}</div>
+    </div><hr/>
+</div>
+<div id="section">
+    <h2 style="text-align: center;">Present Employment</h2>
+    <div class="row">
+        <div class="col-md-3"><strong> Present Post </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Present_post}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Present Employer </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Present_Employer}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Current Duties </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Current_duties}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Date of Appointment in current post </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Current_post_appointment}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Basic Salary (currency depends on current employment)</strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Basic_salary}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Emoluments and Allowance </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Other_Emoluments_Allowance}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong> Income Tax Deduction (%) </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Income_Tax_Deduction}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-3"><strong>Period of Notice before Reporting for Duty in Brunei </strong></div>
+        <div class="col-md-9">{{applicant.presentEmployment.Period_of_Notice}}</div>
+    </div><hr/>
+</div>
+<div id="section">
+    <h2 style="text-align: center;">Academic Record</h2>
+    <table>
+            <tr>
+            <th>#</th>
+            <td><b>Academic Qualification</b></td>
+            <td><b>Institute</b></td>
+            <td><b>Country</b></td>
+            <td><b>Grade</b></td>
+            <td><b>Award Date</b></td>
+            </tr>
+            {% for key , values in applicant.academicRec.items %}
+            <tr>
+                <th scope="row">{{key}}</th>
+                <td>{{values.Academic_name}}</td>
+                <td>{{values.Institute}}</td>
+                <td>{{values.Country}}</td>
+                <td>{{values.Grade}}</td>
+                <td>{{values.Award_date}}</td>
+            </tr>
+            {% endfor %}
+    </table>
+
+    <hr/>
+
+    <h2 style="text-align: center;">Membership and Fellowship</h2>
+    <ul style="font-size:larger ;">
+        {% for key in academic.membershipFellowship %}
+        <li>{{key}}</li>
+        {% endfor %}
+    </ul>
+    <hr/>
+
+    <h2 style="text-align: center;">Employment Record in Higher Education</h2>
+    {% if academic.experienceHighEd == 'No' %}
+        <h6>Applicant have no work experience in Higher Education </h6>
+    {% else %}
+        <table style="border:1px solid">
+                <tr>
+                <th >#</th>
+                <td><b>Academic Position</b></td>
+                <td><b>Institute</b></td>
+                <td><b>Country</b></td>
+                <td><b>Start Date</b></td>
+                <td><b>End Date</b></td>
+                </tr>
+                {% for key , values in academic.employmentRecHighEd.items %}
+                <tr>
+                    <th scope="row">{{key}}</th>
+                    <td>{{values.Academic_position}}</td>
+                    <td>{{values.Previous_institute}}</td>
+                    <td>{{values.Country}}</td>
+                    <td>{{values.Start_date}}</td>
+                    <td>{{values.End_date}}</td>
+                </tr>
+                {% endfor %}
+        </table>
+        {% endif %}
+        <hr>
+        <h2 style="text-align: center;">Employment Record in Industry</h2>
+        {% if academic.experienceInd == 'No' %}
+            <h6>Applicant have no work experience in any industry </h6>
+        {% else %}
+            <table class="table table-bordered">
+                    <tr>
+                        <th >#</th>
+                        <td><b>Position</b></td>
+                        <td><b>Industry</b></td>
+                        <td><b>Country</b></td>
+                        <td><b>Start Date</b></td>
+                        <td><b>End Date</b></td>
+                    </tr>
+                    {% for key, values in academic.employmentRecInd.items %}
+                    <tr>
+                        <th scope="row">{{key}}</th>
+                        <td>{{values.Industry_position}}</td>
+                        <td>{{values.Previous_industry}}</td>
+                        <td>{{values.Country}}</td>
+                        <td>{{values.Start_date}}</td>
+                        <td>{{values.End_date}}</td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        {% endif %}
+        <hr/>
+    </div>
+    <div id="section">
+        <h2  style="text-align: center;">Teaching and Supervision</h2>
+
+        <h6>Courses willing to offer at undergraduate and postgraduate levels</h6>
+        <table class="table table-bordered" style="width: 500px;">
+            <thead style="background-color:  rgb(149, 202, 200);">
+            <tr>
+                <th>#</th>
+                <td><b>Course</b></td>
+                <td><b>Level</b></td>
+            </tr>
+            </thead>
+            {% for key, values in academic.coursesOffering.items %}
+            <tr>
+                <th scope="row">{{key}}</th>
+                <td>{{values.Course}}</td>
+                <td>{{values.Level}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr/>
+
+        <h2 style="text-align: center;">Research and Publication</h2>
+        <div class="row">
+            <div class="col-md-3"><strong> Present research and areas of interest </strong></div>
+            <div class="col-md-9">{{academic.teachingSupervision.Area_of_interest}}</div><br>
+        </div>
+        <hr>
+        <div class="row">
+                    <h5><b>Google Scholar profile information:</b></h5>
+                    <table class="table table-bordered">
+                    <thead style="background-color:  rgb(149, 202, 200); ">
+                        <tr>
+                            <th scope="row" class="col-sm-2">Scholar id</th>
+                            <td scope="row"><b>Name</b></td>
+                            <td scope="row"><b>Email</b></td>
+                            <td scope="row"><b>Interests</b></td>
+                            <td scope="row"><b>Link</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <th scope="row">{{academic.teachingSupervision.Scholarly_id}}</th>
+                                <td>{{academic.scholarlyInfo.name}}</td>
+                                <td>{{academic.scholarlyInfo.email}}</td>
+                                <td>
+                                    <ul>
+                                    {% for v in academic.scholarlyInfo.interests %}
+                                        <li>{{v}}</li>
+                                    {% endfor %}
+                                    </ul>
+                                    
+                                </td>
+                                <td><a href="{{academic.scholarlyInfo.link}}" target="_blank">Link</a></td>
+                            </tr>
+                    </tbody>
+                </table>
+                </div>
+                <hr>
+                <div class="row">
+                    <h5><b>Scopus information:</b></h5>
+                    <table class="table table-bordered">
+                    <thead style="background-color:  rgb(149, 202, 200); ">
+                        <tr>
+                            <th scope="row" class="col-sm-2">Scopus id</th>
+                            <td scope="row"><b>Name</b></td>
+                            <td scope="row"><b>H-index</b></td>
+                            <td scope="row"><b>No. of citation</b></td>
+                            <td scope="row"><b>No. of document</b></td>
+                            <td scope="row"><b>Link</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <th scope="row">{{academic.teachingSupervision.Scopus_id}}</th>
+                                <td>{{academic.scopusInfo.name}} {{academic.scopusInfo.surname}}</td>
+                                <td>{{academic.scopusInfo.h_index}}</td>
+                                <td>{{academic.scopusInfo.citation}}</td>
+                                <td>{{academic.scopusInfo.document}}</td>
+                                <td><a href="{{academic.scopusInfo.link}}" target="_blank" style="overflow-wrap: normal;">Link</a></td>
+                            </tr>
+                    </tbody>
+                </table>
+
+                    <!-- <div class="col-md-3"><strong>Scopus Author ID</strong></div> -->
+                    <!-- <div class="col-md-9">{{applicant.teachingSupervision.Scopus_id}}</div><br><br> -->
+                </div><hr/>
+    </div>
+    <h2 style="text-align: center;">Languages</h2>
+    <div class="row">
+        <div class="col-md-2"><strong>Malay</strong></div>
+        <div class="col-md-10">{{academic.languages.Malay}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><strong>English</strong></div>
+        <div class="col-md-10">{{academic.languages.English}}</div><br>
+    </div>
+    <div class="row">
+        <div class="col-md-2"><strong>Arabic</strong></div>
+        <div class="col-md-10">{{academic.languages.Arabic}}</div><br>
+    </div>
+    {% if academic.otherLanguages %}
+    <h5>Other languages</h5>
+    <table class="table table-bordered" style="width: 500px;">
+            <tr>
+                <th>#</th>
+                <td><b>Language</b></td>
+                <td><b>Fluency</b></td>
+            </tr>
+                {% for key , values in academic.otherLanguages.items %}
+                <tr>
+                    <th scope="row">{{key}}</th>
+                    <td>{{values.language}}</td>
+                    <td>{{values.fluency}}</td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <hr/>
+
+        <h2 style="text-align: center;">Family Particulars</h2>
+        {% if academic.family.Children == 0 %}
+        <div class="row">
+            <div class="col-md-2"><strong>Children</strong></div>
+            <div class="col-md-10">No children</div><br>
+        </div>
+        
+        {% else %}
+        <h5>Children</h5>
+        <table class="table table-bordered">
+            <thead style="background-color:  rgb(149, 202, 200); ">
+                <tr>
+                    <th scope="row">#</th>
+                    <td><b>Name</b></td>
+                    <td><b>DOB</b></td>
+                    <td><b>Gender</b></td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key , values in academic.family.Children.items %}
+                <tr>
+                    <th scope="row">{{key}}</th>
+                    <td>{{values.name}}</td>
+                    <td>{{values.dob}}</td>
+                    <td>{{values.gender}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+        <br>
+
+        {% endif %}
+
+        {% if academic.family.Spouse == 'no spouse' %}
+        <div class="row">
+            <div class="col-md-2"><strong>Spouse</strong></div>
+            <div class="col-md-10">{{academic.family.Spouse}}</div><br>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-2"><strong>Spouse</strong></div>
+            <div class="col-md-10">{{academic.family.Spouse}}</div><br>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><strong>Spouse Occupation</strong></div>
+            <div class="col-md-10">{{academic.family.Spouse_occupation}}</div>
+        </div>
+
+        {% endif %}
+        <hr/>
+        <div id="section">
+            <h2 style="text-align: center;">Referees</h2>
+            <table class="table table-bordered">
+                    <tr>
+                        <th scope="row">#</th>
+                        <td><b>Name</b></td>
+                        <td><b>Position</b></td>
+                        <td><b>Company or Insitution</b></td>
+                        <td><b>Email</b></td>
+                        <td><b>Phone</b></td>
+                        <td><b>Is contactable before interview</b></td>
+
+                    </tr>
+                    {% for key , values in academic.referees.items %}
+                    <tr>
+                        <th scope="row">{{key}}</th>
+                        <td>{{values.name}}</td>
+                        <td>{{values.position}}</td>
+                        <td>{{values.company_institute}}</td>
+                        <td>{{values.email}}</td>
+                        <td>{{values.phone}}</td>
+                        <td style="text-align: center;">{{values.contactability}}</td>
+                    </tr>
+                    {% endfor %}
+            </table>
+        </div>
+                    
+    
+</body>
+</html>
+

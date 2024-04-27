@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+{% load countries %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <title>Job Applications</title>
+    <style>
+        .link-style{
+            color:black;
+            text-decoration:none;
+
+        }
+        .link-style:hover{
+            color:blue
+        }
+    </style>
+</head>
+<body >
+    {% include 'main/constant/header.html' %}
+    <br>
+    <section style="margin-bottom: 100px;">
+        <div style="width: 90%; margin-left: auto; margin-right: auto;">
+            <h3>My Applications</h3>
+            <hr>
+            <div class="table-responsive text-nowwrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Job Name</th>
+                            <th scope="col">Submission Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" style="text-align: center;">Application Details</th>
+                            <th scope="col" style="text-align: center;">Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in applications %}
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td><a href="{% url 'jobDetails' pk=application.job.id %}" class="link-style">{{application.job.name}}</a></td>
+                            <td>{{application.date_added}}</td>
+                            <td style="color:grey"><b>{{application.applicant_progress}}</b></td>
+                            {% if application.applicant_progress == 'DRAFT' %}
+                                <td style="text-align: center;"><a href="{% url 'continueDraft' job_id=application.job.id draft_id=application.id %}"><button class="btn btn-sm" style="background-color: #fcb247; color:white">Continue Application</button></a></td>
+                                <td></td>
+                            {% else %}
+                                <td style="text-align: center;"><a href="{% url 'myApplication' pk=application.id %}"><button class="btn btn-sm" style="background-color: rgb(145, 201, 145); color:white">View My Application</button></a></td>
+                                <td style="text-align: center;"><a href="{% url 'downloadSubmission' pk=application.id %}" target="_blank"><button class="btn btn-sm btn-light" style="background-color: #fcb247;">Download submission</button></a></td>
+                            {% endif %}
+                            
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+
+                </table>
+            </div>
+            
+        </div>
+    </section>
+    
+     {% include 'main/constant/footer.html' %}
+
+  {% if message %}
+		<script>
+			alert('{{message}}')
+		</script>
+	{% endif %}
+
+</body>
+</html>

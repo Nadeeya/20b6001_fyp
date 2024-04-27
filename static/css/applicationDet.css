@@ -1,0 +1,15 @@
+.table-header{
+    background-color: rgb(202, 230, 202);
+    letter-spacing: 1px;
+}
+
+.download-button{
+    background-color: rgb(145, 201, 145); 
+    color: white;
+}
+
+.nav-button{
+    background-color: #fcb247;    
+    color: white;
+
+}

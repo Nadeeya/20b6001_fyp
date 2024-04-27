@@ -1,0 +1,23 @@
+.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    background-color: #273746;
+    color: white;
+    font-size: 15px;
+    width: 100%;
+    padding: 60px 0 10px;
+}
+
+.footer li {
+    padding: 4px 0;
+}
+
+.footer a {
+    color: white;
+    text-decoration:none;
+}
+
+.footer a:hover {
+    opacity: 0.5;
+}

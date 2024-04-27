@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+    {% load static %}
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            {% load bootstrap5 %}
+            {% bootstrap_css %}
+            {% bootstrap_javascript %}
+            <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+        <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+            <title>Career Opportunities - Universiti Brunei Darussalam</title>
+        </head>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <body style="background: #f0f2f5;">
+        {% include 'main/constant/header.html' %}
+
+            <div class="container">
+                <div class="row" style="margin:80px 0">
+                    <div class="login-box" style="width: 396px;">
+                        <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 85px;">
+                        <h2>Login</h2>
+                        <form class="form-horizontal" action="" method="POST" autocomplete="">
+                            {% csrf_token %}
+                            <div class="input-field">
+                                <input type="text" class="form-control" name="email" placeholder="email" required>
+                            </div>
+
+                            <div class="input-field">
+                                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            </div>
+
+                            <div style="padding:6px 0; text-align:center;">
+                                <button class="btn btn-primary" type="submit" name="login">Login</button>
+                            </div>
+                            <div style="padding-top:12px; text-align:center">
+                                <a href="">Forgot Password?</a>
+                                <p> Don't have an account? Register <a href="{% url 'applicant_reg' %}">Here</a></p>
+                            </div> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+           
+            
+        </body>
+    </html>

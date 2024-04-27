@@ -1,0 +1,385 @@
+/* HEADER STYLE */
+
+body{
+    font-family: 'Roboto', sans-serif;
+
+}
+
+
+.heading {
+    background-color:#273746;
+    height:40px;
+    padding:8px;
+    text-align:right;
+}
+
+.heading a, .heading span {
+    color:white;
+    padding:10px;
+    text-decoration:none;
+}
+
+.heading a:hover {
+    opacity: 0.5;
+}
+/* HEADER STYLE */
+
+
+
+/* UBDNAV STYLE */
+.ubdnav {
+    background-color:#f2f3f4;
+    height:80px;
+}
+
+.ubdnav img {
+    max-width: 200px;
+    margin-top: 20px;
+}
+
+.ubdnav ul {
+    display:flex;
+    list-style:none;
+    margin-top:28px;
+    float: right;
+}
+
+.ubdnav a {
+    color:#3c556b;
+    text-decoration:none;
+    margin:10px;
+    padding:12px;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.ubdnav a:hover {
+    opacity: 0.6;
+}
+/* UBDNAV STYLE */
+
+
+
+/* FOOTER STYLE */
+.footer {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    background-color: #273746;
+    color: white;
+    font-size: 15px;
+    width: 100%;
+    padding: 60px 0 10px;
+}
+
+.footer li {
+    padding: 4px 0;
+}
+
+.footer a {
+    color: white;
+    text-decoration:none;
+}
+
+.footer a:hover {
+    opacity: 0.5;
+}
+/* FOOTER STYLE */
+
+
+
+/* LOGIN-SIGNUP STYLE */
+.login-box {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    margin: auto;
+    padding: 20px 0;
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    text-align: center;
+}
+
+.login-box .input-field {
+    width: 90%;
+    padding: 6px 0;
+    margin: auto;
+}
+
+.login-box .form-horizontal {
+    margin-top: 18px;
+}
+
+.login-box .form-control {
+    font-size: 17px;
+    padding: 14px 16px;
+    height: 50px;
+}
+
+.login-box button {
+    border:none;
+    border-radius:6px;
+    font-size:20px;
+    line-height:48px;
+    padding:0 16px;
+    width:90%;
+}
+
+.login-box .error {
+    color: red;
+    padding-bottom: 8px;
+}
+/* LOGIN-SIGNUP STYLE */
+
+
+
+/* UBD CAREER STYLE */
+.viewbox {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    margin: 30px 0;
+    padding: 20px 30px;
+    font-size: 16px;
+}
+
+.career-bg {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+}
+
+.joblists .row {
+    margin:20px 40px 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    border: 1px solid #CACFD2;
+    border-radius: 16px;
+    width: 85%;
+    transition: box-shadow .3s;
+    border: 1px solid #ccc;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.joblists .row:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.joblists a {
+    text-decoration: none;
+}
+
+.joblists .rowcontent {
+    padding: 30px 40px;
+}
+
+.joblists .readmore {
+    background-color: #cad8df48;
+    padding: 5px 30px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.search-and-filter {
+    margin-bottom: 40px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 53%;
+}
+
+#search {
+    flex-grow: 1;
+    padding: 10px 16px;
+    border: solid 1px #CACFD2;
+    border-radius: 24px;
+    margin-right: 10px;
+}
+
+.search-and-filter label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.search-and-filter select {
+    padding: 10px 16px;
+    border: solid 1px #CACFD2;
+    border-radius: 24px;
+    margin-right: 10px;
+}
+
+.search-and-filter button {
+    padding: 10px 20px;
+    background-color: #d66b07;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
+.search-and-filter button:hover {
+    opacity: 0.8;
+}
+/* UBD CAREER STYLE */
+
+
+
+/* RECRUITER PAGE STYLE 
+.recruiter-page .row-content {
+    margin:30px 0px; 
+    padding: 30px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    border: 1px solid #CACFD2;
+    border-radius: 14px;
+}
+.recruiter-page a {
+    text-decoration: none;
+}
+/* RECRUITER PAGE STYLE */
+
+
+
+/* MANAGE APPLICATIONS PAGE STYLE */
+.manage-app {
+    margin-top: 10px;
+}
+.manage-app button {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+/* MANAGE APPLICATIONS PAGE STYLE */
+
+
+
+/* JOB APPLICATION STYLE */
+.formbox {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    margin: 30px 0;
+}
+
+.formbox p{
+    font-size: larger;
+}
+
+.formbox label{
+    font-size: larger ;
+}
+
+#regForm {
+    background-color: #ffffff;
+    margin: auto;
+    padding: 50px;
+    font-family: Roboto;
+    font-size: 17px;
+    min-width: 300px;
+}
+
+
+
+.formbox input {
+    width: 30%;
+    font-size: 17px;
+    font-family: Roboto;
+    margin: 6px 0 12px;
+}
+
+
+
+.formbox select {
+    width: 30%;
+    font-size: 17px;
+    font-family: Roboto;
+    margin: 6px 0 12px;
+}
+
+.formbox button {
+    background-color: #286090;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 20px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.formbox button:hover {
+    opacity: 0.8;
+}
+
+#submitBtn {
+    background-color: #04aa6d;
+}
+
+#prevBtn {
+    background-color: #bdc3c7;
+}
+
+.tab {
+    display: none;
+}
+
+.step {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #d7dbdd;
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.step.active {
+    background-color: #286090;
+}
+/* JOB APPLICATION STYLE */
+
+
+
+/* APPLICATIONS STYLE */
+.appbox {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1), 0 8px 16px rgba(0, 0, 0, .1);
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    margin: 30px 0;
+    padding: 25px 50px;
+    font-size: 16px;
+}
+
+.appbox .doc {
+    border: 1px solid #dddfe2;
+    margin: 0 50px;
+}
+
+.appbox .row {
+    padding: 8px;
+}
+
+.box {
+  transition: box-shadow .3s;
+  width: 300px;
+  height: 500px;
+  margin: 50px;
+  border-radius:10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  float: left;
+  
+}
+.box:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+/* APPLICATIONS STYLE */
+
+/*Profile page*/
+.reset-style, .reset-style * {
+        all: revert;
+}
+

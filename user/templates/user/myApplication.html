@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/applicationDet.css' %}">
+
+    <title>Application Form</title>
+</head>
+<body style="background-color: rgb(253, 249, 249)">
+    {% include 'main/constant/header.html' %}
+
+    <br>
+    
+    <div class="container">
+        <a href="{{request.META.HTTP_REFERER}}"><button type="button" class="btn nav-button">Go Back</button></a>
+
+        <div class="appbox">
+            <div id="form-details">
+            <div id="section">
+                <h3 style="text-align: center;">My application for {{academic.application.job.name}}</h3>
+                <br>
+                <br>
+                <br>
+
+                <div class="row">
+                <div class="col">
+                    <p><strong>Application id:</strong> {{academic.application.id}}</p>
+                    <p><strong>Applicant's name: </strong>{{academic.application.user.first_name}} {{academic.application.user.last_name}}</p>
+                    <p><strong>Date Submitted: </strong>{{academic.application.date_added}}</p>
+                    <p><strong>Application status: </strong>{{academic.application.applicant_status}}</p>
+                </div>
+
+                <div style="float: right;" class="col">
+                    {% if applicant.profile.profilePic != '' %}
+                        <img src="/media/{{academic.application.profile.profilePic}}" alt=""  style="width: 40%; float:inline-end" /></a>
+                    {% endif %}
+                </div>
+                </div>
+              
+                <hr/>
+                <div class="row">
+                    <div class="col-md-3"><strong>Email</strong></div>
+                    <div class="col-md-9">{{academic.application.user.email}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Area of Specialisation applied for </strong></div>
+                    <div class="col-md-9">{{academic.application.job.name}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Post Applied for </strong></div>
+                    <div class="col-md-9">{{academic.postApplied}}</div><br><br>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-3"><strong>Date of any previous application</strong></div>
+                    <div class="col-md-9">{{academic.application.datePrev}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Source obtained regarding vacant post</strong></div>
+                    <div class="col-md-9">{{academic.application.source}}</div><br><br>
+                </div><hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Personal Particulars</h3><br>
+                <div class="row">
+                    <div class="col-md-3"><strong>Fullname</strong></div>
+                    <div class="col-md-9">{{academic.application.user.first_name}} {{academic.application.user.last_name}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Gender</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.gender}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Place of Birth </strong></div>
+                    <div class="col-md-9">{{academic.application.profile.dob}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Place of Birth</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.pob}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Nationality</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.nationality}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Citizenship</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.citizenship}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Country of Domicile</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.cod}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Marital Status</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.maritalStat}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Religion</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.religion}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Card / Passport No.</strong></div>
+                    <div class="col-md-9">{{academic.application.profile.icPass}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Address </strong></div>
+                    <div class="col-md-9">{{academic.application.profile.address}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Tel No. </strong></div>
+                    <div class="col-md-9">{{academic.application.profile.code}} {{academic.application.profile.phoneNo}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Email </strong></div>
+                    <div class="col-md-9">{{academic.application.user.email}}</div><br><br>
+                </div><hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Present Employment</h3><br>
+                <div class="row">
+                    <div class="col-md-3"><strong> Present Post </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Present_post}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Present Employer </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Present_Employer}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Current Duties </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Current_duties}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Date of Appointment in current post </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Current_post_appointment}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Basic Salary (currency depends on current employment)</strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Basic_salary}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Emoluments and Allowance </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Other_Emoluments_Allowance}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong> Income Tax Deduction (%) </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Income_Tax_Deduction}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-3"><strong>Period of Notice before Reporting for Duty in Brunei </strong></div>
+                    <div class="col-md-9">{{academic.application.presentEmployment.Period_of_Notice}}</div><br><br>
+                </div><hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Academic Record</h3><br>
+                <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Academic Qualification</th>
+                        <th scope="col">Institute</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Grade</th>
+                        <th scope="col">Award Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key , values in academic.application.academicRec.items %}
+                        <tr>
+                            <th scope="row">{{key}}</th>
+                            <td>{{values.Academic_name}}</td>
+                            <td>{{values.Institute}}</td>
+                            <td>{{values.Country}}</td>
+                            <td>{{values.Grade}}</td>
+                            <td>{{values.Award_date}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr/>
+
+                <h3>Membership and Fellowship</h3><br>
+                <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                        <th scope="col">Membership and Fellowship</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key in academic.membershipFellowship %}
+                        <tr>
+                            <th scope="row">{{key}}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr/>
+
+                <h3>Employment Record</h3><br>
+                <h5>Employment Record in Higher Education</h5>
+                {% if academic.experienceHighEd == 'No' %}
+                    <br>
+                    <h6>Applicant have no work experience in Higher Education </h6>
+                {% else %}
+                    <table class="table table-bordered">
+                        <thead class="table-header">
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Academic Position</th>
+                            <th scope="col">Institute</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Start Date</th>
+                            <th scope="col">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key , values in academic.employmentRecHighEd.items %}
+                            <tr>
+                                <th scope="row">{{key}}</th>
+                                <td>{{values.Academic_position}}</td>
+                                <td>{{values.Previous_institute}}</td>
+                                <td>{{values.Country}}</td>
+                                <td>{{values.Start_date}}</td>
+                                <td>{{values.End_date}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                <hr>
+                <h5>Employment Record in Industry</h5>
+                {% if academic.experienceInd == 'No' %}
+                    <br>
+                    <h6>Applicant have no work experience in any industry </h6>
+                {% else %}
+                    <table class="table table-bordered">
+                        <thead class="table-header">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Industry</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key, values in academic.employmentRecInd.items %}
+                            <tr>
+                                <th scope="row">{{key}}</th>
+                                <td>{{values.Industry_position}}</td>
+                                <td>{{values.Previous_industry}}</td>
+                                <td>{{values.Country}}</td>
+                                <td>{{values.Start_date}}</td>
+                                <td>{{values.End_date}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+                <hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Teaching and Supervision</h3><br>
+
+                <h6>Courses willing to offer at undergraduate and postgraduate levels</h6>
+                <table class="table table-bordered" style="width: 500px;">
+                    <thead class="table-header">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Course</th>
+                        <th scope="col">Level</th>
+                    </tr>
+                     </thead>
+                     {% for key, values in academic.coursesOffering.items %}
+                     <tr>
+                        <th scope="row">{{key}}</th>
+                        <td>{{values.Course}}</td>
+                        <td>{{values.Level}}</td>
+                     </tr>
+                     {% endfor %}
+                </table>
+                <br>
+              
+                    <div class="row">
+                        <div class="col-md-4"><strong> Document List of supervision at postgraduate level </strong></div>
+                        <div class="col-md-8">
+                            <p><embed src="{{academic.teachingSupervision.Supervision_file}}" type="application/pdf"   height="700px"     width="500"></embed></p>
+                            <a href="{{academic.teachingSupervision.Supervision_file}}" target="_blank">View Document</a>
+                        </div><br><br>
+                    </div>
+                <hr/>
+
+                <h3>Research and Publication</h3><br>
+                <div class="row">
+                    <div class="col-md-3"><strong> Present research and areas of interest </strong></div>
+                    <div class="col-md-9">{{academic.teachingSupervision.Area_of_interest}}</div><br><br>
+                </div>
+                    <div class="row">
+                    <div class="col-md-3"><strong> List of Publications and patent </strong></div>
+                        <div class="col-md-8">
+                            <p><embed src="{{academic.teachingSupervision.Publications_file}}" type="application/pdf"   height="700px"     width="500"></embed></p>
+                            <a href="{{academic.teachingSupervision.Publications_file}}" target="_blank">View Document</a>
+                        </div><br><br>
+                    </div>
+                <div class="row">
+                    
+                    <br>
+                    <h5><b>Google Scholar profile information:</b></h5>
+                    <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="row" class="col-sm-2">Scholar id</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">Email</th>
+                            <th scope="row">Interests</th>
+                            <th scope="row">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <th scope="row">{{academic.teachingSupervision.Scholarly_id}}</th>
+                                <td>{{academic.scholarlyInfo.name}}</td>
+                                <td>{{academic.scholarlyInfo.email}}</td>
+                                <td>
+                                    <ul>
+                                    {% for v in academic.scholarlyInfo.interests %}
+                                        <li>{{v}}</li>
+                                    {% endfor %}
+                                    </ul>
+                                    
+                                </td>
+                                <td><a href="{{academic.scholarlyInfo.link}}" target="_blank">{{academic.scholarlyInfo.link}}</a></td>
+                            </tr>
+                    </tbody>
+                </table>
+                </div>
+                <div class="row">
+                    <h5><b>Scopus information:</b></h5>
+                    <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="row" class="col-sm-2">Scopus id</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">H-index</th>
+                            <th scope="row">No. of citation</th>
+                            <th scope="row">No. of document</th>
+                            <th scope="row" class="col-sm-4">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr>
+                                <th scope="row">{{academic.teachingSupervision.Scopus_id}}</th>
+                                <td>{{academic.scopusInfo.name}} {{academic.scopusInfo.surname}}</td>
+                                <td>{{academic.scopusInfo.h_index}}</td>
+                                <td>{{academic.scopusInfo.citation}}</td>
+                                <td>{{academic.scopusInfo.document}}</td>
+                                <td><a href="{{academic.scopusInfo.link}}" target="_blank">{{academic.scopusInfo.link}}</a></td>
+                            </tr>
+                    </tbody>
+                </table>
+
+                    <!-- <div class="col-md-3"><strong>Scopus Author ID</strong></div> -->
+                    <!-- <div class="col-md-9">{{applicant.teachingSupervision.Scopus_id}}</div><br><br> -->
+                </div><hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Languages</h3><br>
+                <div class="row">
+                    <div class="col-md-2"><strong>Malay</strong></div>
+                    <div class="col-md-10">{{academic.languages.Malay}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><strong>English</strong></div>
+                    <div class="col-md-10">{{academic.languages.English}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><strong>Arabic</strong></div>
+                    <div class="col-md-10">{{academic.languages.Arabic}}</div><br><br>
+                </div>
+                {% if academic.otherLanguages %}
+                <h5>Other languages</h5>
+                <table class="table table-bordered" style="width: 500px;">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="row">#</th>
+                            <th scope="row">Language</th>
+                            <th scope="row">Fluency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                            {% for key , values in academic.otherLanguages.items %}
+                            <tr>
+                                <th scope="row">{{key}}</th>
+                                <td>{{values.language}}</td>
+                                <td>{{values.fluency}}</td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+
+                <hr/>
+
+                <h3>Family Particulars</h3><br>
+                {% if academic.family.Children == 0 %}
+                <div class="row">
+                    <div class="col-md-2"><strong>Children</strong></div>
+                    <div class="col-md-10">No children</div><br><br>
+                </div>
+                
+                {% else %}
+                <h5>Children</h5>
+                <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="row">#</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">DOB</th>
+                            <th scope="row">Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key , values in academic.family.Children.items %}
+                        <tr>
+                            <th scope="row">{{key}}</th>
+                            <td>{{values.name}}</td>
+                            <td>{{values.dob}}</td>
+                            <td>{{values.gender}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+
+                {% endif %}
+
+                {% if academic.family.Spouse == 'no spouse' %}
+                <div class="row">
+                    <div class="col-md-2"><strong>Spouse</strong></div>
+                    <div class="col-md-10">{{academic.family.Spouse}}</div><br><br>
+                </div>
+                {% else %}
+                <div class="row">
+                    <div class="col-md-2"><strong>Spouse</strong></div>
+                    <div class="col-md-10">{{academic.family.Spouse}}</div><br><br>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"><strong>Spouse Occupation</strong></div>
+                    <div class="col-md-10">{{academic.family.Spouse_occupation}}</div><br><br>
+                </div>
+
+                {% endif %}
+                <hr/>
+            </div>
+
+
+            <div id="section">
+                <h3>Referees</h3><br>
+                <table class="table table-bordered">
+                    <thead class="table-header">
+                        <tr>
+                            <th scope="row">#</th>
+                            <th scope="row">Name</th>
+                            <th scope="row">Position</th>
+                            <th scope="row">Company or institution</th>
+                            <th scope="row">Email</th>
+                            <th scope="row">Phone</th>
+                            <th scope="row" style="text-align: center;">Is contactable before interview</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key , values in academic.referees.items %}
+                        <tr>
+                            <th scope="row">{{key}}</th>
+                            <td>{{values.name}}</td>
+                            <td>{{values.position}}</td>
+                            <td>{{values.company_institute}}</td>
+                            <td>{{values.email}}</td>
+                            <td>{{values.phone}}</td>
+                            <td style="text-align: center;">{{values.contactability}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <hr/>
+            </div>
+
+            <div id="documents">
+                <h3>Documents</h3><br>
+                {% for key , values in academic.application.documents.items %}
+                <div class="row">
+                    <div class="col-md-2"><strong>{{values.name}}</strong></div>
+                    <div class="col-md-10">
+                        <p><embed src="{{values.file}}" type="application/pdf" height="700px" width="500"></embed></p>
+                        <a href='{{values.file}}'>View document</a>
+                    </div><br><br>
+                </div>
+                {% endfor %}
+                
+            </div>
+            
+
+        </div>
+    </div>
+    </div>
+ {% include 'main/constant/footer.html' %}
+
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+{% load static %}
+{% load countries %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% load bootstrap_icons %}
+
+    <link rel="stylesheet" href="{% static 'css/register.css' %}"/>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>SIGNUP - APPLICANT</title>
+</head>
+<body class="form-v10">
+    {% include 'main/constant/header.html' %}
+	<div class="page-content">
+		<div class="form-v10-content">
+			<form class="form-detail" action="#" method="POST" id="applicant_registration">
+                {% csrf_token %}
+				<div class="form-left">
+                    <br>
+                    <div style="text-align: center;">
+                    <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 100px;">
+                    </div>
+					<h2 style="text-align: center;">Applicant Registration</h2>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="fname" id="fname" class="input-text" placeholder="First Name" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="lname" id="lname" class="input-text" placeholder="Last Name" required>
+						</div>
+                    </div>
+					<div class="form-row">
+						<input type="email" name="email" class="company" id="email" placeholder="Email" required>
+					</div>
+                    
+                    <div class="form-row">
+						<input type="password" name="password" class="company" id="password" placeholder="Password" required>
+					</div>
+
+                    <div class="form-row">
+						<input type="password" name="password1" class="company" id="password1" placeholder="Password Confirmation" required>
+					</div>
+                    <br>
+                    <div style="text-align: center;">
+                        <p>Already have an account? Login <a href="{% url 'login' %}">here</a></p>
+                    </div>
+				</div>
+				<div class="form-right">
+					<h2 style="text-align: center;">Personal Details </h2>
+                    <div class="form-row form-row-4">
+                        <select name="gender">
+                            <option value="" style="color:white !important" disabled selected >Gender <i>{% bs_icon 'chevron-double-down'%}</i> </option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Others">Others</option>
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+						<div class="form-row form-row-1">
+							<p style="color: white; text-align: center;">Date of Birth:</p>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="date" name="dob" class="phone" id="dob" placeholder="Date of Birth" required>
+						</div>
+					</div>
+
+                    <div class="form-row form-row-4">
+                        <select name="pob">
+                            <option value="" disabled selected>Place of Birth</option>
+                            {% get_countries as countries %}
+                            {% for country in countries%}
+                                <option value="{{ country.name}}">{{country.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-row form-row-4">
+                        <select name="nationality">
+                            <option value="" disabled selected>Nationality</option>
+                            {% for nationality in nationalities %}
+                                <option value="{{nationality}}">{{nationality}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-row form-row-4">
+                        <select name="citizenship">
+                            <option value="" disabled selected>Citizenship</option>
+                            {% for nationality in nationalities %}
+                                <option value="{{nationality}}">{{nationality}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+                    <div class="form-row form-row-4">
+                        <select name="cod">
+                            <option value="" disabled selected>Country of Domicile</option>
+                            {% for country in countries %}
+                                <option value="{{country.name}}">{{country.name}}</option>
+                            {% endfor %}
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+					<div class="form-row">
+						<input type="text" name="address" class="additional" id="address" placeholder="House address" required>
+					</div>
+					
+				
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<input type="text" name="code" class="code" id="code" placeholder="Code +" required>
+						</div>
+						<div class="form-row form-row-2">
+							<input type="text" name="phoneNo" class="phone" id="phoneNo" placeholder="Phone Number" required>
+						</div>
+					</div>
+					<div class="form-row">
+						<input type="text" name="icPass" id="icPass" class="input-text" placeholder="Identity card / Passport number">
+					</div>
+
+                    <div class="form-row">
+						<input type="text" name="religion" id="relgion" class="input-text" placeholder="Religion">
+					</div>
+
+                    <div class="form-row form-row-4">
+                        <select name="maritalStat" required>
+                            <option value="" disabled selected>Marital Status</option>
+                            <option value="Female">Single</option>
+                            <option value="Married">Married</option>
+                        </select>
+                        <span class="select-btn">
+                            <i class="zmdi zmdi-chevron-down"></i>
+                        </span>
+                    </div>
+
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Submit" onclick="register()">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+    {% include 'main/constant/footer.html' %}
+    <script>
+        function register(){
+            alert('Registration Successful!')   
+        }
+    </script>
+
+    {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+
+
+</body>
+</html>

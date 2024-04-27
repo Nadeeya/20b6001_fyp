@@ -1,0 +1,39 @@
+.delete{
+    text-decoration: none;
+    display: inline-block;
+    background-color: red;
+    color:white;
+    font-size: 1.5 rem;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+    padding-left: 10px;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+input{
+    padding:8px 10px;
+    background: #ddd;
+    border: none;
+    /* width:80%; */
+    border-radius: 5px;
+    /* margin-left: 20px; */
+}
+
+.academic_name {
+    width:80%;
+
+}
+
+.institute{
+    width: 10%;
+}
+
+.flex{
+    /* display: flex; */
+    gap:1.5em;
+}
