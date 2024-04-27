@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+    <title>Manage Recruiters</title>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+    <br>
+    <div style=" margin-left:auto; margin-right: auto;">
+        <img src="{% static 'images/recruiter.png' %}" style="width: 70px; display: inline-block;">
+        <h3 class="display-7 fw-bold pb-2 border-bottom" style="display: inline-block; margin-left: 20px;">Manage Staff Department</h3>
+        <p class="lead" style="margin-left: 95px;margin-top: -10px;">Below are the list of recuiters</p>
+        <div class="d-grid gap-2 d-sm-flex" style="float: left;">
+            <a href="{% url 'addRecruiter' %}"><button type="button" class="btn btn-search">Add Staff Department</button></a>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex flex-column gap-4" style="float: inline-end; margin-right: 5%; width: 60%;">
+        <form class="d-flex" method="GET">
+            <input class="form-control me-1 input-filter" type="search" placeholder="Search for recruiter's name or email" aria-label="Search" name="search">
+            <button class="btn btn-search" type="submit">Search</button>
+        </form>
+    </div><br><br><br>
+
+    <section class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="align-items-center row">
+                            <div class="col-lg-8">
+                                <div class="mb-3 mb-lg-0"><h6 class="fs-16 mb-0">Showing <strong>{{result}}</strong> results</h6></div>
+                            </div>
+                            <div class="col-lg-4">
+                                <form method="GET">
+                                <div class="candidate-list-widgets">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-lg-6" style="padding-right: 20px;">
+                                                <div class="selection-widget mt-2 mt-lg-0">
+                                                    <select class="form-select input-filter" data-trigger="true" name="category" id="category" aria-label="Default select example" onchange="this.form.submit()">
+                                                        <option value="">Category</option>
+                                                        {% for c in category %}
+                                                        <option value="{{c}}">{{c}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="selection-widget mt-2 mt-lg-0">
+                                                    <select class="form-select input-filter" data-trigger="true" name="department" id="department" aria-label="Default select example" onchange="this.form.submit()">
+                                                        <option value="">Department</option>
+                                                        {% for d in department %}
+                                                        <option value="{{d}}">{{d}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% if recuiter.count == 0 %}
+                <p>There is no recruiters</p>
+            {% else %}
+            <table class="table table-hover" style="margin-left:auto; margin-right: auto; width:90%">
+                <thead>
+                    <th scope="col">#</th>
+                    <th scope="col">FULL NAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">DEPARTMENT</th>
+                    <th scope="col">MEMBER TYPE</th>
+                    <th scope="col">Edit/Delete</th>
+                </thead>
+                <tbody>
+                    {% for rec in recruiter %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{rec.user.first_name}} {{rec.user.last_name}}</td>
+                        <td>{{rec.user.email}}</td>
+                        <td>{{rec.department.category}}</td>
+                        <td>{{rec.department}}</td>
+                        <td>{{rec.member_type}}</td>
+                        <td>
+                            <a href="{% url 'deleteRecruiter' rec.user_id %}"><button type="button" class="btn btn-not-rec btn-sm mb-2">Delete Recruiter</button></a><br>
+                            <a href="{% url 'editRecruiter' rec.user_id %}"><button type="button" class="btn btn-rec btn-sm">Edit Recruiter</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <br>
+    </section>
+    {% endif %}
+    </main>
+  
+  </div>
+  </div>
+
+      {% include 'main/constant/footer.html' %}
+ 
+   {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    {% load my-tags %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewApplicant.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/applicationDet.css' %}">
+    <title>View Departments</title>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
+    <div class="container">
+        <a href="{% url 'viewAllApplicants'%}"><button type="button" class="btn nav-button">List of Applicants</button></a>
+        <div class="appbox">
+            <div id="form-details">
+            <div id="section">
+                {% if applicant.application_type == 'Academic' %}
+                <h1 style="text-align: center;">Application</h1>
+                <h3 style="text-align: center;">{{applicant.job.name}}</h3>
+                {% else %}
+                <h3 style="text-align: center;">Permohonan untuk <br>{{applicant.job.name}}</h3>
+                {% endif %}     
+                <div style="float:right">
+                    <a href="{% url 'viewNextApplicantsAllMod' current_applicant_id=applicant.id %}"><button type="button" class="btn nav-button">Next Applicant</button></a>
+                </div>
+                <div style="float:left;">
+                    <a href="{% url 'viewPreviousApplicantsAllMod' current_applicant_id=applicant.id %}"><button type="button" class="btn nav-button">Previous Applicant</button></a>
+                </div>
+                <br>
+                <br>
+                <br>
+        {% if applicant.application_type == 'Academic' %}
+        {% include 'recruiter/viewApplicantDet-content.html' %}
+        {% else %}
+        {% include 'recruiter/nonAcademicDet-content.html' %}
+        {% endif %}
+        
+        
+    </div>
+    </div>
+    </div>
+
+    </main>
+      </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+
+</body>

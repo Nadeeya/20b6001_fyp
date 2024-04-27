@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    {% load bootstrap5 %}
+    <link href="{% static 'css/recruiter_reg.css' %}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+     {% bootstrap_css %}
+   {% bootstrap_javascript %}
+    <title>Register recruiters</title>
+    <style>
+        .card-registration .select-input.form-control[readonly]:not([disabled]) {
+        font-size: 1rem;
+        line-height: 2.15;
+        padding-left: .75em;
+        padding-right: .75em;
+        }
+        .card-registration .select-arrow {
+        top: 13px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+</head>
+<body style="background: #f0f2f5;">
+      {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+    <section>
+        
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body p-4 p-md-5">
+            <div style="text-align: center; ">
+              <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 100px; margin-bottom: 10px;">
+            </div>
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5" style="text-align: center;">Edit Recruiter</h3>
+            <form method="POST">
+            {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label" for="firstName">First Name</label>
+                    <input type="text" id="fname" name="fname" class="form-control form-control-lg" value="{{recruiter.user.first_name}}"/>
+                  </div>
+
+                </div>
+                <div class="col-md-6 mb-4">
+
+                  <div class="form-outline">
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <input type="text" id="lname" name="lname" class="form-control form-control-lg" value="{{recruiter.user.last_name}}"/>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="emailAddress">Email</label>
+                    <input type="email" id="email" name="email" class="form-control form-control-lg" value="{{recruiter.user.email}}"/>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <div class="form-check">
+                    <br>
+                    {% if recruiter.member_type == 'lead' %}
+                      <input class="form-check-input" value="lead" type="radio" name="member_type" id="member_type" checked/>
+                    {% else %}
+                      <input class="form-check-input" value="lead" type="radio" name="member_type" id="member_type"/>
+                    {% endif %}
+                    <label class="form-check-label" for="lead"> Team lead</label>
+                  </div>
+                  <div class="form-check">
+                    {% if recruiter.member_type == 'member' %}
+                      <input class="form-check-input" type="radio" value="member" name="member_type" id="member_type" checked/>
+                    {% else %}
+                      <input class="form-check-input" type="radio" value="member" name="member_type" id="member_type"/>
+                    {% endif %}
+                      <label class="form-check-label" for="member" > Team member</label>
+                  </div>
+                </div>                
+            </div>
+
+              <div class="row">
+                
+
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                        <label for="department">Department</label>
+                        <br>
+                        <div style="height:40px !important">
+                            <select name="department" id="department" class="form-control">
+                                {% for d in department %}
+                                    {% if d.name == recruiter.department.name%}
+                                        <option value="{{d.id}}" selected>{{d}}</option>
+                                    {% else %}
+                                        <option value="{{d.id}}">{{d}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+              </div>
+
+
+              <div class="p-t-15">
+                <input class="btn" type="submit" value="Submit" style="background-color: #fcb247;color: white;"/>
+              </div>
+              <div style="text-align: center;">
+                <a href="{% url 'manageRecruiters' %}">Go back</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+      </div>
+  </div>
+ {% include 'main/constant/footer.html' %}
+
+
+</body>
+
+{% if messages %}
+{% for message in messages %}
+<script>alert('{{message}}')</script>
+{% endfor %}
+{% endif %}
+
+
+</html>
+<!-- end document-->

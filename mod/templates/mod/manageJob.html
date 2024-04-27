@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewApplicant.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <title>Manage Recruiters</title>
+    <style>
+    .badge-style{
+			float: right; 
+			margin-right: 7px; 
+            width:60px;
+		}
+
+    .card-style{
+        transition: all .2s ease-in-out;
+    }
+    .card-style:hover{
+        transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">
+        <img src="{% static 'images/icons/job.png' %}" style="width: 70px; display: inline-block;">
+
+        <h3 class="display-7 fw-bold border-bottom pb-2" style="display: inline-block; margin-left: 20px;">Manage Jobs</h3>
+        <p class="lead mb-4" style="margin-left: 95px;margin-top: -10px;">Below are the list of jobs</p>
+        
+        <div class="d-grid gap-2 d-sm-flex" style="float: left;">
+            <button class="btn" style="background-color: #fcb247;color: white;" data-url="{% url 'createJobOption' %}" type="button" data-bs-toggle="modal" data-bs-target="#modal-job-option">
+            Add new job
+            </button>
+
+            <!-- <a href="{% url 'addJob' %}"><button type="button" class="btn btn-search">Add New Job</button></a> -->
+        </div>
+    
+        <br>
+
+    <div class="d-flex flex-column gap-4" style="float: inline-end; margin-right: 5%; width: 60%;">
+        <form class="d-flex" method="GET">
+            <input class="form-control me-1 input-filter" type="search" placeholder="Search for a job name" aria-label="Search" name="search">
+            <button class="btn btn-search" type="submit">Search</button>
+        </form>
+    </div><br><br><br>
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="align-items-center row">
+                        <div class="col-lg-8">
+                            <div class="mb-3 mb-lg-0"><h6 class="fs-16 mb-0">Showing {{totalJobs}} results</h6></div>
+                        </div>
+                        <div class="col-lg-4">
+                            <form method="GET">
+                                <div class="candidate-list-widgets">
+                                    <div class="row">
+                                        <div class="d-flex justify-content-end">
+                                            <div class="col-lg-6" style="padding-right: 20px;">
+                                                <div class="selection-widget mt-2 mt-lg-0">
+                                                    <select class="form-select input-filter" data-trigger="true" name="category" id="category" aria-label="Default select example" onchange="this.form.submit()">
+                                                        <option value="">Category</option>
+                                                        {% for c in category %}
+                                                            <option value="{{c}}">{{c}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="selection-widget mt-2 mt-lg-0">
+                                                    <select class="form-select input-filter" data-trigger="true" name="department" id="department" aria-label="Default select example" onchange="this.form.submit()">
+                                                        <option selected disabled>Department</option>
+                                                        <option value="">All</option>
+                                                        {% for d in department %}
+                                                            <option value="{{d}}">{{d}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+        {% if job.count == 0 %}
+            
+        {% else %}
+        <div class="candidate-list">
+            <div class="container">
+                <div class="row g-3">
+                {% for j in job %}
+                <div class="col-lg-4">
+                    <div class="card card-style" style="width: 20rem;">
+                        <div class="card-body">
+                            {% if j.status == 'OPEN' %}
+                            <span class="badge ms-1 badge-style" style="background-color: #AED688;">{{j.status}}</span>
+                            {% else %}
+                            <span class="badge ms-1 badge-style" style="background-color: rgb(231, 100, 100);">{{j.status}}</span>
+                            {% endif %}
+                            <div style="text-align: center; margin-top: 25px; margin-bottom:10px ;">
+                            {% if j.department.icon == '' %}
+                                <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="height: 70px;">
+                            {% else %}
+                                <img src="/media/{{j.department.icon}}" style="height: 70px;">
+                            {% endif %}
+                            </div>
+                            <h5 class="card-title" style="color: blue;">{{j.name}}</h5>
+                            <h6 class="card-subtitle mb-2 ">{{j.department}}</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">{{j.department.category}} || {{j.type}}</h6>
+                            <hr>
+                            <p>
+                            <strong>Closing Date </strong>: {{j.dateClose}}<br>
+                            </p>
+                            {% if j.status == 'OPEN' %}
+                            <button class="btn btn-sm" style="background-color: #fcb247;color: white;" data-url="{% url 'viewConfirmation' j.id %}" type="button" data-bs-toggle="modal" data-bs-target="#modal-confirmation">
+                                Send Email Reminder
+                            </button>
+                            <br><br>
+                            {% endif %}
+                            <a href="{% url 'viewJobDetails' j.id %}" class="card-link">View More</a>
+                            <a href="{% url 'viewJobApplications' j.id %}" class="card-link">View Applicants</a>
+                            <!-- <a href="" class="card-link">Archive Job</a> -->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+           <div class="modal fade" id="modal-confirmation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modal-job-option" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
+            
+        </div><br>
+
+    
+    </section>
+    </div>
+    {% endif %}
+    </main>
+      </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+  {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+    
+
+    <script src="{% static 'js/jquery-2.1.1.js'%}"></script>
+    <script>
+        // pop up modal for applicants who have applied before:
+        $('#modal-confirmation').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $('.modal-content').html(data);
+                }
+            });
+        });
+
+        $('#modal-job-option').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $('.modal-content').html(data);
+                }
+            });
+        });
+                        
+         
+    </script>
+
+
+    
+</body>
+</html>

@@ -1,0 +1,18 @@
+<div class="modal-header">
+        <h5 class="modal-title">Create job opening</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <p>Would you like to create an academic job opening or non-academic job opening?</p>
+            <div style="float:right">
+                <a href="{% url 'addJob' %}"><button type="button" class="btn btn-sm" style="background-color: rgb(145, 201, 145); color: white;">Academic</button></a>
+                <a href="{% url 'nonAcademicJob' %}"><button type="button" class="btn btn-sm" style="background-color: #fcb247;color: white;">Non-Academic</button></a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button> 
+    </div>

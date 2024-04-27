@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link href="{% static 'css/recruiter_reg.css' %}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <title>Add Department</title>
+     <style>
+      .label-style{
+        font-size:16px;
+        letter-spacing: 1px;
+      }
+    </style>
+
+
+</head>
+<body>
+      {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+   <section>
+        
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center">
+      <!-- <div class="col-12 col-lg-10 col-xl-7"> -->
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body ">
+            <div style="text-align: center">
+              <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 100px; margin-bottom: 10px;">
+              <h3>Add Department</h3>
+              <p class="fs-6 text-muted">
+                Please fill out the 'Add New Department' form below, including the department name, description,<br>
+                 icon, and link for applicants to learn more about the department.
+            </p><br>
+              <hr><br>
+            </div>
+            <form method="POST" style="align-items: center;" enctype="multipart/form-data" onsubmit="return confirm('Are you sure you want to add this new department?');">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4">
+                    <div class="form-outline"  style="text-align: center;">
+                        <label class="form-label label-style" for="name">Department Name : </label>
+                        <input type="text" id="name" name="name" class="form-control" required/>
+                    </div>
+
+                </div>
+            </div>
+
+              <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 pb-2">
+                    <div class="form-outline" style="text-align: center;">
+                        <label for="category" class="label-style">Category :</label>
+                        <select class="form-select" aria-label="Default select example" style="text-align: center;margin-top: 5px;" name="category" onchange="otherOptionSelect(this)">
+                          <option value="Academic">Academic</option>
+                          <option value="Non-Academic">Non-Academic</option>
+                          <option id="otherOption" value="Others">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 pb-2">
+                    <div class="form-outline" style="text-align: center;" id="other_category">
+                        
+                        
+                    </div>
+                </div>
+        
+              <div class="row justify-content-center">
+                <div class="col mb-4">
+                  <div class="form-outline" style="text-align: center;">
+                    <label class="form-label label-style" for="description">Description :</label>
+                    <textarea name="description" class="form-control" style="height: 200px;" required></textarea>
+                  </div>
+                </div>
+
+                
+            </div>
+
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100" style="text-align: center;">
+                    <label class="form-label label-style">Link :</label>
+                    <input type="text" class="form-control" name="link" required/>
+                  </div>
+                </div>
+
+                
+            </div>
+
+          
+
+              <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 pb-2">
+                    <div class="form-outline" style="text-align: center;">
+                        <label for="category" class="label-style">Icon :</label>
+                        <p class="fs-7 text-muted">Leaving this empty will make the department's icon the default UBD icon.</p>
+                        <input type="file" name="icon" class="form-control form-control">
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-2">
+
+                        <input class="btn btn-sm " style="background-color: #fcb247;" type="submit" value="Submit" />
+                    </div>
+                    </div>
+                
+              </div>
+              <div style="text-align: center;">
+              <a href="{% url 'viewDepartments' %}">Go back</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    </main>
+  
+  </div>
+  </div>
+      {% include 'main/constant/footer.html' %}
+    
+      <script>
+        function otherOptionSelect(value){
+        if(value){
+            optionValue = document.getElementById("otherOption").value;
+            if(value == optionValue){
+              document.getElementById("other_category").textContent= "";
+              document.getElementById("other_category").innerHTML("<label for='category' class='label-style'>Please specify the other category :</label><input type='text' name='other_category' class='form-control' required/>")
+            }
+            else{
+                document.getElementById("other_category").textContent= "";
+            }
+        }
+        else{
+            document.getElementById("other_category").textContent= "";
+        }
+    }
+
+      </script>
+
+    {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+
+</body>
+</html>

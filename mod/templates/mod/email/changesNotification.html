@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder Email</title>
+</head>
+<body>
+    <h4>Dear {{context.fullname}} ,</h4>
+
+    <p>We hope this email finds you well. We wanted to inform you of some important updates regarding the job opportunity for the position of <b> {{context.job_name}} </b> that you have applied for 
+        through our recruitment system.</p>
+
+    <p>Due to unforeseen circumstances, there have been some changes to the job details. We want to ensure transparency and keep you informed throughout the process.
+    </p>
+
+    <p>If you've saved your application as a draft, please take a moment to finalize and submit it before the due date to be considered for the position.
+    The due date for this job application is <b>{{context.due_date}}</b>
+    
+    <br><br>
+    Should you have any inquiries or require assistance during the submission process, please do not hesitate to reach out to us.
+    Thank you for your cooperation.</p>
+
+    <p>Best Regards,</p>
+    <p>The UBD hiring team </p>
+
+
+    
+</body>
+</html>

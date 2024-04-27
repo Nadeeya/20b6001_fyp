@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    {% load my-tags %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewApplicant.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <title>View Departments</title>
+    <style>
+ 
+
+    .card-style{
+        transition: all .2s ease-in-out;
+    }
+    .card-style:hover{
+        transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <br>
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">
+        <img src="{% static 'images/icons/job.png' %}" style="width: 70px; display: inline-block;">
+
+        <h3 class="display-7 fw-bold border-bottom pb-2" style="display: inline-block; margin-left: 20px;">View Departments</h3>
+        <p class="lead mb-4" style="margin-left: 95px;margin-top: -10px;">Below are the list of departments</p>
+        
+        <div class="d-grid gap-2 d-sm-flex" style="float: left;">
+            <a href="{% url 'addDepartment' %}"><button type="button" class="btn btn-search">Add New Department</button></a>
+        </div>
+    
+        <br>
+
+    <div class="d-flex flex-column gap-4" style="float: inline-end; margin-right: 5%; width: 60%;">
+        <form class="d-flex" method="GET">
+            <input class="form-control me-1 input-filter" type="search" placeholder="Search for a department name" aria-label="Search" name="search">
+            <button class="btn btn-search" type="submit">Search</button>
+        </form>
+    </div><br><br><br>
+    <section class="section">
+        
+
+
+        {% if departments.count == 0 %}
+            
+        {% else %}
+        <div class="candidate-list">
+            <div class="container">
+                <div class="row g-3">
+                {% for department in departments %}
+                <div class="col-lg-4">
+                    <div class="card card-style" style="width: 21rem;">
+                        <div class="card-body">
+                            <div style="text-align: center;">
+                                {% if department.icon == '' %}
+                                <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="height: 70px;">
+                                {% else %}
+                                <img src="/media/{{department.icon}}" style="height: 70px;">
+                                {% endif %}
+                            </div><br>
+                            <h5 class="card-title" style="color: blue;">{{department.name}}</h5>
+                            <h6 class="card-subtitle mb-2" style="letter-spacing: 1px;">{{department.category}}</h6>
+                            <hr>
+
+                            {% department_details department.id as department_detail %}
+                            <div style="margin-left: 20px; letter-spacing: 1px;">
+                                <h6 class="card-subtitle mb-2"><strong>{{department_detail.0}}</strong>  Job opening</h6>
+                                <h6 class="card-subtitle mb-2"><strong>{{department_detail.1}}</strong>  Staff Members</h6>
+                                <h6 class="card-subtitle mb-2"><strong>{{department_detail.2}}</strong>  Total Applicants</h6>
+                            </div>
+                            
+
+                            </p>
+                            <a href="{% url 'departmentDetails' department.id %}" class="card-link">View More</a>
+                            <a href="" class="card-link">Archive Job</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+           
+            
+        </div><br>
+
+    
+    </section>
+    </div>
+    {% endif %}
+    </main>
+      </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+
+  {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-sm navbar-dark" aria-label="Eighth navbar example" style="background-color: #273746" >
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'adminHome' %}">Admin Page</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="topnav-right">
+        <div class="collapse navbar-collapse" id="navbarsExample07">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'adminHome' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">{{request.user.email}}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <style>
+    .nav-list{
+      letter-spacing: .1rem;
+    }
+    
+    .nav-list:hover{
+      color: #273746;
+      font-weight: 1000;
+    }
+  </style>
+
+  <div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" style="min-height: 700px;" >
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item ">
+            <a class="nav-link active nav-list" aria-current="page" href="{% url 'adminHome' %}">
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-list" href="{% url 'viewDepartments' %}">
+              View Departments
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-list" href="{% url 'manageJobs' %}">
+              View Job openings
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-list" href="{% url 'manageRecruiters' %}">
+              View All Staff Departments
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link nav-list" href="{% url 'viewAllApplicants' %}">
+              <span data-feather="bar-chart-2"></span>
+              View All applicants
+            </a>
+          </li>
+         
+        </ul>
+
+       
+      </div>
+    </nav>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/tiny_mce/tiny_mce.js' %}"></script>
+    <script src="https://cdn.tiny.cloud/1/30rqj3dl1tyk9x6t3v7kxwy9lnq98h0lhayp1medqw8fr0xa/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/9uxzlukgqsibtchwwietd2jjsjbny6fxcne3llcponr92drx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea#editor',
+            height: 800,
+            plugins: 'charmap codesample image lists link media searchreplace table visualblocks',
+            toolbar: 'undo redo | bold italic underline strikethrough | forecolor backcolor | blocks fontsize | bullist numlist indent outdent align lineheight | link',
+            // contextmenu: false
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>ADD JOB</title>
+</head>
+<body>
+        {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+<br>
+
+        <div class="container" style="border:2px solid lightgrey; padding:30px; border-radius: 25px;">
+        <h1 style="text-align: center;">Add new academic job posting</h1><hr><br>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="job_name">Job Title</label><br> 
+                        <input class="form-control" type="text" name="name" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_category">Category</label><br>
+                        <select class="form-control" name="category" required>
+                            <option value="Academic" selected>Academic</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_department">Department</label><br>
+                        <select class="form-control" name="department" required>
+                            <option value=''>-- Select Department --</option>
+                            {% for d in department %}
+                                <option value="{{d.id}}">{{d.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="job_type">Job Type</label><br>
+                        <select class="form-control" name="type" required>
+                            <option value=''>-- Select job type --</option>
+                            <option value='Full-time'>Full-Time</option>
+                            <option value='Part-time'>Part-Time</option>
+                        </select>
+                    </div>
+                     <div class="col-md-3">
+                        <label for="job_salary">Minimum Salary per annum in BND :</label><br>
+                        <input class="form-control" type="number" name="salaryMin"> 
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_salary">Maximum Salary per annum in BND:</label><br>
+                        <input class="form-control" type="number" name="salaryMax">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="date_close">Closing Date:</label><br>
+                        <input class="form-control" type="date" name="dateClose">
+                    </div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="job_status">Job Status:</label><br>
+                        <select class="form-control" name="status" required>
+                            <option value='OPEN'>OPEN</option>
+                            <option value='CLOSED'>CLOSED</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_status">Job Contract Duration (YEARS):</label><br>
+                        <input class="form-control" type="number" name="contractDur">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_status">Minimum Requirements:</label><br>
+                        <select class="form-control" name="minReq" required>
+                            <option value="O'levels">O'levels</option>
+                            <option value="A'levels">A'levels</option>
+                            <option value='HND'>HND</option>
+                            <option value='Degree'>Degree</option>
+                            <option value='Master'>Master</option>
+                            <option value='PHD'>PHD</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_status">Years of Experience:</label><br>
+                        <input class="form-control" type="number" name="yearsExp">
+                    </div>
+                </div><br>
+                <div style="margin-top:10px;">
+                    <label for="job_info">Description</label><br>
+                    <textarea id="editor" class="form-control" name="description"></textarea>
+                </div><br><br>
+
+                <div class="row">
+                    <p>Choose what happens when Applicant clicks APPLY :</p>
+                    <div class="col-md-3">
+                        <select class="form-control" id="form" name="form" onchange="changeForm()" required>
+                            <option value=''>---</option>
+                            <option value='ACADEMIC'>Academic Form</option>
+                            <option value='EMAIL'>Ask to email</option>
+                            <option value='LINK'>Redirect to link</option>
+                            <option value='CUSTOM'>Show Message</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6" id="custom-msg">
+                        <!-- Using JavaScript to update this element -->
+                    </div>
+                </div><br><br>
+
+                <div>
+                    <button class="btn btn-search" type="submit" name="add-job">Submit</button>
+                    <a class="btn btn-secondary" href="{% url 'adminHome' %}">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div><br>
+     </main>
+  
+  </div>
+  </div>
+
+    
+    <!--footer-->>
+
+    <script>
+        function changeForm() {
+            var form_val = document.getElementById("form").value;
+            switch (form_val) {
+                case 'ACADEMIC':
+                    document.getElementById("custom-msg").innerHTML = "<p>Default Application Form for Academic Position</p>";
+                    break;
+
+                case 'CUSTOM':
+                    var html = '<input class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: To apply for this job email your details to example@gmail.com">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                case 'LINK':
+                    var html = '<input type="url" class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: https://google.forms/example">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                case 'EMAIL':
+                    var html = '<input type="email" class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: example@gmail.com">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                default:
+                    document.getElementById("custom-msg").innerHTML = "";
+            }
+        }
+    </script>
+    {% if messages %}
+    {% for message in messages%}
+    <script>
+        alert('{{message}}')
+    </script>
+    {% endfor %}
+    {% endif %}
+
+ {% include 'main/constant/footer.html' %}
+
+</body>
+</html>

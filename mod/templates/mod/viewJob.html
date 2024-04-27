@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/viewApplicant.css' %}"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <title>Manage Recruiters</title>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="container">
+        <div class="viewbox">
+            <h1 style="padding-bottom:20px;">{{job.name}}</h1>
+            <div>
+                <h5>University Brunei Darussalam</h5>
+                <h4>{{job.type}} | {{job.category}} | {{job.department}}</h4>
+            </div><hr/>
+            <div style="font-size:16px; margin-bottom:30px;">{{job.description | safe}}</div>
+           <a href="{% url 'manageJobs' %}" style="display: inline;"><button class="btn btn-search">Go back</button></a>
+           {% if job.status == 'OPEN' %}
+           <a href="{% url 'editJob' job.id %}" style="float: inline-end; "><button class="btn btn-search" style="width: 80px;">Edit</button></a>
+
+           {% else %}
+           <a href="{% url 'recreateJob' job.id %}" style="float: inline-end; "><button class="btn btn-sm btn-search">Create similar job opening</button></a>
+           {% endif %}
+        </div>
+    </div>
+
+     </main>
+      </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+  {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+
+    
+</body>
+</html>

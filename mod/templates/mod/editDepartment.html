@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link href="{% static 'css/recruiter_reg.css' %}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <title>Register recruiters</title>
+     <style>
+      .label-style{
+        font-size:16px;
+        letter-spacing: 1px;
+      }
+    </style>
+
+
+</head>
+<body>
+      {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+   <section>
+        
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center">
+      <!-- <div class="col-12 col-lg-10 col-xl-7"> -->
+        <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+          <div class="card-body ">
+            <div style="text-align: center">
+                <br>
+                <h2>{{department.name}}</h2>
+              <h3>Edit Department</h3>
+              <p class="fs-6 text-muted">
+                Please fill out the 'Edit Department' form below, including the department name, description,<br>
+                 icon, and link for applicants to learn more about the department.
+            </p><br>
+              <hr><br>
+            </div>
+
+            <form method="POST" style="align-items: center;" enctype="multipart/form-data" name="change_icon" onsubmit="return confirm('Are you sure you want to change the icon?');">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline" style="text-align: center;">
+                        {% if department.icon == '' %}
+                        <label for="category" class="label-style">Add Icon :</label><br>
+                        {% else %}
+                          <label for="category" class="label-style">Change Current Icon :</label><br>
+                          <img src="/media/{{department.icon}}" style="width: 100px; margin-bottom: 10px;">
+                        {% endif %}
+                        <div class="row">
+                        <div class="col">
+                        <input type="file" name="icon" class="form-control form-control" required>
+                        </div>
+                        
+                        <div class="col-md-2">
+                        <button  type="submit" name="change_icon" class="btn-light" style="background-color:#fcb247; height:40px ; width:120px; color: white; border-radius: 7px; ">Upload</button>
+                        </div>
+                        {% if department.icon != '' %}
+                        <div class="col-md-2">
+                        <button  type="button" name="delete_icon" class="btn-light" onclick="remove_icon()" style="background-color:#fcb247; height:40px ; width:120px; color: white; border-radius: 7px; margin-left: 30px; ">Remove icon</button></a>
+                        </div>
+                        {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            </form>
+            <hr>
+            <br>
+
+            <form method="POST" style="align-items: center;" enctype="multipart/form-data" name="edit_details" onsubmit="return confirm('Are you sure you want to edit the department?');">
+            {% csrf_token %}
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4">
+                    <div class="form-outline"  style="text-align: center;">
+                        <label class="form-label label-style" for="name">Department Name : </label>
+                        <input type="text" id="name" name="name" class="form-control" value="{{department.name}}"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 pb-2">
+                    <div class="form-outline" style="text-align: center;">
+                        <label for="category" class="label-style">Category :</label>
+                        <select class="form-select" aria-label="Default select example" style="text-align: center;margin-top: 5px;" name="category">
+                          {% for c in category %}
+                          {% if department.category == c %}
+                            <option value="{{c}}" selected>{{c}}</option>
+                          {% else %}
+                            <option value="{{c}}">{{c}}</option>
+                          {% endif %}
+                          {% endfor %}
+                        </select>
+                    </div>
+                </div>
+        
+            <div class="row justify-content-center">
+                <div class="col mb-4">
+                  <div class="form-outline" style="text-align: center;">
+                    <label class="form-label label-style" for="description">Description :</label>
+                    <textarea name="description" class="form-control" style="height: 200px;">{{department.description}}</textarea>
+                  </div>
+                </div>
+            </div>
+
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100" style="text-align: center;">
+                    <label class="form-label label-style">Link :</label>
+                    <input type="text" class="form-control" name="link" value="{{department.link}}" />
+                  </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-md-2">
+                    <input class="btn btn-search btn-sm " type="submit" value="Submit" name="edit_details" />
+                </div>
+            </div>
+                
+              <div style="text-align: center;">
+              <a href="{% url 'departmentDetails' department.id %}">Go back</a>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    </main>
+  
+  </div>
+  </div>
+      {% include 'main/constant/footer.html' %}
+      {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+
+  <script>
+    function remove_icon(){
+      var r = confirm("Are you sure you want to remove the icon?");
+      if (r==true){
+          window.location.href = "{% url 'removeIcon' department.id %}"
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+{% load static %}
+    {% load bootstrap_icons %}
+<div class="candidate-list-box card mt-4">
+                        <div class="p-4 card-body">
+                            <div class="align-items-center row">
+                                <div class="col-auto">
+                                    <div class="candidate-list-images">
+                                        {% if applicant.application.profile.profilePic == '' %}
+                                            <a href="#"><img src="{% static 'images/icons/user.png'%}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% else %}
+                                            <a href="#"><img src="/media/{{applicant.application.profile.profilePic}}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="candidate-list-content mt-3 mt-lg-0">
+                                    
+                                        <h5 class="fs-19 mb-0">
+                                            <a class="primary-link" href="#">{{applicant.application.user.first_name}} {{applicant.application.user.last_name}}</a>  
+                                        </h5>
+                                        <p class="text-muted mb-2">{% bs_icon 'envelope-at' %}{{applicant.application.user.email}}</p>
+                                        <ul class="list-inline mb-0 text-muted">
+                                            <li class="list-inline-item">{% bs_icon 'calendar' %}<strong>DOB: </strong> {{applicant.application.profile.dob}}</li>
+                                            <li class="list-inline-item"><strong>Gender: </strong>{{applicant.application.profile.gender}}</li>
+                                            <li class="list-inline-item">{% bs_icon 'phone' %}<strong>Phone No: </strong>{{applicant.application.profile.phoneNo}}</li>
+                                            <li class="list-inline-item"><strong>Nationality: </strong>{{applicant.application.profile.nationality}}</li>
+                                        </ul><br>
+                                        <p class="text-muted mb-2">Application date: {{applicant.application.date_added}}</p>
+
+                                        <a href="{% url 'viewApplicationDet' applicant.application.id %}"><button type="button" class="btn btn-light btn-sm" style="background-color: #AED688;letter-spacing: 1px;">More application details</button></a>
+
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <h6><b>Curriculum Vitae: </b></h6>
+                                    <p><a href="{{applicant.application.documents.7.file}}">CV link</a></p>
+                                    <h6><b>Highest Education Qualification:</b> </h6>
+                                    <p>{{applicant.application.academicRec.1.Academic_name}} || {{applicant.application.academicRec.1.Institute}}</p>
+                                    <h6><b>Google scolar / Scopus index: </b></h6>
+                                    <p>Google link: <a href="{{applicant.scholarlyInfo.link}}" target="_blank">Link</a></p>
+                                    <p>Scopus link: <a href="{{applicant.scopusInfo.link}}" target="_blank">Link</a></p>
+
+                                    
+                                </div>
+                                 <div class="col-lg-3">
+                                    <h6><strong>Work Experience :</strong> </h6>
+                                    <!-- EDUCATION SECTOR EXPERIENCE -->
+                                    {% if applicant.experienceHighEd == 'No' %}
+                                        <p><strong>No experience</strong> in higher education</p>
+                                    {% else %}
+                                        <p><strong>Higher Education: </strong><br>
+                                        {{applicant.employmentRecHighEd.1.Academic_position}} <b>||</b> {{applicant.employmentRecHighEd.1.Previous_institute}}</p>
+                                    {% endif %}
+                                    <!-- INDUSTRY EXPERIENCE -->
+                                    {% if applicant.experienceInd == 'No' %}
+                                        <p><strong>No experience</strong> in industry.</p>
+                                    {% else %}
+                                        <p><strong>Industry:</strong><br>
+                                        {{applicant.employmentRecInd.1.Industry_position}} <b>||</b> {{applicant.employmentRecInd.1.Previous_industry}}</p>
+                                    {% endif %}
+
+                                    <hr>
+                                    
+                                    
+                                    </div>
+                                
+                            </div>
+                            <div class="favorite-icon">
+                                <div class="col">
+                                    <div style="text-align: center;">
+                                        {% if applicant.application.applicant_status == 'RECOMMENDED' %}
+                                            <span class="badge bg-success ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'NOT RECOMMENDED' %}
+                                            <span class="badge bg-danger ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% elif applicant.application.applicant_status == 'PENDING' %}
+                                            <span class="badge bg-secondary ms-1">{{applicant.application.applicant_status}}</span>
+                                        {% endif %}
+                                    </div>
+
+                                    
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>

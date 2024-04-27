@@ -1,0 +1,18 @@
+Dear {{context.fullname}},
+
+We hope this email finds you well. We wanted to inform you of some important updates regarding the job opportunity for the position of {{context.job_name}} that you have applied for 
+through our recruitment system.
+
+Due to unforeseen circumstances, there have been some changes to the job details. We want to ensure transparency and keep you informed throughout the process. Please kindly update the
+updated details.
+
+
+If you've saved your application as a draft, please take a moment to finalize and submit it before the due date to be considered for the position.
+The due date for this job application is {{context.due_date}}
+
+
+Should you have any inquiries or require assistance during the submission process, please do not hesitate to reach out to us.
+Thank you for your cooperation.
+
+Best Regards,
+The UBD hiring team 

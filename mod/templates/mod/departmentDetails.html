@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    {% include 'mod/constant/meta.html' %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+
+    <title>Manage Recruiters</title>
+    <style>
+    .link-style{
+        text-decoration: none;
+        color:black;
+    }
+    .link-style:hover{
+        color:blue;
+    }
+   </style>
+</head>
+<body>
+    {% include 'mod/constant/navbar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+    <div style="text-align: center; margin-top: 50px; width:550px; margin-left: auto; margin-right: auto;">
+        {% if department.icon == '' %}
+            <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="height: 80px;">
+        {% else %}
+            <img src="/media/{{department.icon}}" style="width: 80px; margin-bottom: 10px;">
+        {% endif %}
+        <h4 style="letter-spacing: 1px;">{{department.name}}</h4>
+    </div>
+    <p class="fs-6 text-muted">{{department.description}}</p>
+    <p class="fs-6 text-muted" style="display: inline;">Link : <a href="">{{department.link}}</a></p>
+    <a href="{% url 'editDepartment' department.id %}"><button class="btn btn-search" style="display: inline; float: right;">Edit Details</button></a>
+    <br><br>
+    <hr>
+    <div class="row g-2 align-items-center">
+        <div class="col-md-6 align-items-center px-4">
+            <h6 style="text-align: center;"><strong>List of jobs under {{department.name}}</strong></h6>
+            <table class="table" style="text-align: center;">
+                <tr style=" background-color:#f7cc90 ;">
+                    <th>#</th>
+                    <th>Job Name</th>
+                    <th>Status</th>
+                </tr>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><a href="{% url 'viewJobApplications' job.id %}" class="link-style">{{job.name}}</a></td>
+                    {% if job.status == 'OPEN' %}
+                    <td style="color:  rgb(145, 201, 145);">
+                    {% else %}
+                    <td style="color:rgb(241, 138, 138) ;">
+                    {% endif %}
+                        <strong>{{job.status}}</strong>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </table>
+            {% if department.category == 'Academic'%}
+            <a href="{% url 'addJob' %}">
+            {% else %}
+            <a href="{% url 'nonAcademicJob' %}">
+            {% endif %}
+            <button class="btn btn-primary btn-sm" style="float: inline-end;">Add New Job</button></a>
+        </div>
+         <div class="col-md-6 align-items-center px-4">
+            <h6 style="text-align: center; "><strong>List of recruiting staff members</strong></h6>
+            <table class="table" style="text-align: center;">
+                <tr style=" background-color: rgb(145, 201, 145) ;">
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+                {% for rec in recruiters %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{rec.user.first_name}} {{rec.user.last_name}}</td>
+                    <td>{{rec.user.email}}</td>
+                    <td>{{rec.member_type}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'addRecruiter'%}"><button class="btn btn-primary btn-sm" style="float: inline-end;" >Add New Member</button></a>
+
+        </div>
+    </div>
+    </main>
+  
+  </div>
+  </div>
+
+      {% include 'main/constant/footer.html' %}
+   {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+  
+</body>
+</html>

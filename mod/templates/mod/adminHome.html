@@ -1,0 +1,152 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{% static 'css/footer.css'%}" rel="stylesheet">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- Style -->
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <title>Moderator Page</title>
+   <style>
+    .link-style{
+        text-decoration: none;
+        color:black;
+    }
+    .link-style:hover{
+        color:blue;
+    }
+   </style>
+  </head>
+  <body>
+    {% include 'mod/constant/navbar.html' %}
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="container px-4 py-5" id="featured-3">
+            <div class="row">
+                <div class="col-md-5">
+                    <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 80px; display: inline-block;">
+                    <h2 class="pb-2 border-bottom" style="display: inline-block; margin-left: 15px;" >Welcome UBD Admin</h2>
+                    <p style="margin-left: 95px; margin-top: -20px;">Below are services that you can manage</p>
+                </div>
+            
+
+                    <div class="col">
+                        <div class="row">
+                        <div class="col">
+                            <div class="card card-style" onclick="window.location.href = '{% url "manageJobs" %}'" style="background-color: #fcb247;">
+                                <div class="card-body" style="text-align: center; letter-spacing: 1px; color: white;">
+                                    <h5>VIEW JOB OPENINGS</h5>
+                                    <h4>{{totalJobs}} </h4>
+                                <!-- <img src="{% static 'images/job.png' %}" style="height: 50px; display: inline-block;"> -->
+                                <!-- <p style="display: inline-block; margin-left: 10px;"><strong>{{totalJobs}} </strong> Total job openings</p> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" >
+                            <div class="card card-style" onclick="window.location.href = '{% url "manageRecruiters" %}'" style="background-color: rgb(145, 201, 145);">
+                                <div class="card-body" style="text-align: center; letter-spacing: 1px; color: white"> 
+                                    <h5>VIEW STAFF DEPARTMENTS</h5>
+                                    <h4>{{totalRecruiters}} </h4>
+                                <!-- <img src="{% static 'images/recruiter.png' %}" style="height: 50px; display: inline-block;"> -->
+                                <!-- <p style="display: inline-block; margin-left: 10px;"><strong>{{totalRecruiters}} </strong> Total Recruiters</p> -->
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col">
+                            <div class="card card-style" style="background-color: #47A8FC;">
+                                <div class="card-body" style="text-align: center; letter-spacing: 1px; color: white">
+                                    <h5>VIEW ALL APPLICANTS</h5>
+                                    <h4>{{totalApplicants}} </h4>
+                                <!-- <img src="{% static 'images/user.png' %}" style="height: 50px; display: inline-block;"> -->
+                                <!-- <p style="display: inline-block; margin-left: 10px;"><strong>{{totalApplicants}} Total applicants</strong></p> -->
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div> 
+            </div>
+        </div>
+            <div style="border-style: solid;border-width:thin;padding: 5px; border-radius: 20px; border-color: #fcb247;">
+            {{chart|safe}}
+            </div>
+            <br>
+
+            <div style="width: 45%; float: inline-start;">
+            {{pie_chart|safe}}
+            </div>
+            <div style="width: 45%; float: inline-end">
+            {{pie_chart2|safe}}
+            </div>
+
+            <div style="margin-top: 400px;">
+            {{plot_line|safe}}
+            </div>
+
+            <div style="width:50%; float: inline-start;">
+            {{citation_hindex | safe}}
+            </div>
+            <div style="width:50%; float: inline-end;">
+            {{hindex | safe}}
+            </div>
+
+
+            
+            <!-- {% if jobs %}
+            <table class="table table-bordered table-style" style="text-align: center;">
+                <thead>
+                    <tr class="table-success">
+                    <th scope="col">#</th>
+                    <th scope="col">Department</th>
+                    <th scope="col">Job</th>
+                    <th scope="col">Total applicants</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Closing Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr >
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href="{% url 'departmentDetails' job.department.id %}" class="link-style">{{job.department.name}}</a></td>
+                    <td><a href="{% url 'viewJobApplications' job.id %}" class="link-style">{{job.name}}</a></td>
+                    <td></td>
+                    {% if job.status == 'CLOSED'%}
+                    <td style="color: red;">
+                    {% else %}
+                    <td style="color: green;">
+                    {% endif %}
+                        <strong>{{job.status}}</strong>
+                    </td>
+                    <td>{{job.dateClose}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %} -->
+
+
+
+     {% if message %}
+		<script>
+			alert('{{message}}')
+		</script>
+	{% endif %}
+
+    </main>
+
+
+    </div>
+  </div>
+      {% include 'main/constant/footer.html' %}
+
+
+  
+</body>
+</html>

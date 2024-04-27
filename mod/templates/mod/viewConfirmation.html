@@ -1,0 +1,17 @@
+<div class="modal-header">
+        <h5 class="modal-title">Send Email Reminder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <p>This will remind all candidates who saved their job form as a draft to submit their application.</p>
+            <div style="float:right">
+                <a href="{% url 'sendEmailReminder' job_id %}"><button type="button" class="btn" style="background-color: rgb(145, 201, 145); color: white;">Yes</button></a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+    </div>

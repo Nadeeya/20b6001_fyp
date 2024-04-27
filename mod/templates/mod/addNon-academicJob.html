@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/tiny_mce/tiny_mce.js' %}"></script>
+    <script src="https://cdn.tiny.cloud/1/30rqj3dl1tyk9x6t3v7kxwy9lnq98h0lhayp1medqw8fr0xa/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/9uxzlukgqsibtchwwietd2jjsjbny6fxcne3llcponr92drx/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script> -->
+    <script>
+        tinymce.init({
+            selector: 'textarea#editor',
+            height: 800,
+            plugins: 'charmap codesample image lists link media searchreplace table visualblocks',
+            toolbar: 'undo redo | bold italic underline strikethrough | forecolor backcolor | blocks fontsize | bullist numlist indent outdent align lineheight | link',
+            // contextmenu: false
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/departmentPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>ADD JOB</title>
+</head>
+<body>
+        {% include 'mod/constant/navbar.html' %}
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+<br>
+
+        <div class="container" style="border:2px solid lightgrey; padding:30px; border-radius: 25px;">
+        <h3 style="text-align: center;">Iklan jawatan bukan akademik</h3><hr><br>
+        <div class="form-group">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Header</label>
+                    <textarea class="form-control" name="header">Pemohon-Pemohon terdiri dari rakyat Kebawah Duli Yang Maha Mulia Paduka Seri Baginda Sultan dan Yang Di-Pertuan Negara Brunei Darussalam adalah dipelawa untuk memohon jawatan berikut</textarea>
+                </div><br>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="job_name">Jawatan</label><br> 
+                        <input class="form-control" type="text" name="name" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_category">Kategori</label><br>
+                        <select class="form-control" name="category" required disabled>
+                            <option value='Non-Academic' selected>Non-Academic</option>
+                            <!-- {% for c in category %} -->
+                                <!-- <option value="{{c}}">{{c}}</option> -->
+                            <!-- {% endfor %} -->
+                        </select>
+                    
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_department">Jabatan / Fakulti</label><br>
+                        <select class="form-control" name="department" required>
+                            <option value=''>-- Select Department --</option>
+                            {% for d in department %}
+                                <option value="{{d.id}}">{{d.name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="job_type">Jenis Pekerjaan</label><br>
+                        <select class="form-control" name="type" required>
+                            <option value=''>-- Pilih Jenis Pekerjaan --</option>
+                            <option value='Full-time'>Sepenuh masa</option>
+                            <option value='Part-time'>Sambilan</option>
+                        </select>
+                    </div>
+                     <div class="col-md-3">
+                        <label for="job_salary">Gaji minima sebulan dalam BND:</label><br>
+                        <input class="form-control" type="number" name="salaryMin"> 
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_salary">Gaji maxima sebulan dalam BND:</label><br>
+                        <input class="form-control" type="number" name="salaryMax">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="date_close">Tarikh Tutup:</label><br>
+                        <input class="form-control" type="date" name="dateClose">
+                    </div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="job_status">Kekosongan:</label><br>
+                        <input class="form-control" type="number" name="vacancy">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_status">Tahap Pendidikan Minimum:</label><br>
+                        <select class="form-control" name="minReq" required>
+                            <option value="O'levels">O'levels</option>
+                            <option value="A'levels">A'levels</option>
+                            <option value='HND'>HND</option>
+                            <option value='Degree'>Degree</option>
+                            <option value='Master'>Master</option>
+                            <option value='PHD'>PHD</option>
+                        </select>
+                    </div>
+                </div>
+                   <br>
+                
+                <div class="form-group" style="margin-top: 10px;">
+                    <h6>Calon pekerja perlu ada pengalaman berkhidmat dalam perkhidmatan kerajaan</h6>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pengalaman_berkhidmat" id="exampleRadios1" value="Yes">
+                        <label class="form-check-label" for="exampleRadios1">
+                            Ya
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="pengalaman_berkhidmat" id="exampleRadios2" value="No">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Tidak
+                        </label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col-md-6">
+                        <label for="job_name" id="prev_jawatan_label">Jawatan yang telah calon berkhidmat: </label><br> 
+                        <input class="form-control" type="text" name="prev_jawatan" id="prev_jawatan">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="job_category" id="pengalaman_tahun_label">Pengalaman Tahun</label><br>
+                        <input class="form-control" type="number" id="pengalaman_tahun" name="pengalaman_tahun">
+                    
+                    </div>
+                    
+                </div><br>
+
+
+                
+                <div style="margin-top:10px;">
+                    <label for="job_info">Penerangan Jawatan</label><br>
+                    <textarea id="editor" class="form-control" name="description"></textarea>
+                </div><br><br>
+
+                <div class="row">
+                    <p>Choose what happens when Applicant clicks APPLY :</p>
+                    <div class="col-md-3">
+                        <select class="form-control" id="form" name="form" onchange="changeForm()" required>
+                            <option value=''>---</option>
+                            <option value='ACADEMIC'>Academic Form</option>
+                            <option value='NON-ACADEMIC' selected>Non-Academic Form</option>
+                            <option value='EMAIL'>Ask to email</option>
+                            <option value='LINK'>Redirect to link</option>
+                            <option value='CUSTOM'>Show Message</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6" id="custom-msg">
+                        <!-- Using JavaScript to update this element -->
+                    </div>
+                </div><br><br>
+
+                <div>
+                    <button class="btn btn-search" type="submit" name="add-job">Submit</button>
+                    <a class="btn btn-secondary" href="{% url 'adminHome' %}">Cancel</a>
+                </div>
+
+            </form>
+        </div>
+    </div><br>
+     </main>
+  
+  </div>
+  </div>
+
+    
+    <!--footer-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+
+    <script>
+        function changeForm() {
+            var form_val = document.getElementById("form").value;
+            switch (form_val) {
+                case 'ACADEMIC':
+                    document.getElementById("custom-msg").innerHTML = "<p>Default Application Form for Academic Position</p>";
+                    break;
+
+                case 'CUSTOM':
+                    var html = '<input class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: To apply for this job email your details to example@gmail.com">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                case 'LINK':
+                    var html = '<input type="url" class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: https://google.forms/example">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                case 'EMAIL':
+                    var html = '<input type="email" class="form-control" name="btnMsg" ';
+                    html += 'placeholder="Example: example@gmail.com">';
+                    document.getElementById("custom-msg").innerHTML = html;
+                    break;
+
+                case 'NON-ACADEMIC':
+                    document.getElementById("custom-msg").innerHTML = "<p>Default Application Form for Non-Academic Position</p>";
+                    break;
+
+                default:
+                    document.getElementById("custom-msg").innerHTML = "";
+            }
+        }
+
+        $('input[name="pengalaman_berkhidmat"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#prev_jawatan_label').show();
+      $('#prev_jawatan').show();
+      $('#pengalaman_tahun_label').show();
+      $('#pengalaman_tahun').show();
+    } else {
+      $('#prev_jawatan_label').hide();
+      $('#prev_jawatan').hide();
+      $('#pengalaman_tahun_label').hide();
+      $('#pengalaman_tahun').hide();
+    }
+  })
+
+  $('#prev_jawatan_label').hide();
+$('#prev_jawatan').hide();
+$('#pengalaman_tahun_label').hide();
+$('#pengalaman_tahun').hide();
+    </script>
+    {% if messages %}
+    {% for message in messages%}
+    <script>
+        alert('{{message}}')
+    </script>
+    {% endfor %}
+    {% endif %}
+
+ {% include 'main/constant/footer.html' %}
+
+</body>
+</html>
