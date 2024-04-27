@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>Research & Faculties</title>
+</head>
+<body>
+    {% include 'main/constant/header.html' %}
+    {% include 'main/mainPages/ubdnav.html' %}
+    <div class="career-bg" style="background-image: url({% static '/images/contentDeco/headerresearch.jpg' %});"></div>
+    
+    <div class="container">
+        <div class="viewbox">
+            <h1>Research and Faculties</h1><hr/>
+
+            <p>In recent years, UBD has seen a research boom through its initiatives to increase its research and collaborations. 
+                UBD has developed a large number of graduate scholarships to build itself into a research-intensive university, 
+                and also to expand and enhance the quality of graduate programmes and graduates. The university provides exciting 
+                opportunities for graduate scholarships to aspiring academicians from Brunei and the world to undertake graduate 
+                studies and research in UBD. In addition, UBD also creates opportunities for fruitful collaborations between UBD 
+                and its international partners for academic and student mobility through exchange programmes and fellowship programmes. 
+                The research funding and research facilities at UBD have developed tremendously consequently, leading to a significant 
+                increase in graduate students and collaborators coming to UBD to undertake research.</p>
+
+            <p>With the massive academic mobility and a number of internationalisation strategies including increased joint academic 
+                programmes, research collaborations and networks such as iCUBE and Borneo Studies Network (BSN), UBD’s active 
+                partnerships with institutions worldwide have brought increased international students and staff coming to UBD and 
+                thus, contributed to the tremendous improvement in campus life, teaching and research output at the university. 
+                Meanwhile, the Kuala Belalong Field Study Centre (KBFSC) remains UBD’s signature research facility for biodiversity 
+                and environmental research, with the research centre located in Temburong district.</p>
+
+            <p>In the last three years, UBD has filed over 40 patents through its Innovation and Enterprise Office, eight of which 
+                have been granted both in Brunei and internationally. UBD aims to leverage on its comparative niche advantages and 
+                major research projects in biodiversity, herbal medicine, halal products, Islamic governance and energy are ongoing, 
+                all of which are of particular interest nationally and are expected to have global impact.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="viewbox">
+            <h1>UBD research thrusts</h1><hr/>
+            <ul>
+                <li>Biodiversity Research</li>
+                <li>Energy Research</li>
+                <li>Asian Studies</li>
+                <li>Islamic Studies</li>
+                <li>Data Analytics</li>
+                <li>Sensor Technology Research</li>
+                <li>Catalysis Research</li>
+                <li>Herbal Research</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="viewbox">
+            <h1>Our state-of-the-art faculties and research centres</h1><hr/>
+
+            <h3>Academic Faculties</h3>
+            <ul>
+                <li><a href="http://apb.ubd.edu.bn/" target=none>Academy of Brunei Studies</a></li>
+                <li><a href="http://fass.ubd.edu.bn/" target=none>Faculty of Arts and Social Sciences</a></li>
+                <li><a href="http://fit.ubd.edu.bn/" target=none>Faculty of Integrated Technologies</a></li>
+                <li><a href="http://fos.ubd.edu.bn/" target=none>Faculty of Science</a></li>
+                <li><a href="https://ips.ubd.edu.bn/" target=none>Institute of Policy Studies</a></li>
+                <li><a href="http://shbie.ubd.edu.bn/" target=none>Sultan Hassanal Bolkiah Institute of Education</a></li>
+                <li><a href="https://ihs.ubd.edu.bn/" target=none>Pengiran Anak Puteri Rashidah Sa'adatul Bolkiah Institute of Health Sciences</a></li>
+                <li><a href="http://sbe.ubd.edu.bn/" target=none>UBD School of Business and Economics</a></li>
+                <li><a href="http://sds.ubd.edu.bn/" target=none>UBD School of Digital Science</a></li>
+            </ul>
+
+            <h3>Research Institutes</h3>
+            <ul>
+                <li><a href="https://ubd.edu.bn/research-institutes/cames/">Centre for Advanced Material and Energy Sciences</a></li>
+                <li><a href="http://care.ubd.edu.bn/">Centre for Advanced Research</a></li>
+                <li><a href="https://ias.ubd.edu.bn/">Institute of Asian Studies</a></li>
+                <li><a href="http://iada.ubd.edu.bn/">Institute of Applied Data Analytics</a></li>
+                <li><a href="http://iber.ubd.edu.bn/">Institute for Biodiversity and Environmental Research</a></li>
+                <li><a href="https://ubd.edu.bn/research-institutes/institute-for-leadership,-innovation-and-advancement/">Institute for Leadership, Innovation and Advancement</a></li>
+                <li><a href="http://soascis.ubd.edu.bn/">Sultan Omar 'Ali Saifuddien Centre for Islamic Studies</a></li>
+            </ul>
+            
+            <h3>Service Faculties</h3>
+            <ul>
+                <li><a href="https://lc.ubd.edu.bn/">Language Centre</a></li>
+                <li><a href="https://ubd.edu.bn/c3l/">Centre for Lifelong Learning</a></li>
+            </ul>
+        </div>
+    </div>
+    
+ {% include 'main/constant/footer.html' %}
+</body>
+</html>

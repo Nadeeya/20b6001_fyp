@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <title>Career Opportunities - Universiti Brunei Darussalam</title>
+	<style>
+		div.scrollmenu {
+		/* background-color: #333; */
+		overflow: auto;
+		white-space: nowrap;
+		height: 270px;
+		display: flex;
+		flex-direction: row;
+		position: relative;
+		flex-wrap: nowrap;
+		overflow-x: hidden;
+		scroll-behavior: smooth;
+    	-webkit-overflow-scrolling: touch;
+		}
+
+		div.scrollmenu a {
+		display: inline-block;
+		color: white;
+		text-align: center;
+		padding: 14px;
+		text-decoration: none;
+		}
+
+		div.scrollmenu a:hover {
+		background-color: white;
+		}
+
+		.grow { 
+		transition: all .2s ease-in-out; 
+		}
+
+		.grow:hover { 
+		transform: scale(1.1); 
+		box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+		}
+
+		.icon-style{
+			display: inline-block; 
+			width:130px; 
+			height: 130px; 
+			border-radius: 25px; 
+			margin-right:20px; 
+			padding-top:30px;
+			background-color: white;
+			box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; 
+			
+			/* border-style: solid; */
+
+		}
+		.icon-text{
+			font-size:small;
+			margin-top: 10px;
+			word-wrap: break-word;
+			max-width: 130px;
+			white-space: normal;
+		}
+
+		.badge-style{
+			float: right; 
+			margin-top: 20px; 
+			margin-right: 10px; 
+		}
+		.dep_info-header{
+			text-align: center; 
+			max-width: 60%; 
+			margin-left: auto; 
+			margin-right: auto;
+			margin-bottom: 15px;
+			color: #F0741E;
+			letter-spacing: .2rem;
+
+		}
+		.left{
+			position:absolute; 
+			left:0; 
+			top:60px; 
+			cursor:pointer
+
+		}
+		.right{
+			position:absolute; 
+			right:0; 
+			top:60px; 
+			cursor:pointer
+
+		}
+	</style>
+	
+</head>
+<body style="background-color: rgb(253, 249, 249); font-family: 'Roboto', sans-serif;">
+	<div style="position: relative;">
+		{% include 'main/constant/header.html' %}
+		{% include 'main/mainPages/ubdnav.html' %}
+		<div class="career-bg" style="background-image: url({% static '/images/contentDeco/headerabout.jpg' %});">
+			<div class="container" >
+				<h2 style="margin-top:200px; color: black; background-color: white; width: 260px; text-align: center; padding:5px; border-radius: 15px;box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; ">Career Opportunities</h2>
+			</div>
+		</div>
+	</div>
+	<div style="width:90% ; margin-left: auto; margin-right: auto;">
+		<br>
+		<h1 style="text-align: center; letter-spacing: .2rem; color: #fcb247;"><strong>Featured Job Departments:</strong></h1> <!--in need of fixing-->
+		<br>
+		<form action="">
+			<div style="text-align: center; position: relative;">
+				 <div class="left" onclick="leftScroll()">
+      				<img src="{% static 'images/icons/back.png' %}" style="width: 35px;">
+    			</div>
+				<div class="scrollmenu" style="padding-top:5px; margin-left: 60px; margin-right: 60px;">
+
+					<br>
+					<div style="display:flex;justify-content: center;">
+						{% for d in department %}
+						<div style="margin-right:20px;" >
+							<label>
+								<input type="radio" name="department" value="{{d.name}}" style="opacity: 0; width: 0; height: 0;" onchange="this.form.submit()"/>
+								<div class='icon icon-style grow'>
+									{% if d.icon == '' %}
+										<img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="height: 70px; cursor: pointer;">
+									{% else %}
+										<img src="/media/{{d.icon}}" style="height: 70px; width: 67%; cursor: pointer;">
+									{% endif %} 
+								</div>
+							</label>
+							<p class="icon-text"><strong>{{d.name}}</strong></p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="right" onclick="leftScroll()">
+      				<img src="{% static 'images/icons/back.png' %}" style="width: 35px; transform: scaleX(-1);">
+    			</div>
+			</div>
+		</form>
+	<hr>
+		
+	</div>
+	<br>
+
+	<div class="container-fluid">
+		<div class="row" style="width:85% ; margin-left: auto; margin-right: auto;" >
+			<nav id="sidebarMenu" class="col-md-3 col-lg-3 d-md-block  sidebar collapse px-md-4" style="background-color: white; border-radius: 7px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; ">
+			<div class="position-sticky pt-3" style="padding-top: 30px;">
+				<div style="height: 30px; text-align: center; color:  #fbad41; font-size: 26px;letter-spacing: 3px;">
+					<strong><p>Filter</p></strong>
+				</div>
+				<br>
+				<form method="GET" action="{% url 'home' %}">
+
+						<div class="cd-filter-block">
+							<label><strong>Search keywords</strong></label>
+							
+							<div class="cd-filter-content">
+								<input type="search" placeholder="Try job names or departments" name="search" style="background-color: white; border-color: rgb(217, 217, 217);">
+							</div> 
+						</div> 
+						
+
+						<div class="cd-filter-block">
+							<label><strong>Organisational Unit / Faculty</strong></label>
+							
+							<div class="cd-filter-content">
+								<div class="cd-select cd-filters">
+									<select class="filter" name="department" id="selectThis">
+										<option value=''>-- Select Department --</option>
+										{% for d in  department %}
+											<option value="{{d}}">{{d}}</option>
+										{% endfor %}
+									</select>
+								</div> 
+							</div> 
+						</div> 
+
+						<div class="cd-filter-block">
+							<label><strong>Category</strong></label>
+							
+							<div class="cd-filter-content">
+								<div class="cd-select cd-filters">
+									<select class="filter" name="category" id="selectThis">
+										<option value=''>-- Select Category --</option>
+										{% for c in category %}
+											<option value="{{c}}">{{c}}</option>
+										{% endfor %}
+										
+									</select>
+								</div> 
+							</div> 
+						</div> 
+
+						<div class="cd-filter-block">
+							<label><strong>Minimum Requirement</strong></label>
+							
+							<div class="cd-filter-content">
+								<div class="cd-select cd-filters">
+									<select class="filter" name="minReq" id="selectThis">
+										<option value=''>-- Select Minimum Requirement --</option>
+										{% for m in minReq %}
+											<option value="{{m}}">{{m}}</option>
+										{% endfor %}
+									</select>
+								</div> 
+							</div> 
+						</div> 
+
+						<div class="cd-filter-block">
+							<label><strong>Sort according to</strong></label>
+							
+							<div class="cd-filter-content">
+								<div class="cd-select cd-filters">
+									<select class="filter" name="uploadDate" id="uploadDate">
+										<option value=''>Default</option>
+										<option value="latest">Latest job posting</option>
+										<option value="earliest">Earliest job posting</option>
+										<option value="close_latest">Latest closing date</option>
+										<option value="close_earliest">Earliest closing date</option>
+									</select>
+								</div> 
+							</div> 
+						</div>
+
+						<div class="cd-filter-block">
+							<label><strong>Filter job by status</strong></label>
+							
+							<div class="cd-filter-content">
+								<div class="cd-select cd-filters">
+									<select class="filter" name="jobStatus">
+										<option value=''>All</option>
+										<option value="OPEN">Open</option>
+										<option value="CLOSED">Closed</option>
+									</select>
+								</div> 
+							</div> 
+						</div>
+						
+						
+						<button type="submit" style="float: inline-end; background-color: #F0741E; color: white; width: 80px; padding:5px; border-radius: 6px; border-width: 0; margin-bottom: 20px;">Filter</button>
+					</form>
+				
+			</div>
+		</nav>
+		
+		<main class="col-md-9 ms-sm-auto col-lg-9 px-md-0" style="margin-top: -30px;">
+
+			<section class="cd-gallery" style="background-color:rgb(253, 249, 249);">
+				<div class="row">
+					<div style="margin-left: 5%;">
+						{% if dep_intro %}
+						<div style="text-align: center; margin-top: -25px;">
+							{% if dep_intro.icon == '' %}
+								<img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width:80px;">
+							{% else %}
+								<img src="/media/{{dep_intro.icon}}" style="width:80px;">
+							{% endif %}
+						</div>
+						<br>
+						<h1 class="dep_info-header"><strong>{{dep_intro.name}}</strong></h1>
+						<h3 style="text-align: center; font-weight: bold;">{{dep_intro.category}}</h3>
+						<p>{{dep_intro.description}}</p>
+						<p>To learn more about this department click <a href="{{dep_intro.link}}" target="_blank">here</a>.</p>
+						<hr style="margin-top: 25px;"><br>
+						<h3 style="letter-spacing: .2rem;"><strong>Available Vacancies</strong></h3>
+						{% else %}
+						<h1 style="letter-spacing: .2rem;"><strong>Available Vacancies</strong></h1>
+						{% endif %}
+						<p>There are <strong>{{job_count}}</strong> vacancies.</p>
+
+					</div>
+
+					<div class="rowcontent">
+						{% for job in jobs %}
+							<div class="joblists">
+								<div class="row">
+									<div>
+										{% if job.status == 'OPEN' %}
+											<span class="badge ms-1 badge-style" style="background-color: #AED688;">{{job.status}}</span>
+										{% elif job.status == 'CLOSED' %}	
+											<span class="badge ms-1 badge-style" style="background-color: rgb(231, 100, 100);">{{job.status}}</span>
+
+										{% endif %}
+										
+										{% for key , value in elapsedTime.items %}
+											{% if key == job.id %}
+												<span class="badge ms-1 badge-style" style="background-color: #F0741E ;">{{value}}</span>
+											{% endif %}
+										{% endfor %}
+										
+										<h1 style="padding:30px 0 0 0; margin-left: 30px;color: blue;letter-spacing: .1rem; "><strong>{{job.name}}</strong></h1>
+										<h2 style="margin-left: 35px;"><b>{{job.department}} || {{job.department.category}}</b></h2>
+										
+									</div>
+									<div  class="col-md-2" style="text-align: center; margin-left: 35px; margin-top: 20px;">
+										{% if job.department.icon == '' %}
+										<img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 95px; margin-bottom: 20px;">
+										{% else %}
+										<img src="/media/{{job.department.icon}}" style="width: 95px; margin-bottom: 20px;">
+										{% endif %}
+										<!-- </div> -->
+									</div>
+									<div class="col" style="padding:10px 25px">
+										<!-- <p class="card-title"><strong>Category: </strong>{{job.department.category}}</p> -->
+										<p class="card-title"><strong>Employement Type: </strong>{{job.type}}</p>
+										{% if job.department.category == 'Academic' %}
+										<p class="card-title"><strong>Contract Duration: </strong>{{job.contractDur}} years</p>
+										<p class="card-title"><strong>Salary: </strong>{{job.salaryMin}} ~ {{job.salaryMax}} BND per annum</p>
+										{% else %}
+										<p class="card-title"><strong>Vacancy: </strong>{{job.vacancy}} people</p>
+										<p class="card-title"><strong>Salary: </strong>{{job.salaryMin}} ~ {{job.salaryMax}} BND per month</p>
+										{% endif %}
+
+									</div>
+									<div class="col" style="padding:10px 40px">
+										<p class="card-title"><strong>Minimum Requirement: </strong>{{job.minReq}}</p>
+										{% if job.department.category == 'Academic' %}
+										<p class="card-title"><strong>Years of Experience needed: </strong>{{job.yearsExp}}</p>
+										{% endif %}
+										<hr>
+										<p style="color:#F0741E"><strong>Closing Date: {{job.dateClose}} </strong></p>
+									</div>
+									<div class="readmore">
+										<a href="{% url 'jobDetails' job.id %}">+ Read More</a>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="cd-fail-message">No results found</div>
+			</section> 
+		</main>
+  		</div>
+	</div>
+	
+	<div style="margin-top: 100px;">
+    {% include 'main/constant/footer.html' %}
+	</div>
+   
+
+	 {% if messages %}
+	 	{% for message in messages %}
+		<script>
+			alert('{{message}}')
+		</script>
+		{% endfor %}
+	{% endif %}
+ <script src="{% static 'js/jquery-2.1.1.js'%}"></script>
+ <script>
+	document.addEventListener("DOMContentLoaded", function () {
+  const scrollImages = document.querySelector(".scrollmenu");
+  const scrollLength = scrollImages.scrollWidth - scrollImages.clientWidth;
+  const leftButton = document.querySelector(".left");
+  const rightButton = document.querySelector(".right");
+
+  function checkScroll() {
+    const currentScroll = scrollImages.scrollLeft;
+    if (currentScroll === 0) {
+      leftButton.setAttribute("disabled", "true");
+      rightButton.removeAttribute("disabled");
+    } else if (currentScroll === scrollLength) {
+      rightButton.setAttribute("disabled", "true");
+      leftButton.removeAttribute("disabled");
+    } else {
+      leftButton.removeAttribute("disabled");
+      rightButton.removeAttribute("disabled");
+    }
+  }
+
+  scrollImages.addEventListener("scroll", checkScroll);
+  window.addEventListener("resize", checkScroll);
+  checkScroll();
+
+  function leftScroll() {
+    scrollImages.scrollBy({
+      left: -200,
+      behavior: "smooth"
+    });
+  }
+
+  function rightScroll() {
+    scrollImages.scrollBy({
+      left: 200,
+      behavior: "smooth"
+    });
+  }
+
+  leftButton.addEventListener("click", leftScroll);
+  rightButton.addEventListener("click", rightScroll);
+});
+ </script>
+
+	
+
+
+</body>
+</html>

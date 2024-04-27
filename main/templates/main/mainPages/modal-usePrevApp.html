@@ -1,0 +1,18 @@
+<div class="modal-header">
+        <h5 class="modal-title">Application Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+    </div>
+
+    <div class="modal-body">
+        <div class="mb-3">
+            <p>Would you like to use your recent application details to apply for this job?</p>
+            <div style="float:right">
+                <a href="{% url 'usePrevApplication' job_id %}"><button type="button" class="btn" style="background-color: rgb(145, 201, 145); color: white;">Yes</button></a>
+                <a href="{% url 'jobForm' job_id %}"><button type="button" class="btn" style="background-color: #fcb247;color: white;">No</button></a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+    </div>

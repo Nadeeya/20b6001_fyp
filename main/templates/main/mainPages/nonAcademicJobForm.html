@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+   {% load bootstrap5 %}
+   {% bootstrap_css %}
+   {% bootstrap_javascript %}
+   {% load bootstrap_icons %}
+   {% load static %}
+    {% load countries %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/dynamicForm.css' %}"> 
+
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+  <title>Job Application Form | Non-Academic</title>
+</head>
+
+<body style="background: #f0f2f5;">
+    {% include 'main/constant/header.html' %}
+    {% get_countries as countries %}
+
+  <div class="container">
+    <div class="formbox">
+      <form id="regForm" role="form" action="" method="POST" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <h2 style="text-align: center;">Jawatan: <br>{{job.name}}</h2>
+
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align: center; margin-top: 40px">
+            {% for i in n %}
+                <span class="step"></span>
+            {% endfor %}
+        </div><br><br>
+        <!-- INTRO -->
+        <div class="tab">
+          <div class="form-group">
+              <p>
+                {{job.description | safe}}
+              </p>
+          </div>
+          <br><hr/><br>
+
+          <div class="form-group">
+              <label for="email">Email</label>
+              <input  type="email" name="email" id="email" value="{{profile.user.email}}" class="form-control" readonly>
+          </div><br>
+
+          <div class="form-group">
+            <label for="fullname">Nama Penuh - termasuk nama lain (seperti yang terdapat dalam kad pengenalan)</label>
+            <input style="width:100%;" type="text" name="fullname" id="fullname" class="form-control" value ="{{user.first_name}} {{user.last_name}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="ic_no">No. Bilangan Kad Pengenalan</label>
+              <input  type="text" name="ic_no" class="form-control" value="{{profile.icPass}}">
+          </div><br>
+
+          <div class="form-group">
+              <label for="post_applied">Warna: </label>
+                <select name="ic_color" id="ic_color" class="form-control">
+                    <option value="">--Pilih Warna IC--</option>
+                      <option value="Kuning">Kuning</option>
+                      <option value="Hijau">Hijau</option>
+                      <option value="Ungu">Ungu</option>
+                </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="dob">Tarikh Lahir:</label> <br />
+              <input type="date" id="dob" name="dob" class="form-control" value='{{profile.dob| date:"Y-m-d"}}'/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="address">Alamat Perhubungan</label>
+              <input style="width:100%;" type="text" name="address" id="address" class="form-control " value="{{profile.address}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="citizenship">Kerakyatan</label>
+              <select name="citizenship" id="citizenship" class="form-control">
+                <option value="">- - -</option>
+                {% for nationality in nationalities%}
+                    {% if profile.citizenship == nationality %}
+                        <option value="{{nationality}}" selected>{{nationality}}</option>
+                    {% else %}
+                        <option value="{{nationality}}">{{nationality}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          
+
+          <div class="form-group">
+              <label for="gender">Jantina:</label>
+              <select name="gender" id="gender" class="form-control">
+                  {% for g in gender %}
+                    {% if profile.gender == g %}
+                        <option value="{{g}}" selected>{{g}}</option>
+                    {% else %}
+                        <option value="{{g}}" >{{g}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+
+          </div><br>
+
+          <div class="form-group">
+              <label for="nationality">Bangsa</label>
+              <select name="nationality" id="nationality" class="form-control">
+                <option value="">- - -</option>
+                 {% for nationality in nationalities%}
+                    {% if profile.nationality == nationality %}
+                        <option value="{{nationality}}" selected>{{nationality}}</option>
+                    {% else %}
+                        <option value="{{nationality}}">{{nationality}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          
+
+          <div class="form-group">
+            <p>Adakah anda mempunyai lesen memandu?</p>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="driving_license" value="Yes">
+              <label class="form-check-label">Ya</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="driving_license" value="No">
+                  <label class="form-check-label">Tidak</label>
+            </div><br>
+            <br>
+            <div id="driving_license_type">
+              <label>Sila nyatakan jenis lesen:</label> <br />
+                <select name="driving_license_type" class="form-control">
+                    <option value="">--Pilih jenis lesen--</option>
+                      <option value="Kelas 1">Kelas 1</option>
+                      <option value="Kelas 2">Kelas 2</option>
+                      <option value="Kelas 3">Kelas 3</option>
+                      <option value="Kelas 4">Kelas 4</option>
+                      <option value="Kelas 5">Kelas 5</option>
+                      <option value="Lain-lain">Lain-lain</option>
+                </select>
+            </div>
+          </div><br>
+          <h5>Kebolehan menulis dan/atau bertutur dalam bahasa/loghat</h5><hr><br>
+          <div class="form-group">
+              <label for="Malay">Bahasa Melayu</label>
+              <select name="Malay" id="Malay" class="form-control">
+                  <option value="" disabled selected>--Pilih Kebolehan--</option>
+                  <option value="Fasih">Fasih</option>
+                  <option value="Baik">Baik</option>
+                  <option value="Sederhana">Sederhana</option>
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="English">Bahasa Inggeris</label>
+              <select name="English" id="English" class="form-control">
+                  <option value="" disabled selected>--Pilih Kebolehan--</option>
+                    <option value="Fasih">Fasih</option>
+                    <option value="Baik">Baik</option>
+                    <option value="Sederhana">Sederhana</option>
+              </select>
+          </div><br>
+
+        </div>
+
+        <!-- BIDANG KELULUSAN -->
+        <div class="tab">
+          <h3 style="text-align: center;">Bidang Kelulusan</h3>
+          <hr>
+          <div class="form-group">
+              <label for="English">Kelulusan Pendidikan Tertinggi: </label>
+              <select name="highest_education_level" class="form-control">
+                  <option value="" disabled selected>--Pilih Pendidikan Tertinggi--</option>
+                    <option value="Diploma Tertinggi Lanjutan (PHD)">Diploma Tertinggi Lanjutan (PHD)</option>
+                    <option value="Ijazah Sarjana Muda (BA)">Ijazah Sarjana Muda (BA)</option>
+                    <option value="Ijazah Sajarana (MA)">Ijazah Sajarana (MA)</option>
+                    <option value="Higher National Diploma">Higher National Diploma</option>
+                    <option value="A'level">A'level</option>
+                    <option value="O'level">O'level</option>
+              </select>
+          </div><br>
+          
+
+            <hr>
+
+            <div class="form-group">
+              <p>
+              Sila nyatakan nama sijil kelulusan pendidikan tertinggi, HND/BA/MA/Lain-lain.<br>
+              Contoh :
+                <ul>
+                  <li>Bachelor of Arts  in Linguistics, UBD - November 2022</li>
+                  <li>HND in Mechanical Engineering, UBD - November 2022</li>
+                </ul>
+              </p><br>
+              <div>
+                <h4>Sijil Kelulusan Tertinggi</h4><br>
+                <div class="inp_academic_record">
+                    <input type="text" placeholder="Name of degree. Eg: Doctor of Philosophy" style="width:35%" name="academic_name" value="">
+                    <input type="text" placeholder="Institution attended. Eg: Universiti Brunei Darussalam" style="margin-left:5px; width:30%"
+                    name="institute">
+                    <select name="academic_rec_country" style="width:15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                      <option value=" " disabled selected>Negara</option>
+                      {% for country in countries %}
+                      <option value="{{country.name}}">{{country.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="date" style="width:15%; margin-left:5px;" name="date_award">
+                    <input type="text" style="width:20%" name="grade" placeholder="Grade. Eg:First class Honour"> 
+                </div>
+              </div> 
+            </div>
+        </div>
+
+
+
+        <!-- PRESENT EMPLOYMENT -->
+        <div class="tab">
+        {% if job.expGov == 'Yes' %}
+          <h3>*BAGI YANG BERKHIDMAT DENGAN KERAJAAN SAHAJA</h3><br/>
+
+          <p><b>Adakah awda telah berkhidmat dalam perkhidmatan Kerajaan sebagai 
+            {{job.expGovInfo.prev_jawatan}}
+            selama tidak kurang dari {{job.expGovInfo.pengalaman_tahun}} tahun dan telah ditetapkan dalam jawatan?</b></p>
+          <div class="form-check">
+            <input class="form-check-input disable" type="radio" value="Yes" style="width: 10px;" name="expGov">
+            <label class="form-check-label">
+                Ya
+            </label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input disable" type="radio" value="No" style="width: 10px;" name="expGov" >
+            <label class="form-check-label" for="flexCheckDisabled">
+                Tidak
+            </label>
+            </div>
+            <br>
+        {% endif %}
+        <hr>
+          <h3>Butiran Pekerjaan</h3><br/>
+          
+          <div class="form-group">
+            <h4>Sebutkan butir pengalaman pekerjaan terdahulu</h4><br>
+            <button class="add_eri" type="button" style="float: inline-end;" id="button_exp_ind">{% bs_icon 'plus-square' %} Add Entry</button>
+            <h5>Adakah anda mempunyai pengalaman pekerjaan terdahulu?</h5>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="exp_ind" id="exp_ind_Yes" value="Yes">
+              <label class="form-check-label" for="prevAppYes">Ya</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="exp_ind" id="exp_ind_No" value="No">
+              <label class="form-check-label" for="prevAppNo">Tidak</label>
+            </div><br>
+          </div>
+          <div class="form-group" id="input_exp_ind">
+            <div class="input_fields_wrap">
+            <hr>
+              <div class="inp_eri">
+                <div class="row">
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="industry_position">Nama jawatan</label>
+                      <input type="text" placeholder="Nama jawatan" name="industry_position" class="form-control" style="width:355px">
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="prev_industry">Tempat jawatan</label>
+                      <input type="text" placeholder="Tempat jawatan" name="prev_industry" class="form-control" style="width:355px">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="eri_country">Negara</label>
+                      <select name="eri_country" class="form-control" style="padding:8px 10px; background: #ddd; border: none;border-radius: 5px; width:200px">
+                        <option value="" disabled selected>Negara</option>
+                        {% for country in countries %}
+                        <option value="{{country.name}}">{{country.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="start_eri">Tarikh mula</label>
+                      <input type="date" style="width:200px" name="start_eri" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="end_eri">Tarikh berhenti</label>
+                      <input type="date" name="end_eri" class="form-control" style="width:200px">     
+                    </div>
+                  </div>
+                </div> 
+              </div>
+
+            </div>
+          </div>
+          <hr>
+          <h3>Sebutkan butir pekerjaan sekarang</h3><br>
+
+
+          <div class="form-group">
+              <label for="present_post">Nama Jawatan:</label>
+              <input style="width:100%;" type="text" name="present_post" id="present_post" class="form-control" value="{{prev_application.presentEmployment.Present_post}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="present_employer">Alamat</label>
+              <input style="width:100%;" type="text" name="present_employer" id="present_employer" class="form-control" value="{{prev_application.presentEmployment.Present_Employer}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="current_post_appointment">Tarikh mula: </label>
+              <input type="date" name="current_post_appointment" id="current_post_appointment" class="form-control" value="{{prev_application.presentEmployment.Current_post_appointment|date:'m-d-y'}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="basic_salary">Gaji Sebulan dalam BND.</label>
+              <input type="text" name="basic_salary" id="basic_salary" class="form-control" value="{{prev_application.presentEmployment.Basic_salary}}"/>
+          </div><br>
+        </div>
+
+        <!-- DOCUMENTS REQUIRED -->
+        <div class="tab">
+          <h3>DOKUMEN-DOKUMEN YANG PERLU DISERTAKAN</h3>
+          <p>sila muatnaik versi yang berwarna, maklumat akan dirahsiakan / 
+            Please upload coloured version, this information will be kept confidential
+            <br>
+            <b>Dokumen salinan hendaklah dalam bentuk PDF</b>
+            </p>
+          <br>
+          
+          <div class="mb-3">
+              <label><h5>Salinan kad pengenalan / Identity Card</h5></label>
+              <input type="file" class="form-control" name="passport_ic" id="passport_ic" >
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Gambar berukuran paspot / Passport size photo</h5></label>
+              <input type="file" class="form-control" name="cover_letter" id="cover_letter">
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Salinan Curriculum Vitae / Copy of Curriculum Vitae</h5></label>
+              <input type="file" class="form-control" name="CV" id="CV">
+          </div><br>
+          <div class="mb-3">
+            <label><h5>Salinan sijil-sjil dan transkrip yang berkaitan / Relevant Certificates and transcripts</h5></label>
+              <input type="file" class="form-control" name="other_docs" id="other_docs">
+          </div><br>
+        </div>
+
+
+        <!-- DECLARATION -->
+        <div class="tab">
+          <h3>Declaration</h3><br/>
+          <h5>
+              PENGAKUAN / DECLARATION: Saya bersumpah bahawa butir-butir dalam permohonan ini adalah benar sejauhmana yang 
+              saya ketahui dan percaya saya tidak sengaja menyembunyikan sebarang kenyataan / 
+              I declare that the particulars in this application are true to the best of my knowledge and belief, 
+              and that I have not willfully withheld any material fact.
+          </h5><br>
+          
+          <div class="form-group">
+            <div class="form-check form-check-inline" style="width: 200px;">
+              <input class="form-check-input" type="checkbox" name="consent" value="Yes" style="width: 15px;">
+              <label class="form-check-label" for="consent"><h5> Ya </h5></label>
+            </div>
+            
+          </div>
+          
+        </div>
+        <br><br>
+        
+
+        <div class="row">
+          <div class="col">
+            {% if no_draft %}
+            {% else %}
+            <button type="submit" name="addDraft" onclick="return confirm('Saving as draft will lose all the uploaded form.')" >Save as Draft</button>
+            {% endif %}
+          </div>
+          <div class="col">
+          <div style=" display: flex;align-items: right; justify-content: right;">
+            
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="margin-right: 10px;">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button type="submit" id="submitBtn" name="submitForm" onclick="return confirm('Are you sure you want to submit your form?')">Submit Form</button>
+          </div>
+          </div>
+        </div>
+
+        
+      </form>
+    </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+ {% include 'main/mainPages/jobFormFunction.html' %}
+
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="{% static 'js/dynamicForm.js' %}"></script>
+
+
+
+  <script>
+    
+  $('input[name="driving_license"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#driving_license_type').show();
+    } else {
+      $('#driving_license_type').hide();
+    }
+  })
+
+  $('#driving_license_type').hide();
+  
+
+
+
+  </script>
+
+</body>
+</html>

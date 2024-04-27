@@ -1,0 +1,19 @@
+{% load static %}
+<div class="ubdnav">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="{% url 'home' %}"><img src="{% static 'images/contentDeco/ubd-logo-300.png' %}" alt="Image description"></a>
+                </div>
+                <div class="col-md-8">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="{% url 'researchFacilities' %}">Research & Faculties</a></li>
+                        <li><a href="{% url 'ubdLiving' %}">Living in Brunei</a></li>
+                        <li><a href="{% url 'ubdBenefit' %}">Benefits</a></li>
+                        <li><a href="{% url 'ubdAbout' %}">About UBD</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>

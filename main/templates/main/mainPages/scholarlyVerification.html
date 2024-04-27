@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h5 class="modal-title">Scholarly Verification</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button><br>
+</div>
+<div class="modal-body">
+     <!-- <div id="loading"> -->
+        <!-- <p>Loading...</p> -->
+    <!-- </div> -->
+    {% if author %}
+        <div id="success">
+            <div class="row">
+                <div class="col">
+                    <p>Name: </p>
+                </div>
+                <div class="col">
+                    <p>{{author.name}}</p>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Scholarly Email: </p>
+                </div>
+                <div class="col">
+                    <p>{{author.email}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Interests: </p>
+                </div>
+                <div class="col">
+                    {% for i in author.interests %}
+                    <p>{{i}}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>Scholarly profile link: </p>
+                </div>
+                <div class="col">
+                    <a href="{{author.link}}" target="_blank">Link</a>
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <p>{{message}}</p>
+    {% endif %}
+        
+
+</div>
+<div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> 
+</div>

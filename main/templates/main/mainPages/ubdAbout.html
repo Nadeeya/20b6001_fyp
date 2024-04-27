@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>About UBD</title>
+</head>
+<body>
+    {% include 'main/constant/header.html' %}
+    {% include 'main/mainPages/ubdnav.html' %}
+
+    <div class="career-bg" style="background-image: url({% static '/images/contentDeco/headerabout.jpg' %});"></div>
+
+    <div class="container">
+        <div class="viewbox">
+            <h1>About UBD</h1><hr/>
+            
+            <p style="font-weight:bold; font-size:20px;">History of the University</p>
+            <p>Universiti Brunei Darussalam (UBD) was established in 1985, opening its doors to the first intake of 176 students. 
+                Being the first university in Brunei Darussalam, UBD began in its early years with only four faculties - 
+                Faculty of Science; Faculty of Arts & Social Sciences; Faculty of Management and Administrative Studies; 
+                and Sultan Hassanal Bolkiah Institute of Education.</p>
+            <p>In 1995, the university moved to its current location in Tungku Link to provide an environment that is conducive for 
+                learning and research. UBD has since seen an increase in the number of graduates, the introduction of new academic 
+                programmes, the enhancement of infrastructure and the development of graduate studies.</p>
+            <p>In 2009, UBD introduced its unique trans-disciplinary GenNEXT programme with emphasis on entrepreneurship, leadership, 
+                innovation and environmental awareness to shape young leaders of the next generation. Its Discovery Year programme 
+                offers students the unique opportunity for experiential learning through Study Abroad, Incubation, Community 
+                Outreach or Internship programmes.</p>
+            <br>
+
+            <p style="font-weight:bold; font-size:20px;">Campus and Facility</p>
+            <p>The UBD campus is located near the South China Sea, along warm sandy beaches between Berakas Recreational Beach and 
+                Tungku Link. The campus offers students and academics beautiful relaxing scenery and recreational facilities such as 
+                running tracks around campus, and a Sports Complex.</p>
+            <p>Today, UBD has eight academic faculties, seven research institutes and two academic service centres ranging from Islamic 
+                Studies, Business, Arts, Science, Health Sciences, Asian Studies, Policy Studies, Education, Biodiversity and Integrated 
+                Technologies to support quality research.</p>
+        </div>
+    </div> 
+
+ {% include 'main/constant/footer.html' %}
+
+</body>
+</html>

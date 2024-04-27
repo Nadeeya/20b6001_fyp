@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+{% load static %}
+{% load countries %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/>
+   {% load bootstrap5 %}
+   {% bootstrap_css %}
+   {% bootstrap_javascript %}
+   {% load bootstrap_icons %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/dynamicForm.css' %}"> 
+
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+  <title>Job Application Form | Academic</title>
+</head>
+
+<body style="background: #f0f2f5;">
+    {% include 'main/constant/header.html' %}
+  <div class="container">
+    <div class="formbox">
+      <form id="regForm" role="form" action="" method="POST" enctype="multipart/form-data" >
+        <h1 style="text-align: center;">Application Form for<br>{{job.name}}</h1>
+
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align: center; margin-top: 40px">
+            {% for i in n %}
+                <span class="step"></span>
+            {% endfor %}
+        </div><br><br>
+
+        <!-- INTRO -->
+        <div class="tab">
+          <div class="form-group">
+              <p>
+                Please be informed that the application form are divided into the following categories:-
+                <ol>
+                  <li>Personal particulars</li>
+                  <li>Present employment</li>
+                  <li>Academic record</li>
+                  <li>Membership and fellowship</li>
+                  <li>Employment record</li>
+                  <li>Teaching and supervision</li>
+                  <li>Research and publication</li>
+                  <li>Languages</li>
+                  <li>Family particulars</li>
+                  <li>Referees</li>
+                </ol>
+                You are also required to upload the following documents:-
+                <ul>
+                  <li>Copy of your Passport or Identity Card</li>
+                  <li>Curriculum Vitae</li>
+                  <li>Academic transcripts and certificate</li>
+                  <li>Other relevant documents to support your applications (example: covering letter, teaching evaluation feedback and research impact)</li>
+                </ul>
+              </p>
+          </div>
+          <br><hr/><br>
+
+          <div class="form-group">
+            {% csrf_token %}
+              <label for="email">Email</label>
+              <input  type="email" name="email" id="email" value="{{profile.user.email}}" class="form-control" readonly>
+          </div><br>
+
+          <div class="form-group">
+              <label for="area">Area of Specialisation applied for</label>
+              <input  type="text" name="area" id="area" value="{{job.name}}" style="width:60%;" class="form-control" readonly>
+          </div><br>
+
+
+          <div class="form-group">
+              <label for="post_applied">Post applied for</label>
+                <select name="post_applied" id="post_applied" class="form-control">
+                    <option value="">- - -</option>
+                    {% for p in post_applied %}
+                    {% if prev_academic.postApplied == p %}
+                      <option value="{{p}}" selected>{{p}}</option>
+                    {% else %}
+                      <option value="{{p}}">{{p}}</option>
+                    {% endif %}
+                    {% endfor %}
+                    
+                </select>
+          </div><br>
+
+          <div class="form-group">
+            <p>Have you submitted any prior applications to this institution?</p>
+            <div class="form-check form-check-inline">
+              {% if profile.submission > 0 %}
+                <input class="form-check-input" type="radio" name="prevApplication" value="Yes" checked>
+              {% else %}
+                <input class="form-check-input" type="radio" name="prevApplication" value="Yes">
+              {% endif %}
+              <label class="form-check-label" for="prevAppYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              {% if profile.submission > 0 %}
+              <input class="form-check-input" type="radio" name="prevApplication" id="prevAppNo"value="No" disabled>
+              {% else %}
+              <input class="form-check-input" type="radio" name="prevApplication" id="prevAppNo"value="No" checked>
+              {% endif %}
+              <label class="form-check-label" for="prevAppNo">No</label>
+            </div>
+            <br>
+            <!-- if yes -->
+              {% if profile.submission > 0 %}
+              <label for="date_prev">Date of any previous application</label> <br />
+              <input type="date" name="date_prev" class="form-control" value='{{last_submission | date:"Y-m-d"}}'/>
+              {% else %}
+              <label for="date_prev" id="label_date_prev">Date of any previous application</label> <br />
+              <input type="date" id="date_prev" name="date_prev" class="form-control"/>
+              {% endif %}
+
+          </div><br>
+
+          <div class="form-group">
+              <label for="source">Please indicate the source or information obtained regarding the vacant post</label> <br />
+              <select name="source" id="source" class="form-control">
+                  <option value="">- - -</option>
+                  {% for s in source %}
+                  {% if prev_application.source == s %}
+                  <option value="{{s}}" selected>{{s}}</option>
+                  {% else %}
+                  <option value="{{s}}">{{s}}</option>
+                  {% endif %}
+                  {% endfor %}
+              </select>
+          </div><br>
+        </div>
+
+        <!-- PERSONAL -->
+        <div class="tab">
+          <h3>1. Personal</h3><br/>
+
+          <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input style="width:100%;" type="text" name="fullname" id="fullname" class="form-control" value ="{{user.first_name}} {{user.last_name}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="gender">Gender</label>
+              <select name="gender" id="gender" class="form-control">
+                  {% for g in gender %}
+                    {% if profile.gender == g %}
+                        <option value="{{g}}" selected>{{g}}</option>
+                    {% else %}
+                        <option value="{{g}}" >{{g}}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+
+          </div><br>
+
+          <div class="form-group">
+              <label for="dob">Date of Birth</label> <br />
+              <input type="date" id="dob" name="dob" class="form-control" value='{{profile.dob| date:"Y-m-d"}}'/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="pob">Place of Birth</label>
+              <select name="pob" id="pob" class="form-control">
+                {% get_countries as countries %}
+                {% for country in countries%}
+                    {% if profile.pob == country.name %}
+                        <option value="{{country.name}}" selected>{{country.name}} </option>
+                    {% else %}
+                        <option value="{{country.name}}">{{country.name}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="nationality">Nationality</label>
+              <select name="nationality" id="nationality" class="form-control">
+                <option value="">- - -</option>
+                 {% for nationality in nationalities%}
+                    {% if profile.nationality == nationality %}
+                        <option value="{{nationality}}" selected>{{nationality}}</option>
+                    {% else %}
+                        <option value="{{nationality}}">{{nationality}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="citizenship">Citizenship</label>
+              <select name="citizenship" id="citizenship" class="form-control">
+                <option value="">- - -</option>
+                {% for nationality in nationalities%}
+                    {% if profile.citizenship == nationality %}
+                        <option value="{{nationality}}" selected>{{nationality}}</option>
+                    {% else %}
+                        <option value="{{nationality}}">{{nationality}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="cod">Country of Domicile</label>
+              <select name="cod" id="cod" class="form-control">
+                <option value="">- - -</option>
+                {% get_countries as countries %}
+                {% for country in countries%}
+                    {% if profile.cod == country.name %}
+                        <option value="{{country.name}}" selected>{{country.name}} </option>
+                    {% else %}
+                        <option value="{{country.name}}">{{country.name}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="marital">Marital Status</label>
+              <select name="marital" id="marital" class="form-control">
+                {% for m in maritalStat %}
+                    {% if profile.maritalStat == m %}    
+                        <option value="{{m}}" selected>{{m}}</option>
+                    {% else %}
+                        <option value="{{m}}" >{{m}}</option>
+                    {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+          
+          <div class="form-group">
+              <label for="religion">Religion</label>
+              <input type="text" name="religion" id="religion" class="form-control" value="{{profile.religion}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="ic_passport">IC Number / Passport Number</label>
+              <p style="font-size: 14px;">* For local applicants, please state your IC Number</p>
+              <input type="text" name="ic_passport" id="ic_passport" class="form-control" value="{{profile.icPass}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="address">Address of correspondence</label>
+              <input style="width:100%;" type="text" name="address" id="address" class="form-control " value="{{profile.address}}" />
+          </div><br>
+
+          <div class="row" style="width: 60%;">
+            <div class="col">
+              <div class="form-group">
+                <label for="code">Phone Code</label>
+                <input type="text" name="code" id="code" class="form-control" value="{{profile.code}}" style="width: 175px;"/>
+              </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                  <label for="phone">Phone Number (mobile)</label>
+                  <input type="text" name="phone" id="phone" class="form-control" value="{{profile.phoneNo}}" style="width: 355px;"/>
+                </div>
+            </div>
+          </div>
+          <br>
+        </div>
+
+
+
+        <!-- PRESENT EMPLOYMENT -->
+        <div class="tab">
+          <h3>2. Present Employment</h3><br/>
+
+          <div class="form-group">
+              <label for="present_post">Present post</label>
+              <input style="width:100%;" type="text" name="present_post" id="present_post" class="form-control" value="{{prev_application.presentEmployment.Present_post}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="present_employer">Present employer</label>
+              <input style="width:100%;" type="text" name="present_employer" id="present_employer" class="form-control" value="{{prev_application.presentEmployment.Present_Employer}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="current_duties">Current duties</label>
+              <input style="width:100%;" type="text" name="current_duties" id="current_duties" class="form-control" value="{{prev_application.presentEmployment.Current_duties}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="current_post_appointment">Date of appointment in current post</label>
+              <input type="date" name="current_post_appointment" id="current_post_appointment" class="form-control" value="{{prev_application.presentEmployment.Current_post_appointment|date:'m-d-y'}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="basic_salary">Basic Salary (BND) per month</label>
+              <input type="text" name="basic_salary" id="basic_salary" class="form-control" value="{{prev_application.presentEmployment.Basic_salary}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="other_emoluments_allowance">Other Emoluments and Allowance</label>
+              <input type="text" name="other_emoluments_allowance" id="other_emoluments_allowance" class="form-control" value="{{prev_application.presentEmployment.Other_Emoluments_Allowance}}"/>
+          </div><br>
+
+          <div class="form-group">
+              <label for="income_tax_deduction">Income Tax Deduction (%)</label>
+              <input type="number" name="income_tax_deduction" id="income_tax_deduction" class="form-control" value="{{prev_application.presentEmployment.Income_Tax_Deduction}}" />
+          </div><br>
+
+          <div class="form-group">
+              <label for="period_of_notice">Period of Notice before Reporting for Duty in Brunei</label>
+              <select name="period_of_notice" id="period_of_notice" class="form-control">
+                <option value="">- - -</option>
+                {% for p in period_of_notice %}
+                {% if prev_application.presentEmployment.Period_of_Notice == p %}
+                <option value="{{p}}" selected>Up to {{p}}</option>
+                {% else %}
+                <option value="{{p}}">Up to {{p}}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+          </div><br>
+        </div>
+
+
+        <!-- ACADEMIC RECORD -->
+        <div class="tab">
+          <h3>3. Academic Record</h3><br/>
+
+          <div class="form-group">
+              <p>
+              Please state the name of the degree as stated in your certificate (subject), institution attended, country, date of award and grades in this order, PhD, Masters, Bachelor Degree.
+              For example :
+                <ul>
+                  <li>Doctor of Philosophy (Finance), Universiti Brunei Darussalam, Brunei Darussalam. 2021</li>
+                  <li>Master of Business Administration, Universiti Brunei Darussalam, Brunei Darussalam, 2018, Distinction</li>
+                  <li>Bachelor of Business Administration (Finance), Universiti Brunei Darussalam, Brunei Darussalam, 2016, First Class Honour</li>
+                </ul>
+              </p><br>
+              <!--Dynamic Form-->
+              <div class="input_fields_wrap">
+                <button class="add_academic_record" type="button" style="float: inline-end">Add More Qualifications</button>
+                <h4>Please list out your academic qualifications</h4><br>
+                <div class="inp_academic_record">
+                  {% if prev_application.academicRec != None %}
+
+                    {% for key , value in prev_application.academicRec.items %}
+                    <div class="flex">
+                    <input type="text" placeholder="Name of degree. Eg: Doctor of Philosophy" style="width:35%" name="academic_name" value="{{value.Academic_name}}">
+                    <input type="text" placeholder="Institution attended. Eg: Universiti Brunei Darussalam" style="margin-left:5px; width:30%"
+                    name="institute" value="{{value.Institute}}">
+                    <select name="academic_rec_country" style="width:15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                      <option value="" disabled selected>Country</option>
+                      {% for country in countries%}
+                      {% if value.Country == country.name %}
+                      <option value="{{country.name}}" selected>{{country.name}}</option>
+                      {% else %}
+                      <option value="{{country.name}}">{{country.name}}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                    <input type="date" style="width:15%; margin-left:5px;" name="date_award" value="{{value.Award_date}}">
+                    <input type="text" style="width:20%" name="grade" placeholder="Grade. Eg:First class Honour" value="{{value.Grade}}">
+                    {% if key == '1'%}
+                    <hr>
+                    </div>
+                    {% else %}
+                      <a class="delete" id='academic_rec_{{key}}' onclick="deleteInput('academic_rec_{{key}}')">&times</a>
+                      <hr>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                  {% else %}
+                    <input type="text" placeholder="Name of degree. Eg: Doctor of Philosophy" style="width:35%" name="academic_name" value="">
+                    <input type="text" placeholder="Institution attended. Eg: Universiti Brunei Darussalam" style="margin-left:5px; width:30%"
+                    name="institute">
+                    <select name="academic_rec_country" style="width:15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                      <option value=" " disabled selected>Country</option>
+                      {% for country in countries%}
+                      <option value="{{country.name}}">{{country.name}}</option>
+                      {% endfor %}
+                    </select>
+                    <input type="date" style="width:15%; margin-left:5px;" name="date_award">
+                    <input type="text" style="width:20%" name="grade" placeholder="Grade. Eg:First class Honour"> 
+
+                  {% endif %}
+                </div>
+              </div>              
+          </div><br>
+        </div>
+
+
+        <!-- MEMBERSHIP & FELLOWSHIP -->
+        <div class="tab">
+          <h3>4. Membership and Fellowship</h3><br/>
+          <div class="form-group">
+            <div class="input_fields_wrap">
+              <button class="add_membership_fellowship" type="button" style="float: inline-end">{% bs_icon 'plus-square' %} Add Entry</button>
+              <p>Please list out your Membership or Fellowship of Learned and Professional Societies</p><br>
+
+              <div class="inp_membership_fellowship">
+                {% for record in prev_academic.membershipFellowship %}
+                <div class="flex">
+                <input type="text" placeholder="Membership or Fellowship" style="width: 95%" name="membership_fellowship" value="{{record}}">
+                {% if forloop.counter != 1%}
+                <a class="delete" id='membership_{{forloop.counter}}' onclick="deleteInput('membership_{{forloop.counter}}')">&times</a>
+                {% endif %}
+                </div>
+                {% empty %}
+                <input type="text" placeholder="Membership or Fellowship" style="width: 95%" name="membership_fellowship">
+                {% endfor %}
+              </div>
+            </div>
+          </div><br>
+        </div>
+
+
+        <!-- EMPLOYMENT RECORD -->
+        <div class="tab">
+          <h3>5. Employment Record</h3><br/>
+          <div class="form-group">
+            <h5>Do you have any experience in higher education?</h5>
+            <div class="form-check form-check-inline">
+              {% if prev_academic.experienceHighEd == 'Yes'%}
+              <input class="form-check-input" type="radio" name="exp_highEd" value="Yes" checked>
+              {% else %}
+              <input class="form-check-input" type="radio" name="exp_highEd" value="Yes">
+              {% endif %}
+              <label class="form-check-label" for="prevAppYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="exp_highEd" value="No" id="exp_highEd_No">
+              <label class="form-check-label" for="prevAppNo">No</label>
+            </div><br>
+          </div>
+          {% if prev_academic.experienceHighEd == 'Yes' and prev_academic.employmentRecHighEd != None %}
+          <hr>
+          <p>Please state the positions held, names and dates of previous Institutions / Employers with brief detail of responsibilities in chronological order.<br>
+              For example : Assistant Professor, Universiti Brunei Darussalam, Brunei, June 2018 - June 2020
+          </p><br>
+          <div class="form-group">
+            <div class="input_fields_wrap">
+              <button class="add_erhe" type="button" style="float: inline-end;" id="button-add-erhe">{% bs_icon 'plus-square' %} Add Entry</button>
+              <h4>Employment Record in Higher Education</h4><br>
+              <div class="inp_erhe">
+              {% for key , value in prev_academic.employmentRecHighEd.items %}
+                <div class="flex">
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="academic_position">Position</label>
+                        <input type="text" placeholder="Position" name="academic_position" class="form-control" style="width:355px" value="{{value.Academic_position}}">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="prev_institute">Previous Institution</label>
+                        <input type="text" placeholder="Previous Institution" name="prev_institute" class="form-control" style="width:355px" value="{{value.Previous_institute}}">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="erhe_country">Country</label>
+                        <select name="erhe_country" class="form-control" style="padding:8px 10px; background: #ddd; border: none;border-radius: 5px; width:200px">
+                          <option value="" disabled selected>Country</option>
+                          {% for country in countries%}
+                          {% if value.Country == country.name %}
+                          <option value="{{country.name}}" selected>{{country.name}}</option>
+                          {% else %}
+                          <option value="{{country.name}}">{{country.name}}</option>
+                          {% endif %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="start_erhe">Start Date</label>
+                        <input type="date" style="width:200px" name="start_erhe" class="form-control" value="{{value.Start_date}}">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="end_erhe">End Date</label>
+                        <input type="date" name="end_erhe" class="form-control" style="width:200px" value="{{value.End_date}}">     
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-danger" style="margin-top:20px; width:auto; background-color:red; height:45px; margin-right:70%" id="erhe_{{key}}" onclick="deleteInput('erhe_{{key}}')">
+                      Delete
+                    </button>
+                  </div>  
+                  <hr>
+                </div>
+              {% endfor %}
+              </div>
+              </div>
+            </div><br>
+          {% else %}
+          <div id="input_exp_highEd">
+            <hr>
+            <p>Please state the positions held, names and dates of previous Institutions / Employers with brief detail of responsibilities in chronological order.<br>
+              For example : Assistant Professor, Universiti Brunei Darussalam, Brunei, June 2018 - June 2020
+            </p><br>
+            <div class="form-group">
+              <div class="input_fields_wrap">
+                <button class="add_erhe" type="button" style="float: inline-end;">{% bs_icon 'plus-square' %} Add Entry</button>
+                <h4>Employment Record in Higher Education</h4><br>
+                
+                <div class="inp_erhe">
+                  <div class="row">
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="academic_position">Position</label>
+                        <input type="text" placeholder="Position" name="academic_position" class="form-control" style="width:355px">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="prev_institute">Previous Institution</label>
+                        <input type="text" placeholder="Previous Institution" name="prev_institute" class="form-control" style="width:355px">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="erhe_country">Country</label>
+                        <select name="erhe_country" class="form-control" style="padding:8px 10px; background: #ddd; border: none;border-radius: 5px; width:200px">
+                          <option value="" disabled selected>Country</option>
+                          {% for country in countries%}
+                          <option value="{{country.name}}">{{country.name}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="start_erhe">Start Date</label>
+                        <input type="date" style="width:200px" name="start_erhe" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-group">
+                        <label for="end_erhe">End Date</label>
+                        <input type="date" name="end_erhe" class="form-control" style="width:200px">     
+                      </div>
+                    </div>
+                  </div>  
+                </div>
+              </div>
+            </div><br>
+          </div>
+          {% endif %}
+
+          <hr style="border-top: 5px double #8c8b8b">
+          <!-- EMPLOYMENT RECORD IN INDUSTRY  -->
+          <div class="form-group">
+            <h4>Employment Record in Industry or other sector</h4><br>
+            <button class="add_eri" type="button" style="float: inline-end;" id="button_exp_ind">{% bs_icon 'plus-square' %} Add Entry</button>
+            <h5>Do you have any experience in any industry or sector?</h5>
+            <div class="form-check form-check-inline">
+              {% if prev_academic.experienceInd == 'Yes' %}
+              <input class="form-check-input" type="radio" name="exp_ind" id="exp_ind_Yes" value="Yes" checked>
+              {% else %}
+              <input class="form-check-input" type="radio" name="exp_ind" id="exp_ind_Yes" value="Yes">
+              {% endif %}
+              <label class="form-check-label" for="prevAppYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="exp_ind" id="exp_ind_No" value="No">
+              <label class="form-check-label" for="prevAppNo">No</label>
+            </div><br>
+          </div>
+
+          {% if prev_academic.experienceInd == 'Yes' and prev_academic.employmentRecInd != None %}
+
+          <div class="form-group">
+
+
+            <div class="input_fields_wrap">
+            <hr>
+              <div class="inp_eri">
+                {% for key , value in prev_academic.employmentRecInd.items %}
+                <div class="flex">
+                <div class="row">
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="industry_position">Position</label>
+                      <input type="text" placeholder="Position" name="industry_position" class="form-control" style="width:355px" value="{{value.Industry_position}}">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="prev_industry">Previous Industry Name</label>
+                      <input type="text" placeholder="Previous Industry Name" name="prev_industry" class="form-control" style="width:355px" value="{{value.Previous_industry}}">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="eri_country">Country</label>
+                      <select name="eri_country" class="form-control" style="padding:8px 10px; background: #ddd; border: none;border-radius: 5px; width:200px">
+                        <option value="" disabled selected>Country</option>
+                        {% for country in countries%}
+                        {% if value.Country == country.name %}
+                        <option value="{{country.name}}" selected>{{country.name}}</option>
+                        {% else %}
+                        <option value="{{country.name}}">{{country.name}}</option>
+                        {% endif %}
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="start_eri">Start Date</label>
+                      <input type="date" style="width:200px" name="start_eri" class="form-control" value="{{value.Start_date}}">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="end_eri">End Date</label>
+                      <input type="date" name="end_eri" class="form-control" style="width:200px" value="{{value.End_date}}">     
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-danger" style="margin-top:20px; width:auto; background-color:red; height:45px; margin-right:70%" id="eri_{{key}}" onclick="deleteInput('eri_{{key}}')">
+                      Delete
+                    </button>
+                </div> 
+              </div>
+              {% endfor %}
+              </div>
+
+            </div>
+          </div>
+          {% else%}
+
+          <div class="form-group" id="input_exp_ind">
+
+            <div class="input_fields_wrap">
+            <hr>
+              <div class="inp_eri">
+                <div class="row">
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="industry_position">Position</label>
+                      <input type="text" placeholder="Position" name="industry_position" class="form-control" style="width:355px">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="prev_industry">Previous Industry Name</label>
+                      <input type="text" placeholder="Previous Industry Name" name="prev_industry" class="form-control" style="width:355px">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="eri_country">Country</label>
+                      <select name="eri_country" class="form-control" style="padding:8px 10px; background: #ddd; border: none;border-radius: 5px; width:200px">
+                        <option value="" disabled selected>Country</option>
+                        {% for country in countries%}
+                        <option value="{{country.name}}">{{country.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="start_eri">Start Date</label>
+                      <input type="date" style="width:200px" name="start_eri" class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="col">
+                    <div class="form-group">
+                      <label for="end_eri">End Date</label>
+                      <input type="date" name="end_eri" class="form-control" style="width:200px">     
+                    </div>
+                  </div>
+                </div> 
+              </div>
+
+            </div>
+          </div>
+          {% endif %}
+          <br><br>
+        </div>
+
+
+        <!-- TEACHING & SUPERVISION -->
+        <div class="tab">
+          <h3>6. Teaching and Supervision</h3><br/>
+
+          <div class="form-group">
+              <div class="input_fields_wrap">
+                <button class="add_courses" type="button" style="float: inline-end;">{% bs_icon 'plus-square' %} Add Entry</button>
+              <p>Indicate courses which you can teach and others which you are willing to offer at undergraduate and postgraduate levels.</p>
+
+                <div class="inp_courses">
+                  {% if prev_academic.coursesOffering != None %}
+                  {% for key , value in prev_academic.coursesOffering.items %}
+                  <div>
+                    <input type="text" placeholder="Course Name" name="course" value="{{value.Course}}">
+                    <select name="course_level" style="width: 15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                      <option value="" disabled selected>Level</option>
+                      {% for levels in course_levels %}
+                      {% if value.Level == levels %}
+                      <option value="{{levels}}" selected>{{levels}}</option>
+                      {% else %}
+                      <option value="{{levels}}">{{levels}}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+                    <a class="delete" id='course_{{key}}' onclick="deleteInput('course_{{key}}')">&times</a>
+                  </div>
+                  {% endfor %}
+                  
+                  {% else %}
+                  <input type="text" placeholder="Course Name" name="course">
+                  <select name="course_level" style="width: 15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                    <option value="" disabled selected>Level</option>
+                    <option value="Undergraduate">Undergraduate</option>
+                    <option value="Postgraduate">Postgraduate</option>
+                  </select>
+                  
+                  {% endif %}
+                </div>
+              </div>
+          </div><br>
+
+          <div class="mb-3">
+              <label>Please attach the list of supervision at postgraduate level (if necessary)</label>
+              {% if prev_academic.teachingSupervision.Supervision_file != None %}
+              <div>
+                <a href="{{prev_academic.teachingSupervision.Supervision_file}}" target="_blank">{{prev_academic.teachingSupervision.Supervision_file_name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="supervision_file" onclick="changeSupervisionFile('supervision_file')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_list_supervision_file" id="list_supervision_file">
+              {% else %}
+              <input type="file" class="form-control" name="list_supervision_file">
+              {% endif %}
+              <div>
+
+              </div>
+          </div>
+        </div>
+        <!-- RESEARCH & PUBLICATION -->
+        <div class="tab">
+          <h3>7. Research and Publication</h3><br/>
+
+          <div class="form-group">
+              <label for="area_interest">Please indicate your present research and areas of interest</label>
+              <input style="width:100%;" type="text" name="area_interest" id="area_interest" class="form-control" value="{{prev_academic.teachingSupervision.Area_of_interest}}" />
+
+          </div><br>
+
+          <div class="mb-3">
+              <label>Please attach list of Publications (Book and Monograph, International Journals, other Scholarly Publications) and patent in chronological order</label>
+              {% if prev_academic.teachingSupervision.Publications_file != None %}
+              <div>
+              <a href="{{prev_academic.teachingSupervision.Publications_file}}" target="_blank">{{prev_academic.teachingSupervision.Publications_name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="publication" onclick="changeFile('publication')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_publications" id="publication_file">
+              {% else %}
+              <input type="file" class="form-control" name="publications">
+              {% endif %}
+          </div><br>
+          <hr>
+          <div class="row">
+          <div class="col">
+          <div class="form-group">
+              <label for="google_h_index">Please put in your google scholar author id</label>
+              <p style="font-size: smaller; color:#8c8b8b;">This author id is visible in the url of your author's profile.</p>
+              <input type="text" name="scholarly_id" id="scholarly_id" class="form-control" value="{{prev_academic.teachingSupervision.Scholarly_id}}" />
+              <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target=#scholarly-verification>Verify</button>
+
+          </div><br>
+          </div>
+          <div class="col">
+          <div >
+            <img src="{% static 'images/contentDeco/scholar_id.png'%}" style="width: 100%;">
+            <p style="font-size: smaller; color:#8c8b8b; text-align: center;">The scholar author id.</p>
+          </div>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <div class="form-group">
+                <label for="scopus_h_index">Please put in your scopus author identifier</label>
+                <input type="text" name="scopus_id" id="scopus_id" class="form-control" value="{{prev_academic.teachingSupervision.Scopus_id}}" />
+                <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target=#scopus-verification>Verify</button>
+            </div><br>
+            </div>
+            <div class="col">
+              <img src="{% static 'images/contentDeco/Scopus_id.png' %}" style="width: 100%;">
+              <p style="font-size: smaller; color:#8c8b8b; text-align: center;">The scopus id.</p>
+            </div>
+
+          </div>
+          
+        </div>
+
+        <div class="modal fade" id="scopus-verification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="scholarly-verification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- LANGUAGES -->
+        <div class="tab">
+          <h3>8. Languages</h3><br/>
+
+          <h5>Spoken Ability</h5><hr><br>
+          <div class="form-group">
+              <label for="Malay">Malay</label>
+              <select name="Malay" id="Malay" class="form-control">
+                  <option value="">- - -</option>
+                  {% for level in language_levels %}
+                  {% if level == prev_academic.languages.Malay %}
+                  <option value="{{level}}" selected>{{level}}</option>
+                  {% else %}
+                  <option value="{{level}}">{{level}}</option>
+                  {% endif %}
+                  {% endfor %}
+                  
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="English">English</label>
+              <select name="English" id="English" class="form-control">
+                  <option value="">- - -</option>
+                  {% for level in language_levels %}
+                  {% if level == prev_academic.languages.English %}
+                  <option value="{{level}}" selected>{{level}}</option>
+                  {% else %}
+                  <option value="{{level}}">{{level}}</option>
+                  {% endif %}
+                  {% endfor %}
+              </select>
+          </div><br>
+
+          <div class="form-group">
+              <label for="Arabic">Arabic</label>
+              <select name="Arabic" id="Arabic" class="form-control">
+                  <option value="">- - -</option>
+                  {% for level in language_levels %}
+                  {% if level == prev_academic.languages.Arabic %}
+                  <option value="{{level}}" selected>{{level}}</option>
+                  {% else %}
+                  <option value="{{level}}">{{level}}</option>
+                  {% endif %}
+                  {% endfor %}
+
+              </select>
+          </div><br>
+
+
+          <h5>Other languages</h5>
+          <hr>
+          <div class="input_fields_wrap">
+            <button type="button" class="add_language" style="float:left;">Add more language</button>
+            <br>
+            <br>
+            <br>
+            <div class="inp_language">
+              {% if prev_academic.otherLanguages  %}
+              {% for key , value in prev_academic.otherLanguages.items %}
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Language</label>
+                    <input type="text" style="width: 355px;" name="language" class="form-control" value="{{value.language}}">
+                  </div>
+
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Fluency</label>
+                    <select name="fluency" class="form-control" style="width: 355px;">
+                      {% for level in language_levels %}
+                      {% if value.fluency == level %}
+                      <option value="{{level}}" selected>{{level}}</option>
+                      {% else %}
+                      <option value="{{level}}">{{level}}</option>
+                      {% endif %}
+                      {% endfor %}
+                    </select>
+
+                  </div>
+                </div>
+                <a class="delete" style="margin-top:30px" id="other_lang_{{key}}" onclick="deleteInput('other_lang_{{key}}')">&times</a>
+              </div>
+
+              {% endfor %}
+              {% endif %}
+              
+            </div>
+          </div>
+          <br>
+        </div>
+
+
+        <!-- FAMILY PARTICULARS -->
+        <div class="tab">
+          <h3>9. Family Particulars</h3><br/>
+
+          <div class="form-group">
+              <label for="no_children">Number of children</label>
+              <button type="button" class="add_children" style="float: right;">Fill Details</button>
+              <input name="no_children" id="no_children" class="form-control" type="number" value="{{prev_academic.family.Children | length}}"></input>
+              <div id="children_container">
+                {% if prev_academic.family.Children != None %}
+                {% for key , value in prev_academic.family.Children.items %}
+                <div>
+                Child {{key}}
+                <input type="text" name="children_name" placeholder="Child's name" style="margin-left:10px;margin-right: 5px;" value="{{value.name}}">
+                Date of Birth
+                <input type="date" name="children_dob" style="margin-left: 5px;" value="{{value.dob}}">
+                <select name="children_gender" style="width:15%; margin-left:5px; padding:8px 10px; background: #ddd; border: none;border-radius: 5px;">
+                  {% for g in gender %}
+                  {% if g == value.gender %}
+                  <option value="{{g}}" selected>{{g}}</option>
+                  {% else %}
+                  <option value="{{g}}">{{g}}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+                <br>
+                </div>
+                {% endfor %}
+                {% endif %}
+              </div>
+          </div><br>
+          <hr>
+
+          <div class="form-group">
+              <p>Please state your spouse’s name and current occupation</p>
+            {% if profile.maritalStat == 'Married'%}
+              <div class="row">
+                <div class="col">
+                  <label for="spouse_name">Spouse name</label>
+                  <input name="spouse_name" class="form-control" style="width: 355px;" value="{{prev_academic.family.Spouse}}"></input>
+                </div>
+                <div class="col">
+                  <label for="spouse_occupation">Spouse Occupation</label>
+                  <input name="spouse_occupation" class="form-control" style="width: 355px;" value="{{prev_academic.family.Spouse_occupation}}"></input>
+                </div>
+              </div>
+            {% else %}
+            <br>
+            <p>Marital status: <b>Single</b></p>
+            <p>Change marital status to married?</p>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="changeMarital" id="maritalYes" value="Yes">
+              <label class="form-check-label" for="maritalYes">Yes</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="changeMarital" id="maritalNo" value="No">
+              <label class="form-check-label" for="maritalNo">No</label>
+            </div>
+            <br>
+            <!-- if yes -->
+              <div class="row">
+                  <div class="col">
+                    <label for="spouse_name" id="label_spouse_name">Spouse name</label>
+                    <input name="spouse_name" class="form-control" style="width: 355px;" id="input_spouse_name"></input>
+                  </div>
+                  <div class="col">
+                    <label for="spouse_occupation" id="label_spouse_occ">Spouse Occupation</label>
+                    <input name="spouse_occupation" class="form-control" style="width: 355px;" id="input_spouse_occ"></input>
+                  </div>
+                </div>
+
+
+            {% endif %}
+
+          </div><br>
+        </div>
+
+
+        <!-- REFEREES -->
+        <div class="tab">
+          <h3>10. Referees</h3><br/>
+
+          <p>Give details of three referees including position, telephone number, and email address, 
+            stating whether they can be contacted at this stage.</p><br>
+            <h5>Referee 1</h5>
+            <hr>
+            <!-- First referee -->
+            <div class="row">
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_name">Referee's name</label>
+                  <input type="text" name="referee_1_name" class="form-control" style="width: 355px;" value="{{prev_academic.referees.1.name}}"></input>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_position">Position</label>
+                  <input type="text" name="referee_1_position" class="form-control" style="width: 355px;" value="{{prev_academic.referees.1.position}}"></input>
+                </div> 
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_email">Company / Institute</label>
+                  <input type="text" name="referee_1_compInst" class="form-control" style="width: 355px;" value="{{prev_academic.referees.1.company_institute}}"></input>
+                </div>                
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_phone">Phone no.</label>
+                  <input type="text" name="referee_1_phone" class="form-control" style="width: 355px;" value="{{prev_academic.referees.1.phone}}"></input>
+                </div>  
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_email">Email</label>
+                  <input type="email" name="referee_1_email" class="form-control" style="width: 355px;" value="{{prev_academic.referees.1.email}}"></input>
+                </div>                
+              </div>
+
+              <div class="col">
+                <p>Can this person be contacted before interview?</p>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.1.contactability == 'Yes' %}
+                  <input class="form-check-input" type="radio" name="referee_1_contact" value="Yes" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_1_contact" value="Yes">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_1_contact">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.1.contactability == 'No' %}
+                  <input class="form-check-input" type="radio" name="referee_1_contact" value="No" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_1_contact" value="No">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_1_contact">No</label>
+                </div>
+              </div>
+            </div>
+           
+           
+          <br>
+          <h5>Referee 2</h5>
+          <hr>
+          <div class="row">
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_2_name">Referee's name</label>
+                  <input type="text" name="referee_2_name" class="form-control" style="width: 355px;" value="{{prev_academic.referees.2.name}}"></input>
+                </div>
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_2_position">Position</label>
+                  <input type="text" name="referee_2_position" class="form-control" style="width: 355px;" value="{{prev_academic.referees.2.position}}"></input>
+                </div> 
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_email">Company / Institute</label>
+                  <input type="text" name="referee_2_compInst" class="form-control" style="width: 355px;" value="{{prev_academic.referees.2.company_institute}}"></input>
+                </div>                
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_2_phone">Phone no.</label>
+                  <input type="text" name="referee_2_phone" class="form-control" style="width: 355px;" value="{{prev_academic.referees.2.phone}}"></input>
+                </div>  
+              </div>
+
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_2_email">Email</label>
+                  <input type="email" name="referee_2_email" class="form-control" style="width: 355px;" value="{{prev_academic.referees.2.email}}"></input>
+                </div>                
+              </div>
+
+              <div class="col">
+                <p>Can this person be contacted before interview?</p>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.2.contactability == 'Yes' %}
+                  <input class="form-check-input" type="radio" name="referee_2_contact" value="Yes" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_2_contact" value="Yes">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_2_contact">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.2.contactability == 'No' %}
+                  <input class="form-check-input" type="radio" name="referee_2_contact" value="No" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_2_contact" value="No">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_2_contact">No</label>
+                </div>
+              </div>
+          </div>
+
+          <br>
+          <h5>Referee 3</h5>
+          <hr>
+          <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_3_name">Referee's name</label>
+                  <input type="text" name="referee_3_name" class="form-control" style="width: 355px;" value="{{prev_academic.referees.3.name}}"></input>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_3_position">Position</label>
+                  <input type="text" name="referee_3_position" class="form-control" style="width: 355px;" value="{{prev_academic.referees.3.position}}"></input>
+                </div> 
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_1_email">Company / Institute</label>
+                  <input type="text" name="referee_3_compInst" class="form-control" style="width: 355px;" value="{{prev_academic.referees.3.company_institute}}"></input>
+                </div>                
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_3_phone">Phone no.</label>
+                  <input type="text" name="referee_3_phone" class="form-control" style="width: 355px;" value="{{prev_academic.referees.3.phone}}"></input>
+                </div>  
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="referee_3_email">Email</label>
+                  <input type="email" name="referee_3_email" class="form-control" style="width: 355px;" value="{{prev_academic.referees.3.email}}"></input>
+                </div>                
+              </div>
+              <div class="col">
+                <p>Can this person be contacted before interview?</p>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.3.contactability == 'Yes' %}
+                  <input class="form-check-input" type="radio" name="referee_3_contact" value="Yes" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_3_contact" value="Yes">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_3_contact">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  {% if prev_academic.referees.3.contactability == 'No' %}
+                  <input class="form-check-input" type="radio" name="referee_3_contact" value="No" checked>
+                  {% else %}
+                  <input class="form-check-input" type="radio" name="referee_3_contact" value="No">
+                  {% endif %}
+                  <label class="form-check-label" for="referee_3_contact">No</label>
+                </div>
+              </div>
+            </div>
+
+        </div>
+          
+
+        <!-- DOCUMENTS REQUIRED -->
+        <div class="tab">
+          <h3>Documents Required</h3>
+          <p>Please upload coloured version. This information will be kept confidential. 
+            Applicants can upload attachments such as documents, PDFs and images. Incomplete applications will not be processed.</p>
+          <br>
+          
+          <div class="mb-3">
+              <label><h5>Copy of Identity Card / Copy Of Passport</h5></label>
+              {% if prev_application.documents.3.file != None %}
+              <div>
+                <a href="{{prev_application.documents.3.file}}" target="_blank">{{prev_application.documents.3.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="passport_ic" onclick="changeFile('passport_ic')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_passport_ic" id="passport_ic_file">
+              {% else %}
+              <input type="file" class="form-control" name="passport_ic" id="passport_ic" >
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Cover Letter</h5></label>
+              {% if prev_application.documents.4.file != None %}
+              <div>
+                <a href="{{prev_application.documents.4.file}}" target="_blank">{{prev_application.documents.4.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="cover_letter" onclick="changeFile('cover_letter')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_cover_letter" id="cover_letter_file">
+              {% else %}
+              <input type="file" class="form-control" name="cover_letter" id="cover_letter">
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Curriculum Vitae</h5></label>
+              {% if prev_application.documents.7.file != None %}
+              <div>
+                <a href="{{prev_application.documents.7.file}}" target="_blank">{{prev_application.documents.7.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="cv" onclick="changeFile('cv')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_cv" id="cv_file">
+              {% else %}
+              <input type="file" class="form-control" name="CV" id="CV">
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Research Statement / Proposal</h5></label>
+              {% if prev_application.documents.5.file != None %}
+              <div>
+                <a href="{{prev_application.documents.5.file}}" target="_blank">{{prev_application.documents.5.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="research_statement" onclick="changeFile('research_statement')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_research_statement" id="research_statement_file">
+              {% else %}
+              <input type="file" class="form-control" name="research_statement">
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Teaching Statement</h5></label>
+               {% if prev_application.documents.6.file != None %}
+              <div>
+                <a href="{{prev_application.documents.6.file}}" target="_blank">{{prev_application.documents.6.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="teaching_statement" onclick="changeFile('teaching_statement')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_teaching_statement" id="teaching_statement_file">
+              {% else %}
+              <input type="file" class="form-control" name="teaching_statement">
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+              <label><h5>Academic Transcripts and Certificates</h5></label>
+              <p style="font-size: 15px;">For Bachelors and Masters degree, you are required to provide both transcripts and certificates.</p>
+               {% if prev_application.documents.8.file != None %}
+              <div>
+                <a href="{{prev_application.documents.8.file}}" target="_blank">{{prev_application.documents.8.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="transcripts" onclick="changeFile('transcripts')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_transcripts" id="transcripts_file">
+              {% else %}
+              <input type="file" class="form-control" name="transcripts" id="transcripts">
+              {% endif %}
+          </div><br>
+
+          <div class="mb-3">
+            <label><h5>Other relevant documents to support your applications</h5></label>
+            <p style="font-size: 15px;">Example: Covering letter, teaching evaluation, research impact.</p>
+               {% if prev_application.documents.9.file != None %}
+              <div>
+                <a href="{{prev_application.documents.9.file}}" target="_blank">{{prev_application.documents.9.name}}</a>
+                <button style="font-size: 13px;padding:8px; margin-left: 10px;" type="button" id="other_docs" onclick="changeFile('other_docs')">
+                      Change file
+                </button>
+              </div>
+              <input type="file" class="form-control" name="change_other_docs" id="other_docs_file">
+              {% else %}
+              <input type="file" class="form-control" name="other_docs" id="other_docs">
+              {% endif %}
+          </div><br>
+        </div>
+
+
+        <!-- DECLARATION -->
+        <div class="tab">
+          <h3>Declaration</h3><br/>
+          <h5>
+              I declare that the particulars on this application and the attached sheets
+              hereto are true to the best of my knowledge and belief, and that I have not
+              willfully withheld any material fact.
+          </h5><br>
+          <h5>
+             I acknowledge that the information provided in this job application is true and accurate to the best of 
+             my knowledge. I hereby consent to the collection, processing, and storage of this information by 
+             Universiti Brunei Darussalam for the purpose of evaluating my candidacy for employment. 
+             I understand that this information will be used solely for recruitment and selection purposes and will 
+             be treated with confidentiality in accordance with applicable privacy laws. 
+             If selected for the position, I agree to provide any additional information or documentation necessary 
+             for the employment process.
+          </h5><br>
+          <div class="form-group">
+            <div class="form-check form-check-inline" style="width: 200px;">
+              <input class="form-check-input" type="checkbox" name="consent" value="Yes" style="width: 15px;">
+              <label class="form-check-label" for="consent"><h5> Yes, I consent </h5></label>
+            </div>
+            
+          </div>
+          
+        </div>
+        <br><br>
+        
+
+        <div class="row">
+          <div class="col">
+            {% if no_draft %}
+            {% else %}
+            <button type="submit" name="addDraft" onclick="return confirm('Are you sure you want to save this application as draft.')" >Save as Draft</button>
+            {% endif %}
+          </div>
+          <div class="col">
+          <div style=" display: flex;align-items: right; justify-content: right;">
+            
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)" style="margin-right: 10px;">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            <button type="submit" id="submitBtn" name="submitForm" onclick="return confirm('Are you sure you want to submit your form?')">Submit Form</button>
+          </div>
+          </div>
+        </div>
+
+        
+      </form>
+    </div>
+  </div>
+
+ {% include 'main/constant/footer.html' %}
+ {% include 'main/mainPages/jobFormFunction.html' %}
+
+
+  <script src="{% static 'js/dynamicForm.js' %}"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  <script>
+    
+    $('#scopus-verification').on('show.bs.modal', function (event) {
+    const scopus_id = document.getElementById("scopus_id").value;
+    
+    var button = $(event.relatedTarget);
+    // var url = button.data('url')
+    var url = "{% url 'scopusVerification' 123 %}";
+    // Assuming you set data-url attribute on the trigger button
+
+    // Use AJAX to load content into the modal
+    $.ajax({
+      type: 'GET',
+      url: url.replace('123',scopus_id),
+      success: function (data) {
+        $('.modal-content').html(data);
+      }
+    });
+    
+  });
+
+  $('#scholarly-verification').on('show.bs.modal', function (event) {
+    const scholarly_id = document.getElementById("scholarly_id").value;
+    
+    var button = $(event.relatedTarget);
+    // var url = button.data('url')
+    var url_scholarly = "{% url 'scholarlyVerification' 123 %}";
+    // Assuming you set data-url attribute on the trigger button
+    
+
+    // Use AJAX to load content into the modal
+    $.ajax({
+      type: 'GET',
+      url: url_scholarly.replace('123',scholarly_id),
+      success: function (data) {
+        $('.modal-content').html(data);
+      }
+    });
+    
+  });
+
+  </script>
+</body>
+</html>

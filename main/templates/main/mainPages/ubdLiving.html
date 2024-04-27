@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>Living in Brunei</title>
+</head>
+<body>
+    {% include 'main/constant/header.html' %}
+    {% include 'main/mainPages/ubdnav.html' %}
+    <div class="career-bg" style="background-image: url({% static '/images/contentDeco/headerliving.jpg' %});"></div>
+    
+    <div class="container">
+        <div class="viewbox">
+            <h1>Living in Brunei</h1><hr/>
+
+            <p style="font-weight:bold; font-size:20px;">Brunei key facts:</p>
+            <p>Brunei Darussalam is situated in the south-eastern region of Asia, on the Island of Borneo, between longitudes 114'04" and 114'23" 
+                East and latitudes 4'00" and 5'05" North. Brunei, although occupying less than 1% of Borneo's land area, is the only sovereign country 
+                on the island, which it shares with the Indonesian provinces of West, East, South and Central Kalimantan and the Malaysian states of 
+                Sabah and Sarawak.</p>
+            <p>5,675 sq. km (with a coastline of about 161 km along the South China Sea).</p>
+            <br><br>
+
+            <div class="row">
+                <div class="col-md-7">
+
+                    <p style="font-weight:bold; font-size:20px;">Location and getting around:</p>
+                    <p>Brunei enjoys a convenient location at the heart of Southeast Asia and is well-connected to destinations worldwide.</p>
+                    <br>
+                    
+                    <p style="font-weight:bold; font-size:20px;">Air:</p>
+                    <p>Royal Brunei Airlines, the nation’s flagship carrier, flies non-stop or direct to most major Asia-Pacific destinations and 
+                        the Middle East, as well as to Europe via London and Frankfurt. Meanwhile, Malaysia Airlines, Singapore Airlines, Thai Airways, 
+                        Air Asia and Cebu Pacific serve Bandar Seri Begawan and offer one-stop connections to the rest of the world through their hubs 
+                        in Kuala Lumpur, Singapore, Bangkok, Hong Kong and Manila.</p>
+                    <br>
+                    <table class="table">
+                        <tr>
+                            <th>Flight Distance from Brunei Darussalam</th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>Singapore</td>
+                            <td>1, 263km</td>
+                        </tr>
+                        <tr>
+                            <td>Kuala Lumpur</td>
+                            <td>1,457km</td>
+                        </tr>
+                        <tr>
+                            <td>Bangkok</td>
+                            <td>1,869km</td>
+                        </tr>
+                        <tr>
+                            <td>Jakarta</td>
+                            <td>1,493km</td>
+                        </tr>
+                        <tr>
+                            <td>Hong Kong</td>
+                            <td>1,989km</td>
+                        </tr>
+                        <tr>
+                            <td>Sydney</td>
+                            <td>5,741km</td>
+                        </tr>
+                        <tr>
+                            <td>Dubai</td>
+                            <td>6,738km</td>
+                        </tr>
+                        <tr>
+                            <td>London</td>
+                            <td>11,296km</td>
+                        </tr>
+                    </table>
+                    <br>
+
+                    <p style="font-weight:bold; font-size:20px;">Sea:</p>
+                    <p>Ferries link Brunei with the Malaysian island of Labuan off the coast of Sabah, and to the Malaysian towns of Limbang and 
+                        Lawas in Sarawak.</p>
+                    <br>
+
+                    <p style="font-weight:bold; font-size:20px;">Road:</p>
+                    <p>An extensive overland road network also connects Brunei to Sarawak and Sabah, while the Indonesian province of Kalimantan 
+                        can be reached by road, air or boat via Sarawak or Sabah.</p>
+
+                </div>
+
+                <div class="col-md-5">
+                    <img style="border:solid 1px; max-width: 420px;" src=" {% static '/images/contentDeco/map.jpg' %}" alt="Image description">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="viewbox">
+            <h1>Climate, culture and schooling</h1><hr/>
+
+            <p style="font-weight:bold; font-size:20px;">Climate</p>
+            <p>Located close to the equator, Brunei Darussalam enjoys moderate equatorial climate throughout the year with temperatures ranging 
+                from 23oC to 32oC. Rainfall occurs heaviest in September to January and May to July with March and April being the warmest months. 
+                Annual rainfall averages 320cm. Humidity is high throughout the year at an estimate of 79 percent.</p>
+            <br>
+
+            <p style="font-weight:bold; font-size:20px;">Culture</p>
+            <p>Brunei Darussalam is known for its diversity in race and culture. While Bruneians are predominantly Malay, significant Chinese, 
+                Indian and indigenous Bornean populations also add to the cultural makeup of Brunei. Brunei’s culture displays a harmonious blend of 
+                elements from the traditions, customs and beliefs of these different ethnic groups. The Sultanate boasts a rich cultural legacy and 
+                its museums, music, language and other aspects of cultural life testify this fact. Brunei Darussalam offers entertainment and 
+                recreation like no other. Being a safe haven for wildlife, rainforests and reef, Brunei Darussalam is the place to be for adventure 
+                seekers and nature lovers to explore its natural beauty. Recreational parks in Tasek Lama located in the city centre, and 
+                Bukit Shahbandar located only 10 minutes from UBD are popular hiking spots for both locals and expatriates seeking fitness 
+                activities while being in touch with nature. Brunei’s rich marine biodiversity has also become an attraction for scuba divers worldwide, 
+                who travel to the Sultanate to explore historical shipwrecks from World War II in Brunei waters. Brunei Darussalam also offers 
+                entertainment indoors with its art galleries at the Waterfront in the capital, cinemas, bowling alleys and fitness clubs throughout 
+                the city. Brunei Darussalam is a particularly refreshing place to live for those seeking a laidback lifestyle, with locals often 
+                spending their past times in conversations in coffee shops.</p>
+            <br>
+            
+            <p style="font-weight:bold; font-size:20px;">Schooling</p>
+            <p></p>
+            <ul>
+                <li><a href="http://www.jis.edu.bn/">Jerudong International School</a></li>
+                <li><a href="http://www.isb.edu.bn/">International School Berakas</a></li>
+                <li><a href="http://www.chunghwa.edu.bn/">Chung Hwa School</a></li>
+                <li><a href="http://www.smsarjanais.edu.bn/">Seri Mulia Sarjana International School</a></li>
+                <li>Yayasan Sultan Haji Hassanal Bolkiah Schools:</li>
+                <ul>
+                    <li><a href="http://www.taska-yayasan.edu.bn/">Nursery</a></li>
+                    <li><a href="http://www.primary-yayasan.edu.bn/en/">Primary</a></li>
+                    <li><a href="http://www.secondary-yayasan.edu.bn/en/">Secondary</a></li>
+                </ul>
+            </ul>
+            <br>
+
+            <p style="font-weight:bold; font-size:20px;">Healthcare</p>
+            <ul>
+                <li><a href="http://www.jpmc.com.bn/">Private Health Care</a></li>
+                <li><a href="http://www.moh.gov.bn/Theme/Home.aspx">Ministry of Health Brunei - Information of healthcare services in Brunei Darussalam</a></li>
+            </ul>
+
+        </div>
+    </div> 
+    
+ {% include 'main/constant/footer.html' %}
+</body>
+</html>

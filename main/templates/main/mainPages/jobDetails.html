@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>{{job.name}}</title>
+    <style>
+        .badge-style{
+			float: right; 
+			/* margin-top: 5px;  */
+            font-size: large;
+            position: absolute;
+		}
+        .btn-apply{
+            padding:10px 50px; 
+            background-color:#fcb247 ;
+            color: white;
+
+        }
+    </style>
+</head>
+<body>
+    {% include 'main/constant/header.html' %}
+    {% include 'main/mainPages/ubdnav.html' %}
+    <div class="container">
+        <div class="viewbox">
+            {% if job.status == 'OPEN' %}
+            <span class="badge ms-1 badge-style" style="background-color: #AED688;">{{job.status}}</span><br>
+            {% else %}
+            <span class="badge ms-1 badge-style" style="background-color: rgb(241, 138, 138)">{{job.status}}</span><br>
+            {% endif %}
+            <div style="text-align: center;">
+            {% if job.department.icon == ''%}
+                <img src="{% static 'images/contentDeco/ubd-logo.png' %}" style="width: 100px;" >
+            {% else %}
+                <img src="/media/{{job.department.icon}}" style="width: 100px;" >
+            {% endif %}
+            </div>
+            <h2 style="text-align: center;">{{job.name}}</h2>
+            <div>
+                <h4 style="text-align: center;">University Brunei Darussalam</h4>
+                <h5 style="text-align: center; font-weight: bold;">
+                    {{job.department.category}} | {{job.department}}</h5>
+            </div><hr/>
+            <div style="margin-left: 30px; margin-right: 30px;">
+                {% if job.department.category == 'Academic' %}
+                <div class="row" >
+                    <div class="col-lg-5">
+                        <h5><strong>Employment type</strong> : {{job.type}}</h5>
+                    </div>
+                    <div class="col">
+                        <h5><strong>Minimum Requirement</strong> : {{job.minReq}} </h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-5">
+                        <h5><strong>Salary</strong> : {{job.salaryMin}} ~ {{job.salaryMax}} BND per annum</h5>
+                    </div>
+                    <div class="col">
+                        <h5><strong>Years of Experience needed</strong> : {{job.yearsExp}} years</h5>
+                    </div>
+                </div>
+                <br><br>
+                <h4 style="text-align: center; letter-spacing: 1px; font-weight: bold;">Job Description</h4>
+                <hr>
+                {% elif job.department.category == 'Non-Academic' %}
+                <h5>{{job.header}}</h5><br>
+                <div class="row" >
+                    <div class="col-lg-6">
+                        <div class="row">
+                        <div class="col-lg-4">
+                            <h5><strong>Jenis Pekerjaan</strong> : </h5>
+                        </div>
+                        <div class="col">
+                        <h5>
+                            {% if job.type == 'Full-time' %}
+                            Sepenuh Masa
+                            {% else %}
+                            Sambilan
+                            {% endif %}
+                        </h5>
+                        </div>
+                        </div>
+
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">       
+                                <h5><strong>Tahap Pendidikan Minimum :</strong></h5>
+                            </div>
+                            <div class="col">
+                                <h5> {{job.minReq}} </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <h5><strong>Tangga Gaji :</strong></h5> 
+                            </div>
+                            <div class="col">
+                                <h5>{{job.salaryMin}} ~ {{job.salaryMax}} BND sebulan</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <h5><strong>Kekosongan :</strong></h5>  
+                            </div>
+                            <div class="col">
+                                <h5>{{job.vacancy}} orang</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br><br>
+                <h4 style="text-align: center; letter-spacing: 1px; font-weight: bold;">Butir-butir kerja</h4>
+                <hr>
+                {% endif %}
+            
+            
+
+            <div style="font-size:16px; margin-bottom:30px;">{{job.description | safe}}</div>
+            <hr>
+            {% if job.status == 'OPEN'%}
+            <!-- ACADEMIC JOB FORM -->
+            {% if job.jobForm == 'ACADEMIC' %}
+            <div id="apply-btn">
+                {% if applied %}
+                    <a href="{% url 'myApplication' pk=applied.id %}"><button class="btn btn-light btn-apply">VIEW SUBMISSION</button></a>
+                {% else %}
+                    {% if draft %}
+                        <a href="{% url 'continueDraft' job_id=job.id draft_id=draft.id %}"><button class="btn btn-light btn-apply">CONTINUE DRAFT</button></a> 
+                    {% else %}
+                        {% if request.user.applicant.submission > 0 %}
+                            <button class="btn btn-light btn-apply" data-url="{% url 'prevApplicationOption' job_id=job.id %}" type="button" data-bs-toggle="modal" data-bs-target="#modal-use-prev-app">
+                                APPLY
+                            </button>
+                        {% else %}
+                            <a href="{% url 'jobForm' job.id %}"><button class="btn btn-light btn-apply" >APPLY</button></a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            <!-- EMAIL -->
+            {% elif job.jobForm == 'EMAIL' %}
+            <p>If you are interested in this position please email <b>{{job.btnMsg}}</b></p>
+            {% elif job.jobForm == 'LINK'%}
+            <P>If you are interested in this position please follow this link <a href="{{job.btnMsg}}" target="_blank"></a> {{job.btnMsg}}</P>
+            {% elif job.jobForm == 'CUSTOM'%}
+            <p>{{job.btnMsg}}</p>
+            {% elif job.jobForm == 'NON-ACADEMIC' %}
+            <a href="{% url 'nonAcademicJobForm' job.id %}"><button class="btn btn-light btn-apply" >APPLY</button></a>
+            {% endif %}
+                        
+            </div>
+            {% else %}
+            <hr>
+            <h6>The application period for this job has closed.</h6>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-use-prev-app" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'main/constant/footer.html' %}
+
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        alert('{{message}}')
+    </script>
+    {% endfor %}
+    {% endif %}
+    <script src="{% static 'js/jquery-2.1.1.js'%}"></script>
+    <script>
+        // pop up modal for applicants who have applied before:
+        $('#modal-use-prev-app').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget);
+            var url = button.data('url');
+            
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (data) {
+                    $('.modal-content').html(data);
+                }
+            });
+        });
+                        
+         
+    </script>
+</body>
+</html>

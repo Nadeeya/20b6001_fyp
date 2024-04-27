@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/contentDeco/ubd-favicon.ico' %}"> 
+    <title>Benefits</title>
+</head>
+<body>
+    {% include 'main/constant/header.html' %}
+    {% include 'main/mainPages/ubdnav.html' %}
+
+    <div class="career-bg" style="background-image: url({% static '/images/contentDeco/headerbenefits.jpg' %});"></div>
+    
+    <div class="container" >
+        <div class="viewbox">
+            <h1>Benefits at UBD</h1><hr/>
+
+            <p>At UBD, we are committed to recognising the contribution of our staff through a wide range of exciting benefits and rewards. Find out more below:</p>
+            <p style="font-weight:bold; font-size:20px;">Salary range for each role (Education Officer to Professor) per annum:</p><br>
+            <table class="table table-striped">
+                <tr>
+                    <th>Position</th>
+                    <th>Salary BND</th>
+                    <th>Salary USD*</th>
+                </tr>
+                <tr>
+                    <td>Education Officer</td>
+                    <td>27,240 – 50,880</td>
+                    <td>20,481 - 38,256</td>
+                </tr>
+                <tr>
+                    <td>Lecturer (with PhD)</td>
+                    <td>38,280 – 50,880</td>
+                    <td>28,782 - 38,256</td>
+                </tr>
+                <tr>
+                    <td>Assistant Professor</td>
+                    <td>46,560 – 67,320</td>
+                    <td>35,008 - 50,617</td>
+                </tr>
+                <tr>
+                    <td>Associate Professor</td>
+                    <td>81,600 – 84,120</td>
+                    <td>61,353 - 63,248</td>
+                </tr>
+                <tr>
+                    <td>Professor</td>
+                    <td>96,000 – 216,000</td>
+                    <td>72,180 - 162,406</td>
+                </tr>
+            </table>
+            <p>*Salary has been converted at the prevailing rate from January 2023</p>
+            <ul>
+                <li>Bonus payment after each 12 months of satisfactory service</li>
+                <li>Gratuity payment of 25% of last drawn basic monthly salary x 36 months. Payable at the end of the contract</li>
+                <li>No personal income tax scheme in Brunei Darussalam on income earned</li>
+            </ul>
+            <br>
+
+            <p style="font-weight:bold; font-size:20px;">Benefits</p>
+            <ul>
+                <li>Access to various research grants in UBD. Up to 44 days of research leave in each academic year</li>
+                <li>Highly subsidised monthly housing rental of US$95</li>
+                <li>Educational allowance for up to 4 children between age 5 to 21 from US$90 up to US$590 monthly. The amount received depends on the choice of schools</li>
+                <li>Education allowance for up to 4 children between the age of 5 and 21</li>
+                <li>Holidays - 48 days of leave annually and travel passages at the beginning, middle and end of the contract</li>
+                <li>Academic allowance paid monthly ranging from US$150 – US$890 depending on level of positions</li>
+                <li>Economy air-tickets via a commercial airline by the most economical and direct route to Brunei Darussalam including spouse and up to 4 children (under 18 years old)</li>
+                <li>Cost of transporting personal effects by sea freight from the nearest port of residence to Brunei Darussalam for up to 1.2 cubic metres per adult and 0.6 cubic metres for child under 12 years old</li>
+                <li>Cost of excess accompanied baggage up to 20 Kg per adult and 10 kg per child under 12 year old</li>
+                <li>Free medical service at Government hospitals and health centres.</li>
+            </ul>
+            <br>
+
+            <p style="font-weight:bold; font-size:20px;">Academic Support</p>
+            <ul>
+                <li>For long-term research, academic staff have access to various funding sources from government and private sector and research leave up to 44 days per academic year</li>
+                <li>Conference leave up to 14 days and funding of US$3000 per academic year</li>
+            </ul>
+
+        </div>
+    </div> 
+    
+ {% include 'main/constant/footer.html' %}
+
+</body>
+</html>

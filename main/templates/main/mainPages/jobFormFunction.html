@@ -1,0 +1,171 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+ 
+  <script>
+    var currentTab = 0; // Current tab is set to be the first tab (0)
+    showTab(currentTab); // Display the current tab
+
+    function showTab(n) {  // This function will display the specified tab of the form...
+      var x = document.getElementsByClassName("tab");
+      x[n].style.display = "block";
+
+      if (n == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+        document.getElementById("nextBtn").style.display = "inline";
+        document.getElementById("submitBtn").style.display = "none";
+      } else if (n == x.length - 1) {
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline";
+      } else {
+        document.getElementById("prevBtn").style.display = "inline";
+        document.getElementById("nextBtn").style.display = "inline";
+        document.getElementById("submitBtn").style.display = "none";
+      }
+
+      fixStepIndicator(n);  //... and run a function that will display the correct step indicator:
+    }
+
+    function nextPrev(n) {
+      // This function will figure out which tab to display
+      var x = document.getElementsByClassName("tab");
+      //if (n == 1 && !validateForm()) { return false; } // Exit the function if any field in the current tab is invalid:
+      x[currentTab].style.display = "none";  // Hide the current tab:
+      currentTab = currentTab + n;  // Increase or decrease the current tab by 1:
+      showTab(currentTab);
+    }
+
+    function fixStepIndicator(n) {
+      // This function removes the "active" class of all steps...
+      var i,
+        x = document.getElementsByClassName("step");
+      for (i = 0; i < x.length; i++) {
+        x[i].className = x[i].className.replace(" active", "");
+      }
+      //... and adds the "active" class on the current step:
+      x[n].
+      className += " active";
+    }
+
+    $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div> <input type="text" name="mytext[' + x + ']"/> <input type="date" name="mydate[' + x + ']"/> <select name="myselect[' + x + ']"><option>Please Select</option></select> <a href="#" class="remove_field">Remove</a> </div>'); // add input boxes.
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+    });
+
+    //previous application yes or no option
+    $('input[name="prevApplication"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#date_prev').show();
+      $('#label_date_prev').show();
+    } else {
+      $('#date_prev').hide();
+      $('#label_date_prev').hide();
+    }
+  })
+
+  $('#date_prev').hide();
+  $('#label_date_prev').hide();
+
+  //married or not -> if yes spouse details:
+  $('input[name="changeMarital"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#label_spouse_name').show();
+      $('#input_spouse_name').show();
+      $('#label_spouse_occ').show();
+      $('#input_spouse_occ').show();
+    } else {
+      $('#label_spouse_name').hide();
+      $('#input_spouse_name').hide();
+      $('#label_spouse_occ').hide();
+      $('#input_spouse_occ').hide();
+    }
+  })
+
+$('#label_spouse_name').hide();
+$('#input_spouse_name').hide();
+$('#label_spouse_occ').hide();
+$('#input_spouse_occ').hide();
+
+// input for experience in higher education
+$('input[name="exp_highEd"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#input_exp_highEd').show();
+      $('#button-add-erhe').show();
+    } else {
+      $('#input_exp_highEd').hide();
+      $('#button-add-erhe').hide();
+
+    }
+  })
+
+$('#input_exp_highEd').hide();
+
+// input for experience in higher education
+$('input[name="exp_ind"]').click(function(e) {
+    if(e.target.value === 'Yes') {
+      $('#input_exp_ind').show();
+      $('#button_exp_ind').show();
+    } else {
+      $('#input_exp_ind').hide();
+      $('#button_exp_ind').hide();
+
+    }
+  })
+
+$('#input_exp_ind').hide();
+$('#button_exp_ind').hide();
+
+   
+if(document.getElementById('exp_ind_Yes').checked==true){
+  $('#button_exp_ind').show();}
+
+if(document.getElementById('exp_highEd_No').checked==true){
+  $('#button-add-erhe').hide();}
+
+function deleteInput(x){
+  if (confirm('Are you sure you want to remove this record?')){
+    child = document.getElementById(x)
+    child.parentElement.remove();
+  }
+}
+$('#list_supervision_file').hide()
+function changeSupervisionFile(x){
+  if (confirm('Are you sure you want to change file')){
+    child = document.getElementById(x)
+    child.parentElement.remove();
+    id = '#list_' + x
+    $(id).show()
+  }
+}
+
+$('#publication_file').hide()
+$('#passport_ic_file').hide()
+$('#cover_letter_file').hide()
+$('#cv_file').hide()
+$('#research_statement_file').hide()
+$('#transcripts_file').hide()
+$('#teaching_statement_file').hide()
+$('#other_docs_file').hide()
+
+function changeFile(x){
+  if (confirm('Are you sure you want to change file')){
+    child = document.getElementById(x)
+    child.parentElement.remove();
+    id = '#' + x + '_file'
+    $(id).show()
+  }
+}
+
+  </script>
